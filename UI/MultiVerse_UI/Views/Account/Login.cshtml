@@ -1,0 +1,394 @@
+﻿@{
+    ViewBag.Title = "Log-In";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewBag.Title</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="~/img/IconLogo.png" />
+    <link rel="stylesheet" href="~/css/Ample/style.min.css?ID=@ViewBag.GUID" />
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js?ID=@ViewBag.GUID"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js?ID=@ViewBag.GUID"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <style>
+        /* Login Start */
+        @@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Roboto", sans-serif;
+        }
+
+        .LoginErrorMessage {
+            display: none; /* Hidden by default */
+            color: red;
+            text-align: start;
+            font-size: 14px;
+            opacity: 0; /* Start with fully transparent */
+            transition: opacity 0.5s ease-in-out; /* Smooth transition for fade-in effect */
+        }
+
+            .LoginErrorMessage.active {
+                display: block;
+                opacity: 1; /* Fully visible */
+            }
+
+        .requiredcheck {
+            border: 1px solid red;
+            width: auto;
+        }
+
+        body {
+            overflow: hidden !important;
+        }
+
+        section {
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+        }
+
+            section .bg {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: fill;
+            }
+
+            section .trees {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                z-index: 100;
+                pointer-events: none;
+            }
+
+            section .truck {
+                position: absolute;
+                scale: 0.65;
+                animation: animateTruck 10s linear infinite;
+            }
+
+        @@keyframes animateTruck {
+            0% {
+                transform: translateX(calc(100% + 100vw));
+            }
+
+            100% {
+                transform: translateX(calc(-100% - 100vw));
+            }
+        }
+
+        .login {
+            position: relative;
+            padding: 60px;
+            background: rgba(255,255,255,0.25);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.25);
+            border-bottom: 1px solid rgba(255,255,255,0.25);
+            border-right: 1px solid rgba(255,255,255,0.25);
+            border-radius: 20px;
+            width: 550px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+        }
+
+            .login h2 {
+                position: relative;
+                width: 100%;
+                text-align: center;
+                font-size: 2.5em;
+                font-weight: 600;
+                color: #022AAD;
+                margin-bottom: 10px;
+            }
+
+            .login .inputBox input {
+                position: relative;
+                width: 100%;
+                padding: 15px 20px;
+                outline: none;
+                font-size: 1.25em;
+                color: #022AAD;
+                border-radius: 5px;
+                background: #fff;
+                border: none;
+                margin-bottom: 30px;
+            }
+
+            .login .inputBox ::placeholder {
+                color: #022AAD;
+            }
+
+            .login .inputBox #btn {
+                position: relative;
+                border: none;
+                outline: none;
+                background: #022AAD;
+                color: #fff;
+                cursor: pointer;
+                font-size: 1.25em;
+                font-weight: 500;
+                transition: 0.5s;
+                margin-bottom: 15px !important;
+            }
+
+                .login .inputBox #btn:hover {
+                    background: #9CC9FF;
+                }
+
+            .login .group {
+                display: flex;
+                justify-content: space-between;
+            }
+
+                .login .group a {
+                    font-size: 1.25em;
+                    color: #022AAD;
+                    font-weight: 500;
+                    text-decoration: none;
+                }
+
+                    .login .group a:nth-child(2) {
+                        text-decoration: underline;
+                    }
+
+        .leaves {
+            position: absolute;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+            .leaves .set {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                pointer-events: none;
+            }
+
+                .leaves .set div {
+                    position: absolute;
+                    display: block;
+                }
+
+                    .leaves .set div:nth-child(1) {
+                        left: 20%;
+                        animation: animate 20s linear infinite;
+                    }
+
+                    .leaves .set div:nth-child(2) {
+                        left: 50%;
+                        animation: animate 14s linear infinite;
+                    }
+
+                    .leaves .set div:nth-child(3) {
+                        left: 70%;
+                        animation: animate 12s linear infinite;
+                    }
+
+                    .leaves .set div:nth-child(4) {
+                        left: 7%;
+                        animation: animate 15s linear infinite;
+                    }
+
+                    .leaves .set div:nth-child(5) {
+                        left: 85%;
+                        animation: animate 18s linear infinite;
+                    }
+
+                    .leaves .set div:nth-child(6) {
+                        left: 90%;
+                        animation: animate 12s linear infinite;
+                    }
+
+                    .leaves .set div:nth-child(7) {
+                        left: 15%;
+                        animation: animate 14s linear infinite;
+                    }
+
+                    .leaves .set div:nth-child(8) {
+                        left: 60%;
+                        animation: animate 15s linear infinite;
+                    }
+
+        @@keyframes animate {
+            0% {
+                opacity: 0;
+                top: -10%;
+                transform: translateX(20px) rotate(0deg);
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            20% {
+                transform: translateX(-20px) rotate(45deg);
+            }
+
+            40% {
+                transform: translateX(-20px) rotate(90deg);
+            }
+
+            60% {
+                transform: translateX(20px) rotate(180deg);
+            }
+
+            80% {
+                transform: translateX(-20px) rotate(45deg);
+            }
+
+            100% {
+                top: 110%;
+                transform: translateX(20px) rotate(225deg);
+            }
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+            .toggle-password img {
+                width: 20px;
+                height: auto;
+            }
+
+        #passwordField[type="password"] + .toggle-password img.hide {
+            display: none;
+        }
+
+        #passwordField[type="text"] + .toggle-password img.show {
+            display: none;
+        }
+
+        .rc-anchor-light.rc-anchor-normal, .rc-anchor-light.rc-anchor-compact {
+            background: #022AAD !important;
+            color: #fff !important;
+            border: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="PageLoader" class="overlay1 border-bottom-1" style="display: none; margin: 0px; padding: 0px; position: fixed; right: 0px; top: 0px; width: 100%; height: 100%; background-color: rgb(255, 255, 255); z-index: 30001; opacity: 0.8;">
+        <p style="position: absolute; font-size: medium; top: 30%; left: 45%; color: White;">
+            <img src="~/img/ajax-loader.gif" />
+        </p>
+    </div>
+
+
+    <section>
+        <img src="~/img/bgLogin.jpg" class="bg" />
+        <img src="~/img/truck.png" class="truck" />
+        <div class="login hide" id="loginForm">
+            <h2>Sign In</h2>
+            <form id="myForm">
+                <div class="inputBox">
+                    <input id="username" type="text" placeholder="Username" name="UserID" />
+                </div>
+                <div class="inputBox">
+                    <input id="password" type="password" placeholder="Password" name="Password" id="passwordField" />
+                </div>
+                <div class="inputBox" style="margin-bottom:20px">
+                    <input id="txtRememberMe" type="hidden" name="RememberMe" value="false">
+                    <input id="checkbox-signup" type="checkbox" name="RememberMe1" class="material-inputs chk-col-indigo">
+                    <label for="checkbox-signup" style="color:#022AAD">Remember me on this device</label>
+                </div>
+                <div class="inputBox">
+                    <input type="submit" value="Login" id="btn" />
+                    <label class="LoginErrorMessage"></label>
+                </div>
+                <div class="group">
+                    <p style="color:#022AAD">Don't have an account? <a href="#" target="_blank" style="color:#022AAD; font-weight:700; font-size:large;">Sign Up</a></p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!--Scripts -->
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/custom-validation.js"></script>
+    <script>
+        $("#checkbox-signup").change(function () {
+            $("#txtRememberMe").val($("#checkbox-signup").is(":checked"))
+        });
+
+        document.getElementById('myForm').addEventListener('submit', function (e) {
+            $("#PageLoader").show();
+            e.preventDefault();
+            handleFormSubmission();
+        });
+        function handleFormSubmission() {
+            var ObjJson = new Object();
+            ObjJson.UserID = $('#username').val();
+            ObjJson.Password = $('#password').val();
+            $.ajax({
+                type: "POST",
+                url: "/Account/Login",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(ObjJson),
+                dataType: "text",
+                success: function (response) {
+                    if (response !== "") {
+                        window.location.href = JSON.parse(response);
+                    } else {
+                        $("#PageLoader").hide();
+                        showError('Login failed');
+                    }
+                },
+                failure: function (response) {
+                    $("#PageLoader").hide();
+                },
+                error: function (response) {
+                    $("#PageLoader").hide();
+                }
+            });
+        }
+        function showError(message, color = 'red') {
+            var errorMessageLabel = $('.LoginErrorMessage');
+            errorMessageLabel.text(message).addClass('active').fadeIn().css('color', color);
+
+            setTimeout(function () {
+                errorMessageLabel.fadeOut(function () {
+                    errorMessageLabel.removeClass('active');
+                });
+            }, 60000); // Keep the message visible for 60 seconds
+        }
+    </script>
+
+</body>
+
+</html>
