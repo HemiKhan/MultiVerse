@@ -1,0 +1,714 @@
+﻿﻿@{
+    ViewBag.Title = "PatientReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.IsLoadKendo = true;
+}
+
+<link rel="stylesheet" type="text/css" href="~/css/select2.min.css?ID=@ViewBag.GUID">
+
+<style>
+    #dynamic-modal5 table thead tr th {
+        background: #3A68AB;
+        color: #fff;
+    }
+
+    #dynamic-modal5 table thead tr th {
+        flex: 1; /* Allow columns to grow equally */
+        padding: 5px; /* Set padding for the header cells */
+        margin: 0; /* Ensure no margin for header cells */
+        text-align: center; /* Center text inside header cells */
+        border: 1px solid #ddd; /* Optional: Border for header cells */
+    }
+
+    #dynamic-modal5 tbody td {
+        flex: 1;
+        padding: 0px; /* Set padding for body cells */
+        border: 1px solid #ddd; /* Optional: Border for body cells */
+        font-size: 17px !important;
+    }
+
+        #dynamic-modal5 tbody td input {
+            height: 44px;
+        }
+
+    .tabs-container #tab2:checked ~ #content2,
+    .tabs-container #tab1:checked ~ #content1 {
+        display: block;
+    }
+
+    .select2-container {
+        width: 100% !important;
+    }
+</style>
+
+<!--Wrapper Start -->
+<div class="container-fluid p-4 bg-white rounded">
+
+    <div class="logo text-center border-bottom">
+        <h3 class="box-title mb-3">Patient Reports</h3>
+    </div>
+
+    <div class="row tabs-container">
+        <div class="col-lg-12 col-md-12 col-sm-12 tab-content">
+            <input id="tab1" type="radio" name="tabs" checked>
+            <label for="tab1" class="tabs-label"><i>PR</i>Patient Report</label>
+            <input id="tab2" type="radio" name="tabs">
+            <label for="tab2" class="tabs-label"><i>RT</i>Report Template</label>
+
+            <section id="content1">
+                <div class="row">
+                    <div class="col-lg-12" style="font-size:0.75em" id="tablerecord">
+                        <div class="w-100 text-right">
+                            <div class="button-group">
+                                <button type="button" class="btn btn-lg px-4 fs-4 font-weight-medium Theme-button" id="addmodalbutton" onclick="GetAddEditPatientReportModal('');">+ Add New Patient Report</button>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="panel box box-info">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <div id="grid"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="content2">
+                <div class="row">
+                    <div class="col-lg-12" style="font-size:0.75em" id="tablerecord">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="panel box box-info">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <div id="grid1"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+<!--Wrapper End -->
+
+
+<script src="~/js/GridFilter2.js?ID=@ViewBag.GUID"></script>
+<script src="~/js/select2.js?ID=@ViewBag.GUID" type="text/javascript"></script>
+<script src="~/js/custom-Validation.js?ID=@ViewBag.GUID"></script>
+@section scripts {
+    <script>
+        KendoDateInitial();
+        Select2Initial();
+
+        PatientReportGridLoad();
+        $("#tab1").change(function () {
+            if ($(this).is(":checked")) {
+                if ($("#grid").data("kendoGrid")) {
+                    return;
+                }
+                PatientReportGridLoad();
+            }
+        });
+        $("#tab2").change(function () {
+            if ($(this).is(":checked")) {
+                PatientReportTemplateGridLoad();
+            }
+        });
+
+        function PatientReportGridLoad() {
+            var kendogridid = 'grid';
+            var pagesize = 30;
+            $("#PageLoader").show();
+            $("#" + kendogridid).empty();
+            var PRfieldstype = {
+                RowNo: { type: KendoFilterTypes.Number, srtype: SRVTypes.Int },
+                PR_ID: { type: KendoFilterTypes.Number, srtype: SRVTypes.Int },
+                InvoiceNo: { type: KendoFilterTypes.Number, srtype: SRVTypes.Int },
+                Report_Title: { type: KendoFilterTypes.String, srtype: SRVTypes.String },
+                Indication: { type: KendoFilterTypes.String, srtype: SRVTypes.String },
+                Report_Template_Name: { type: KendoFilterTypes.String, srtype: SRVTypes.String },
+                IsActive: { type: KendoFilterTypes.Boolean, srtype: SRVTypes.Boolean },
+            }
+            var _griddatasource = GetGridDataSourceAjaxCommon(kendogridid, pagesize, "/PatientReport/GetFilterData_PatientReport_List", true, true, true, PRfieldstype, false, false);
+            $("#" + kendogridid).kendoGrid({
+                dataSource: _griddatasource,
+                responsive: false,
+                pageable: {
+                    alwaysVisible: true,
+                    refresh: true,
+                    pageSizes: [30, 50, 100, 500, 1000, 5000],
+                    messages: {
+                        display: "{0} - {1} of {2} items &nbsp;&nbsp;|&nbsp;&nbsp; Export:&nbsp;<img id='" + kendogridid + "_exportExcel' title='Click here to export to excel file' src='/icon/excel_icon.jpg' style='width:23px; height:23px; cursor:pointer' onclick='onClickExportExcel(this)' /> ",
+                        empty: "No data found",
+                    }
+                },
+                controllername: "Report", //custom fields for ExportToExcel function
+                controllermethodname: "ExportInExcel_PageGroupDetail", //custom fields for ExportToExcel function
+                sortable: true,
+                resizable: false,
+                reorderable: false,
+                noRecords: true,
+                filterable: {
+                    extra: true,
+                    //operators: KendoOperatorListOfString,
+                },
+                customfixheader: false, //custom fields for onKendoDataBound function
+                pageloaderid: "PageLoader", //custom fields for onKendoDataBound function
+                dataBound: onKendoDataBound,
+                dataBinding: function (e) {
+                    $("#PageLoader").hide();
+                },
+                columns: [
+                    {
+                        field: "RowNo",
+                        title: "#",
+                        width: 60,
+                        filterable: false,
+                        sortable: false,
+                    },
+                    {
+                        field: "PR_ID",
+                        title: "Patient ID",
+                        width: 100,
+                        filterable: false,
+                        hidden: false,
+                    },
+                    {
+                        field: "InvoiceNo",
+                        title: "Invoice ID",
+                        width: 100,
+                    },
+                    {
+                        field: "Report_Title",
+                        title: "Report Title",
+                        width: 190,
+                    },
+                    {
+                        field: "Indication",
+                        title: "Indication",
+                        width: 100,
+                    },
+                    {
+                        field: "ViralStatus",
+                        title: "Viral Status",
+                        width: 100,
+                    },
+                    {
+                        field: "Template_Name",
+                        title: "Template",
+                        width: 190,
+                    },
+                    {
+                        field: "PR_ID",
+                        title: "View Report",
+                        width: 190,
+                        filterable: false,
+                        template: function (dataItem) {
+                            return '<img src="../icon/pdf-icon.png" alt="Active" style="width:20%;height:35px;" class="cursor-pointer" onclick="DownloadPatientReport(' + "'" + dataItem.Ery_PR_ID + "'" + ');" /> ';
+                        },
+                        attributes: {
+                            style: "text-align: center;"
+                        }
+                    },
+                    {
+                        field: "IsTemplate",
+                        title: "IsTemplate",
+                        width: 100,
+                        template: function (dataItem) {
+                            if (dataItem.IsTemplate) {
+                                return '<img src="../icon/tick.png" alt="Active" class="cursor-pointer" onclick="PatientReport_IsTemplate(this,' + "'" + dataItem.Ery_PR_ID + "'," + dataItem.RowNo + "," + dataItem.IsTemplate + ');"/>';
+                            } else {
+                                return '<img src="../icon/cross.png" alt="Inactive" class="cursor-pointer" onclick="PatientReport_IsTemplate(this,' + "'" + dataItem.Ery_PR_ID + "'," + dataItem.RowNo + "," + dataItem.IsTemplate + ');"/>';
+                            }
+                        },
+                        attributes: {
+                            style: "text-align: center;"
+                        }
+                    },
+                    {
+                        field: "IsActive",
+                        title: "IsActive",
+                        width: 100,
+                        template: function (dataItem) {
+                            if (dataItem.IsActive) {
+                                return '<img src="../icon/tick.png" alt="Active" class="cursor-pointer" onclick="PatientReport_Remove(this,' + "'" + dataItem.Ery_PR_ID + "'," + dataItem.RowNo + "," + dataItem.IsActive + ');"/>';
+                            } else {
+                                return '<img src="../icon/cross.png" alt="Inactive" class="cursor-pointer" onclick="PatientReport_Remove(this,' + "'" + dataItem.Ery_PR_ID + "'," + dataItem.RowNo + "," + dataItem.IsActive + ');"/>';
+                            }
+                        },
+                        attributes: {
+                            style: "text-align: center;"
+                        }
+                    },
+                    {
+                        title: "Action",
+                        width: 100,
+                        filterable: false,
+                        template: function (dataItem) {
+                            var actionfield = '';
+                            actionfield = '<a class=""><i class="fa fa-edit Theme-icon fa-1x ms-1 cursor-pointer" onclick="GetAddEditPatientReportModal(' + "'" + dataItem.Ery_PR_ID + "'" + ');"></i></a>';
+                            return actionfield;
+                        },
+                        showinexcel: false
+                    },
+                ],
+                detailInit: function (e) {
+                    $("#PageLoader").hide();
+                }
+            });
+        }
+        function AddOrEditPatientReport(IsSavedTemplate) {
+            var ObjJson = new Object();
+            ObjJson.PR_ID = $("#PR_ID").val() != "" ? parseInt($("#PR_ID").val()) : 0;
+            ObjJson.IsSavedTemplate = IsSavedTemplate;
+            ObjJson.Report_Title = $("#ReportTitle").val();
+            ObjJson.InvoiceNo = $("#selectInvoice option:selected").val() != "" ? parseInt($("#selectInvoice option:selected").val()) : 0;
+            ObjJson.RT_ID = $("#selectRT_ID option:selected").val() != "" ? parseInt($("#selectRT_ID option:selected").val()) : 0;
+            ObjJson.Indication = $("#Indication").val();
+            ObjJson.ViralStatus = $("#ViralStatus").val();
+            ObjJson.Report_Headers = Headerlist();
+            ObjJson.Report_Body = Bodylist();
+            var JsonData = JSON.stringify(ObjJson);
+            requiredFields = ['InvoiceNo', 'RT_ID', 'Report_Title', 'Indication'];
+            if (!validateRequiredFields(ObjJson, requiredFields)) {
+                return;
+            }
+            AddEditRemoveAjaxCommon(JsonData, "/PatientReport/AddOrEdit_PatientReport", null, true, 'grid');           
+        }
+
+        function Headerlist() {
+            var list = [];
+            $("#tblHeaderSection table tbody tr:gt(0)").each(function (index, item) {
+                var ObjJson = new Object();
+                ObjJson.PRD_ID = $(item).children('td').eq(2).text();
+                ObjJson.PR_ID = $("#PR_ID").val() != "" ? parseInt($("#PR_ID").val()) : 0;
+                ObjJson.Report_Header_Text = $(item).children('td').eq(3).find('input').val();
+                ObjJson.Report_Header_Value = $(item).children('td').eq(4).find('input').prop('checked');
+                ObjJson.RT_ID = $("#selectRT_ID option:selected").val() != "" ? parseInt($("#selectRT_ID option:selected").val()) : 0;
+                requiredFields = ['Report_Header_Text'];
+                // if (!validateRequiredFields(ObjJson, requiredFields)) {
+                //     return;
+                // }
+                list.push(ObjJson);
+            });
+            return list;
+        }
+        function Bodylist() {
+            var list = [];
+            $("#tblBodySection table tbody tr:gt(0)").each(function (index, item) {
+                var ObjJson = new Object();
+                ObjJson.PRD_ID = $(item).children('td').eq(2).text();
+                ObjJson.PR_ID = $("#PR_ID").val();
+                ObjJson.Report_Body_Text = $(item).children('td').eq(3).find('input').val();
+                ObjJson.Report_Body_Value = $(item).children('td').eq(4).find('input').val();
+                ObjJson.RT_ID = $("#selectRT_ID option:selected").val();
+                requiredFields = ['PageGroupName'];
+                // if (!validateRequiredFields(ObjJson, requiredFields)) {
+                //     return;
+                // }
+                list.push(ObjJson);
+            });
+            return list;
+        }
+
+        function PatientReport_IsTemplate(this_, Ery_PR_ID, RowNo, IsTemplate) {
+            if ($(this_).attr("disabled") == "disabled") {
+                return;
+            }
+            $(this_).attr("disabled", "disabled");
+            $('#modal-confirmation-message').html('');
+            var active
+            if (IsTemplate == false) {
+                active = "Saved Template"
+            }
+            else {
+                active = "Remove Template from"
+            }
+            var message = "<h3 class='text-center'>Are you sure you want to " + active + " this Row No" + RowNo + " ?</h3>";
+            $('#modal-confirmation-message').append(message);
+            $('#modal-confirmation-div').modal({
+                backdrop: false
+            });
+            $('#modal-confirmation-yes').removeAttr('disabled');
+            $('#modal-confirmation-div').modal('show');
+            $('#modal-confirmation-yes').off('click').on('click', function () {
+                var JsonData = JSON.stringify(Ery_PR_ID);
+                AddEditRemoveAjaxCommon(JsonData, "/PatientReport/IsTemplate_PatientReport", null, false, "grid");
+            });
+        }
+        function PatientReport_Remove(this_, Ery_PR_ID, RowNo, IsActive) {
+            if ($(this_).attr("disabled") == "disabled") {
+                return;
+            }
+            $(this_).attr("disabled", "disabled");
+            IsActiveEditCommon(Ery_PR_ID, "/PatientReport/Remove_PatientReport", null, RowNo, IsActive, "Row No", 'grid');
+        } d
+        function DownloadPatientReport(Ery_PR_ID) {
+            $("#PageLoader").show();
+            GetResponseAjaxCommon(Ery_PR_ID, "/PatientReport/DownloadPatientReport", function (response) {
+                if (response) {
+                    $("#PageLoader").hide();
+                    var pdfWindow = window.open("");
+                    pdfWindow.document.write(
+                        "<iframe width='100%' height='100%' src='data:application/pdf;base64, " + encodeURI(response) + "'></iframe>"
+                    );
+                }
+            });
+        }
+
+        function GetAddEditPatientReportModal(Ery_PR_ID) {
+            $("#PageLoader").show();
+            var Title = "";
+            if (Ery_PR_ID != "") {
+                Title = "Patient Report Update";
+            }
+            else {
+                Title = "Patient Report Add";
+            }
+
+            var ObjJson = new Object();
+            ObjJson.Ery_PR_ID = Ery_PR_ID;
+            ObjJson.IsTemplate = 0;
+            GetModalDataCommon("modal-xl", Title, IntializeDropDown, PatientReportModalFooter, JSON.stringify(ObjJson), '/PatientReport/GetAddEditPatientReportModal', true, true, false, undefined, [Ery_PR_ID]);
+        }
+        function PatientReportModalFooter(Ery_PR_ID) {
+            var Footer = "";
+            if (Ery_PR_ID != "") {
+                Footer = "<button type='button' class='btn Theme-button font-weight-medium' onclick='AddOrEditPatientReport(0);'>Update</button>";
+            }
+            else {
+                Footer = "<button type='button' class='btn Theme-button font-weight-medium' onclick='AddOrEditPatientReport(0);'>Add</button>";
+            }
+            return Footer;
+        }
+        function IntializeDropDown() {
+
+            Select2Initial('selectInvoice', false);
+            Select2Initial('selectRT_ID', false);
+        }
+
+        function AddNewRowReportHeader() {
+            var lastRow = $("#tblHeaderSection tbody tr:last");
+            var lastRowId = lastRow.attr('id').split('_')[1];
+            var newRowId = parseInt(lastRowId) + 1;
+            var newRow = $("#HeaderRow_0").clone().prop('id', 'Row_' + newRowId).show();
+            newRow.find("#RowNumberHeader_0").text(newRowId).prop('id', 'RowNumberHeader_' + newRowId);
+            newRow.find("#PRD_ID_Header_0").text(0).prop('id', 'PRD_ID_Header_' + newRowId);
+            newRow.find("#HeaderText_0").val('').prop('id', 'HeaderText_' + newRowId);
+            newRow.find("#HeaderValue_0").prop('id', 'HeaderValue_' + newRowId);
+            newRow.find("#HeaderValue_" + newRowId).prop('checked', false); // Ensure the checkbox is unchecked
+            newRow.find("#btnAddNewRowHeader_0").prop('id', 'btnAddNewRowHeader_' + newRowId).show();
+            newRow.find("#btnRemoveRowHeader_0").prop('id', 'btnRemoveRowHeader_' + newRowId).show();
+
+            newRow.appendTo("#tblHeaderSection tbody");
+        }
+        function AddNewRowReportBody() {
+            var lastRow = $("#tblBodySection tbody tr:last");
+            var lastRowId = lastRow.attr('id').split('_')[1];
+            var newRowId = parseInt(lastRowId) + 1;
+            var newRow = $("#BodyRow_0").clone().prop('id', 'Row_' + newRowId).show();
+            newRow.find("#RowNumberBody_0").text(newRowId).prop('id', 'RowNumberBody_' + newRowId);
+            newRow.find("#PRD_ID_Body_0").text(0).prop('id', 'PRD_ID_Body_' + newRowId);
+            newRow.find("#BodyText_0").prop('id', 'BodyText_' + newRowId);
+            newRow.find("#BodyValue_0").prop('id', 'BodyValue_' + newRowId);
+            newRow.find("#btnAddNewRowBody_0").prop('id', 'btnAddNewRowBody_' + newRowId).show();
+            newRow.find("#btnRemoveRowBody_0").prop('id', 'btnRemoveRowBody_' + newRowId).show();
+            newRow.appendTo("#tblBodySection tbody");
+        }
+        function RemoveTableRow(this_) {
+            var id = this_.id;
+
+            if ($("#" + id).attr("disabled") === "disabled") {
+                return;
+            }
+
+            $("#" + id).attr("disabled", "disabled");
+
+            $('#PageLoader').show();
+
+            var row = $('#' + id).closest('tr');
+            var tableId = row.parent().parent().parent().attr('id');
+
+            if (tableId === 'tblHeaderSection' || tableId === 'tblBodySection') {
+                row.remove();
+            }
+
+            $('#PageLoader').hide();
+            $("#" + id).removeAttr("disabled");
+        }
+        function ReseTableRows() {
+            $('#selectInvoice').val('').trigger('change');
+            $('#selectRT_ID').val('').trigger('change');
+            $("#ReportTitle").val('');
+            $("#Indication").val('');
+            $('#tblHeaderSection tbody tr:gt(1)').remove();
+            AddNewRowReportHeader();
+            $('#tblBodySection tbody tr:gt(1)').remove();
+            AddNewRowReportBody();
+        }
+
+        function PatientReportTemplateGridLoad() {
+            var kendogridid = 'grid1';
+            var pagesize = 30;
+            $("#PageLoader").show();
+            $("#" + kendogridid).empty();
+            var PRfieldstype = {
+                RowNo: { type: KendoFilterTypes.Number, srtype: SRVTypes.Int },
+                PR_ID: { type: KendoFilterTypes.Number, srtype: SRVTypes.Int },
+                InvoiceNo: { type: KendoFilterTypes.Number, srtype: SRVTypes.Int },
+                Report_Title: { type: KendoFilterTypes.String, srtype: SRVTypes.String },
+                Indication: { type: KendoFilterTypes.String, srtype: SRVTypes.String },
+                Report_Template_Name: { type: KendoFilterTypes.String, srtype: SRVTypes.String },
+                IsActive: { type: KendoFilterTypes.Boolean, srtype: SRVTypes.Boolean },
+            }
+            var _griddatasource = GetGridDataSourceAjaxCommon(kendogridid, pagesize, "/PatientReport/GetFilterData_ReportTemplate_List", true, true, true, PRfieldstype, false, false);
+            $("#" + kendogridid).kendoGrid({
+                dataSource: _griddatasource,
+                responsive: false,
+                pageable: {
+                    alwaysVisible: true,
+                    refresh: true,
+                    pageSizes: [30, 50, 100, 500, 1000, 5000],
+                    messages: {
+                        display: "{0} - {1} of {2} items &nbsp;&nbsp;|&nbsp;&nbsp; Export:&nbsp;<img id='" + kendogridid + "_exportExcel' title='Click here to export to excel file' src='/icon/excel_icon.jpg' style='width:23px; height:23px; cursor:pointer' onclick='onClickExportExcel(this)' /> ",
+                        empty: "No data found",
+                    }
+                },
+                controllername: "Report", //custom fields for ExportToExcel function
+                controllermethodname: "ExportInExcel_PageGroupDetail", //custom fields for ExportToExcel function
+                sortable: true,
+                resizable: false,
+                reorderable: false,
+                noRecords: true,
+                filterable: {
+                    extra: true,
+                    //operators: KendoOperatorListOfString,
+                },
+                customfixheader: false, //custom fields for onKendoDataBound function
+                pageloaderid: "PageLoader", //custom fields for onKendoDataBound function
+                dataBound: onKendoDataBound,
+                dataBinding: function (e) {
+                    $("#PageLoader").hide();
+                },
+                columns: [
+                    {
+                        field: "RowNo",
+                        title: "#",
+                        width: 60,
+                        filterable: false,
+                        sortable: false,
+                    },
+                    {
+                        field: "PR_ID",
+                        title: "Patient Report ID",
+                        width: 100,
+                        filterable: false,
+                        hidden: false,
+                    },
+                    {
+                        field: "Report_Title",
+                        title: "Report Title",
+                        width: 190,
+                    },
+                    {
+                        field: "Template_Name",
+                        title: "Template",
+                        width: 190,
+                    },
+                    {
+                        field: "PR_ID",
+                        title: "View Report",
+                        width: 190,
+                        filterable: false,
+                        template: function (dataItem) {
+                            return '<img src="../icon/pdf-icon.png" alt="Active" style="width:20%;height:35px;" class="cursor-pointer" onclick="DownloadPatientReport(' + "'" + dataItem.Ery_PR_ID + "'" + ');" /> ';
+                        },
+                        attributes: {
+                            style: "text-align: center;"
+                        }
+                    },
+                    {
+                        title: "Action",
+                        width: 100,
+                        filterable: false,
+                        template: function (dataItem) {
+                            var actionfield = '';
+                            actionfield = '<a class="btn btn-lg px-4 fs-4 font-weight-medium Theme-button" onclick="GetAddEditReportTemplateModal(' + "'" + dataItem.Ery_PR_ID + "'" + ');"><i class="fa fa-plus fa-1x ms-1"></i> Add Template</a>';
+                            return actionfield;
+                        },
+                        showinexcel: false
+                    },
+                ],
+                detailInit: function (e) {
+                    $("#PageLoader").hide();
+                }
+            });
+        }
+        function GetAddEditReportTemplateModal(Ery_PR_ID) {
+            $("#PageLoader").show();
+            var Title = "";
+            if (Ery_PR_ID != "") {
+                Title = "Patient Report Template Add";
+            }
+
+            var ObjJson = new Object();
+            ObjJson.Ery_PR_ID = Ery_PR_ID;
+            ObjJson.IsTemplate = 1;
+            GetModalDataCommon("modal-xl", Title, IntializeDropDown, PatientReportTemplateModalFooter, JSON.stringify(ObjJson), '/PatientReport/GetAddEditPatientReportModal', true, true, false, undefined, [Ery_PR_ID]);
+        }
+        function PatientReportTemplateModalFooter(Ery_PR_ID) {
+            var Footer = "";
+            if (Ery_PR_ID != "") {
+                Footer = "<button type='button' class='btn Theme-button font-weight-medium' onclick='AddOrEditPatientReport(1);'>Save</button>";
+            }
+            return Footer;
+        }
+
+        // KendoGrid Custom Functions
+        function onCustomFilterValidate(id, IsRun, IsClearFilter) {
+            var resultjson = { issuccess: false, customfilterjson: [] };
+            resultjson = onCustomFilter(false, id);
+            if (resultjson.issuccess) {
+                var grid = $("#" + id).data("kendoGrid");
+                if (grid == undefined && IsRun == false) {
+                    return;
+                }
+                else if (IsRun == true && grid == undefined) {
+                    if (id == "grid") {
+                        PatientReportGridLoad();
+                        return;
+                    }
+                    else if (id == "grid1") {
+                        PatientReportTemplateGridLoad();
+                        return;
+                    }
+                }
+
+                if (IsClearFilter == true) {
+                    ResetGridFilter(id);
+                    return;
+                }
+                else {
+                    RefreshGridData(id);
+                    return;
+                }
+            }
+        }
+        var lastcustomreportFilterObjectList = [];
+        function onCustomFilter(IsGetLastSaved, id) {
+
+            IsGetLastSaved = (IsGetLastSaved == undefined ? false : IsGetLastSaved);
+            var customreportFilterObjectList = [];
+            var resultjson = { issuccess: false, customfilterjson: customreportFilterObjectList };
+            var reportFilterObject = { code: "", name: "", isFilterApplied: false, reportFilterObjectArry: [] };
+            var filterobject = new Object();
+
+            var specificreportFilterObjectList = [];
+            var specificreportFilterObject = { code: "", name: "", isFilterApplied: false, reportFilterObjectArry: [] };
+            var specificfilterobject = new Object();
+
+            if (IsGetLastSaved) {
+                if (lastcustomreportFilterObjectList.length > 0) {
+                    for (var i = 0; i <= lastcustomreportFilterObjectList.length - 1; i++) {
+                        if (lastcustomreportFilterObjectList[i].id == id) {
+                            resultjson = { issuccess: true, customfilterjson: lastcustomreportFilterObjectList[i].customfilterjson };
+                            return resultjson;
+                        }
+                    }
+                }
+            }
+
+            if ($('#txtdate').val() != "" && $('#txtenddate').val() != "") {
+                SetCustomFilterValue(customreportFilterObjectList, reportFilterObject, filterobject, "and", $('#txtdate').val(), KendoGridFilterType.isequalorgreather, KendoFilterTypes.Date, SRVTypes.Date, false, 0, "Created_On_Date", "Created_On_Date", false);
+                SetCustomFilterValue(customreportFilterObjectList, reportFilterObject, filterobject, "and", $('#txtenddate').val(), KendoGridFilterType.isequalorless, KendoFilterTypes.Date, SRVTypes.Date, false, 0, "Created_On_Date", "Created_On_Date", true);
+
+                onSpecificFilter(id, specificreportFilterObjectList, specificreportFilterObject, specificfilterobject, "and", $('#txtdate').val()
+                    , KendoGridFilterType.isequalorgreather, KendoFilterTypes.Date, SRVTypes.Date, false, 0, "Created_On_Date", "Created_On_Date", false);
+                onSpecificFilter(id, specificreportFilterObjectList, specificreportFilterObject, specificfilterobject, "and", $('#txtenddate').val()
+                    , KendoGridFilterType.isequalorless, KendoFilterTypes.Date, SRVTypes.Date, false, 0, "Created_On_Date", "Created_On_Date", true);
+            }
+
+            if ($('#txtOrigHub').val() != "") {
+                SetCustomFilterValue(customreportFilterObjectList, reportFilterObject, filterobject, "and", $('#txtOrigHub').val(), KendoGridFilterType.inlistfilter, KendoFilterTypes.String, SRVTypes.UpperString, false, 0, "OrigHub", "OrigHub", false);
+            }
+
+            if (specificreportFilterObjectList.length > 0) {
+                for (var i = 0; i < specificreportFilterObjectList.length; i++) {
+                    customreportFilterObjectList.push(specificreportFilterObjectList[i]);
+                }
+            }
+
+            if (lastcustomreportFilterObjectList.length > 0) {
+                for (var i = 0; i <= lastcustomreportFilterObjectList.length - 1; i++) {
+                    if (lastcustomreportFilterObjectList[i].id == id) {
+                        resultjson = { issuccess: true, customfilterjson: lastcustomreportFilterObjectList[i].customfilterjson };
+                        break;
+                    }
+                }
+            }
+
+            var isexistscustomfilterjson = false;
+            if (lastcustomreportFilterObjectList.length > 0) {
+                for (var i = 0; i <= lastcustomreportFilterObjectList.length - 1; i++) {
+                    if (lastcustomreportFilterObjectList[i].id == id) {
+                        var lastcustomreportFilterObject = new Object();
+                        lastcustomreportFilterObject.id = id;
+                        lastcustomreportFilterObject.customfilterjson = customreportFilterObjectList;
+                        lastcustomreportFilterObjectList[i] = lastcustomreportFilterObject;
+                        isexistscustomfilterjson = true;
+                        break;
+                    }
+                }
+            }
+            if (isexistscustomfilterjson == false) {
+                var lastcustomreportFilterObject = new Object();
+                lastcustomreportFilterObject.id = id;
+                lastcustomreportFilterObject.customfilterjson = customreportFilterObjectList;
+                lastcustomreportFilterObjectList.push(lastcustomreportFilterObject);
+            }
+
+            resultjson = { issuccess: true, customfilterjson: customreportFilterObjectList };
+
+            return resultjson;
+        }
+        function onSpecificFilter(id, specificreportFilterObjectList, specificreportFilterObject, specificfilterobject, logic, value, filtertype, fieldtype, srvfieldtype, islist, listtype, code, name, isprevioussamecode, isgridfilter = false) {
+            if (code == 'Created_On_Date') {
+                var dateObject = new Date(value)
+                dateObject.setDate(dateObject.getDate() + (isprevioussamecode == false ? -1 : 1));
+                var newvalue = formatDateToDateTime(dateObject, false);
+                SetCustomFilterValue(specificreportFilterObjectList, specificreportFilterObject, specificfilterobject, logic, newvalue, filtertype, fieldtype, srvfieldtype, islist, listtype, "UTC_Created_On_Date", "UTC_Created_On_Date", isprevioussamecode);
+            }
+            else if (code == 'Created_On_Date' && isgridfilter == true) {
+                var dateObject = new Date(value)
+                dateObject.setDate(dateObject.getDate() - 1);
+                var newvalue = formatDateToDateTime(dateObject, false);
+                SetCustomFilterValue(specificreportFilterObjectList, specificreportFilterObject, specificfilterobject, logic, newvalue, KendoGridFilterType.isequalorgreather, fieldtype, srvfieldtype, islist, listtype, "UTC_Created_On_Date", "UTC_Created_On_Date", isprevioussamecode);
+
+                dateObject = new Date(value)
+                dateObject.setDate(dateObject.getDate() + 1);
+                newvalue = formatDateToDateTime(dateObject, false);
+                SetCustomFilterValue(specificreportFilterObjectList, specificreportFilterObject, specificfilterobject, logic, newvalue, KendoGridFilterType.isequalorless, fieldtype, srvfieldtype, islist, listtype, "UTC_Created_On_Date", "UTC_Created_On_Date", true);
+            }
+        }
+        function onReset() {
+            $("#PageLoader").show();
+            $('#txtdate').val($("#originalstartdate").val());
+            $('#txtOrigHub').html($("#hublist").html());
+            $('#txtClientID').html($("#clientlist").html())
+            $("#PageLoader").hide();
+            onCustomFilterValidate('grid', false, true)
+        }
+    </script>
+}
+
+
+

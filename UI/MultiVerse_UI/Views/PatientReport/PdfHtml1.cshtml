@@ -1,0 +1,121 @@
+﻿﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gastroendoscopy Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            padding: 20px;
+            border: 1px solid #000;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+            .header h1 {
+                margin: 0;
+                font-size: 24px;
+            }
+
+            .header p {
+                margin: 5px 0;
+            }
+
+        .report-title {
+            text-align: center;
+            color: red;
+            font-weight: bold;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+        .details, .images, .findings {
+            margin-bottom: 20px;
+        }
+
+            .details p {
+                margin: 5px 0;
+            }
+
+            .findings p {
+                margin: 10px 0;
+            }
+
+            .findings img {
+                display: block;
+                margin: 0 auto;
+                width: 100px;
+                height: 100px;
+                object-fit: cover;
+            }
+
+            .findings .section-title {
+                font-weight: bold;
+                font-style: italic;
+                margin-top: 20px;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>TIRUPATI MEDICAL CENTRE</h1>
+            <p>C-10 Shivalik PANCHSHEEL GITANJALI ROAD NEW DELHI</p>
+            <p>PH: 26680759, 26680393</p>
+        </div>
+
+        <div class="details">
+            <p>Patient ID: 2013060001</p>
+            <p>Name: Vibhor Gupta</p>
+            <p>Age: 29 Years</p>
+            <p>Sex: M</p>
+            <p>Date: 06-Jun-2013</p>
+            <p>Study: ENDOSCOPY</p>
+            <p>Ref By:</p>
+            <p>Examined By: Dr. Ashok Gupta</p>
+        </div>
+
+        <div class="report-title">GASTROENDOSCOPY REPORT</div>
+
+        <div class="details">
+            <p><strong>Instrument Used :</strong> Olympus fibrogastroendoscope (Japanese)</p>
+        </div>
+
+        <div class="findings">
+            <p><span class="section-title">Oesophagus:</span> No oesophagitis changes seen in upper, middle & lower 1/3rd of oesophagus. No oesophageal ulcer or any obstructive lesion seen. No hiatus hernia. Cardia is normal. No GERD present.</p>
+            <img src="image1.jpg" alt="Oesophagus">
+
+            <p><span class="section-title">Stomach:</span> Gastric ulcer with gastritis changes seen in fundal region of stomach. No SOL seen. Mucosal folds are normal.</p>
+            <img src="image2.jpg" alt="Stomach">
+
+            <p><span class="section-title">Pylorus:</span> Normal.</p>
+            <img src="image3.jpg" alt="Pylorus">
+
+            <p><span class="section-title">Duodenum:</span> No Duodenal Ulcer or duodenitis changes seen in duodenum.</p>
+            <img src="image4.jpg" alt="Duodenum">
+
+            <p><span class="section-title">Impression:</span> Gastric Ulcer with Gastritis on upper GI endoscopy.</p>
+            <img src="image5.jpg" alt="Gastric Ulcer">
+        </div>
+
+        <div class="signature">
+            <p>Dr. Ashok Gupta</p>
+        </div>
+    </div>
+</body>
+</html>

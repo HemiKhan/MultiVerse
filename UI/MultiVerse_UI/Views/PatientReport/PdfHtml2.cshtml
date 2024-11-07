@@ -1,0 +1,139 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endoscopy Report</title>
+    <style>
+        .container {
+            padding: 20px;
+            margin: 0 auto;
+            position: relative;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+            .header img {
+                width: 10%;
+                height: 60px;
+            }
+
+            .header h1, .header p, .header h2 {
+                margin: 0;
+                text-align: center;
+            }
+
+            .header .hospital-info {
+                flex: 1;
+                text-align: center;
+            }
+
+        .section {
+            margin-top: 20px;
+        }
+
+            .section h2 {
+                font-size: 17px;
+                margin-bottom: 5px;
+            }
+
+            .section p {
+                margin: 5px 0;
+                font-size: 15px;
+            }
+
+        .signature {
+            margin-top: auto;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        .box {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid black;
+            margin: 0 10px;
+            vertical-align: middle;
+        }
+
+        .filled {
+            background-color: black;
+        }
+
+        .larger-text {
+            font-size: larger;
+        }
+
+        hr {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="~/img/IconLogo.png" alt="Hospital Logo" />
+            <div class="hospital-info">
+                <h1>AYESHA AMIR MEMORIAL HOSPITAL</h1>
+                <p>Bangla Chowk Manun Kanjan.</p>
+                <p>Contact Us: 041-3402647</p>
+                <h2>ENDOSCOPY REPORT</h2>
+            </div>
+        </div>
+        <div class="section">
+            <h4 style="text-align:center;">Dr. Zeeshan Javed Consultant Endoscopist</h4>
+            <div style="display:flex;justify-content:space-between;">
+                <p><strong>Patient Name:</strong> M Jameel</p>
+                <p><strong>MR:</strong> 31834</p>
+                <p><strong>Date:</strong> 10/07/2024</p>
+            </div>
+            <div style="display:flex;justify-content:space-between;">
+                <p><strong>Age/Gender:</strong> 70Y/M</p>
+                <p><strong>Viral Status:</strong> NA</p>
+            </div>
+            <h5><strong>Performed by:</strong> Dr. Zeeshan Javed (FCPS Gastroenterology)</h5>
+            <div style="display:flex;justify-content:space-between;">
+                <p><strong>Indication:</strong> Chronic Dyspepsia</p>
+                <p class="larger-text">
+                    <strong>OPD:</strong> <span class="box filled"></span>
+                    <strong>Indoor:</strong> <span class="box"></span>
+                    <strong>ER:</strong> <span class="box"></span>
+                </p>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="section">
+            <h2>ESOPHAGUS:</h2>
+            <p>Normal mucosa of upper, middle and lower third. Lax LES.</p>
+            <h2>STOMACH:</h2>
+            <p>Normal mucosa of fundus and body. Mild antral gastritis.</p>
+            <h2>DUODENUM:</h2>
+            <p>Normal D1 and D2.</p>
+            <h2>FINAL ENDOSCOPY FINDING:</h2>
+            <p>Lax LES.</p>
+            <p>Antral Gastritis.</p>
+            <h2>RECOMMENDATIONS:</h2>
+            <p>Follow up in OPD</p>
+        </div>
+
+        <div class="signature">
+            <p>Consultant Signature____________________________________</p>
+        </div>
+    </div>
+</body>
+</html>
