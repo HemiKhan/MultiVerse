@@ -155,7 +155,7 @@ namespace Services.GlobalServices
             bool Ret = true;
             bool isalloweddomain = IsAllowedDomain();
             bool isalloweddomainexcludingsubdomain = IsAllowedDomainExcludingSubDomain();
-            if ((isalloweddomain && _PublicClaimObjects.iswebtoken && _PublicClaimObjects.issinglesignon == false && IsSwaggerCall() == false) || (isalloweddomainexcludingsubdomain && _PublicClaimObjects.iswebtoken && _PublicClaimObjects.issinglesignon && IsSwaggerCall() == false))
+            if ((isalloweddomain && _PublicClaimObjects.iswebtoken && IsSwaggerCall() == false) || (isalloweddomainexcludingsubdomain && _PublicClaimObjects.iswebtoken && IsSwaggerCall() == false))
             {
                 string cachekey = $"{_PublicClaimObjects.jit}{_PublicClaimObjects.key}";
                 Ret = MemoryCaches.GetCacheValue(cachekey, _cache, Seconds);
@@ -171,7 +171,7 @@ namespace Services.GlobalServices
         {
             bool isalloweddomain = IsAllowedDomain();
             bool isalloweddomainexcludingsubdomain = IsAllowedDomainExcludingSubDomain();
-            if ((isalloweddomain && _PublicClaimObjects.iswebtoken && _PublicClaimObjects.issinglesignon == false && IsSwaggerCall() == false) || (isalloweddomainexcludingsubdomain && _PublicClaimObjects.iswebtoken && _PublicClaimObjects.issinglesignon && IsSwaggerCall() == false))
+            if ((isalloweddomain && _PublicClaimObjects.iswebtoken && IsSwaggerCall() == false) || (isalloweddomainexcludingsubdomain && _PublicClaimObjects.iswebtoken && IsSwaggerCall() == false))
             {
                 string cachekey = $"{_PublicClaimObjects.jit}{_PublicClaimObjects.key}";
                 MemoryCaches.SetTokenCacheValue(cachekey, Seconds, _cache);
@@ -716,9 +716,6 @@ namespace Services.GlobalServices
             }
             return DR;
         }
-
-
-
         public DataTable P_Add_Session_History(int? WebUserID, string Username, string SessionID, int DeviceTypeID, DateTime LoginTime, int ApplicationID, bool IsSuccess, string Latitude, string Longitude)
         {
             List<Dynamic_SP_Params> Dynamic_SP_Params_List = new List<Dynamic_SP_Params>();
@@ -780,48 +777,6 @@ namespace Services.GlobalServices
             Dynamic_SP_Params_List.Add(Dynamic_SP_Params);
 
             return ExecuteStoreProcedureDT("P_Add_Session_History", ref Dynamic_SP_Params_List);
-        }
-        public DataRow? P_Get_User_Info(string UserName, int ApplicationID, MemoryCacheValueType? _MemoryCacheValueType = null)
-        {
-            DataRow? result = null;
-            if (UserName == "")
-                return result;
-
-            string paravalue = $"UserName:{UserName}|ApplicationID:{ApplicationID}".ToLower();
-            _MemoryCacheValueType = (_MemoryCacheValueType == null ? new MemoryCacheValueType() : _MemoryCacheValueType);
-            _MemoryCacheValueType._GetMemoryCacheValueType.setkeyparavalues = paravalue;
-            _MemoryCacheValueType._GetMemoryCacheValueType.subtype = CacheSubType.P_Get_User_Info;
-            _MemoryCacheValueType._SetMemoryCacheValueType.subtype = CacheSubType.P_Get_User_Info;
-            if (MemoryCaches.GetCacheValue(_MemoryCacheValueType, ref result, _cache, _iscachingenable))
-                return result;
-
-            List<Dynamic_SP_Params> Dynamic_SP_Params_List = new List<Dynamic_SP_Params>();
-            Dynamic_SP_Params Dynamic_SP_Params;
-
-            Dynamic_SP_Params = new Dynamic_SP_Params();
-            Dynamic_SP_Params.ParameterName = "UserName";
-            Dynamic_SP_Params.Val = UserName;
-            Dynamic_SP_Params_List.Add(Dynamic_SP_Params);
-
-            Dynamic_SP_Params = new Dynamic_SP_Params();
-            Dynamic_SP_Params.ParameterName = "ApplicationID";
-            Dynamic_SP_Params.Val = ApplicationID;
-            Dynamic_SP_Params_List.Add(Dynamic_SP_Params);
-
-            result = ExecuteStoreProcedureDR("P_Get_User_Info", ref Dynamic_SP_Params_List);
-
-            MemoryCaches.SetCacheValue(_MemoryCacheValueType, result, _cache, _iscachingenable);
-
-            return result;
-        }
-        public P_Get_User_Info_SP P_Get_User_Info_Class(string UserName, int ApplicationID, MemoryCacheValueType? _MemoryCacheValueType = null)
-        {
-            List<Dynamic_SP_Params> parms = new List<Dynamic_SP_Params>()
-            {
-                new Dynamic_SP_Params {ParameterName = "UserName", Val = UserName},
-            };
-            P_Get_User_Info_SP result = ExecuteSelectSQLMap<P_Get_User_Info_SP>("P_Get_User_Info", true, 0, ref parms);
-            return result;
         }
         public string GetLocalIPAddress()
         {
@@ -2610,9 +2565,7 @@ namespace Services.GlobalServices
             List<Dynamic_SP_Params> List_Dynamic_SP_Params = null;
             ExecuteSelectSQLMapMultiple(Query, IsSP, IsList, CommandTimeOut, ref List_Dynamic_SP_Params, ref listofobject, Read_Only, Database_Name, Config_Key);
         }
-        #endregion DB
 
-        #region Common
         public DataRow P_Common_DR_Procedure(string Query, ref List<Dynamic_SP_Params> List_Dynamic_SP_Params)
         {
             DataRow result = null;
@@ -2830,6 +2783,31 @@ namespace Services.GlobalServices
             result.ReturnText = DR["Return_Text"].ToString();
             return result;
         }
-        #endregion Common
+
+        #endregion DB
+
+        #region User
+        public async Task<P_UserLoginPasswordModel> GetUserLoginCredentials(string UserName, CancellationToken cancellationToken)
+        {
+            List<Dynamic_SP_Params> parms = new List<Dynamic_SP_Params>()
+            {
+                new Dynamic_SP_Params {ParameterName = "UserName", Val = UserName.ToUpper()}
+            };
+            string query = "SELECT PasswordHash,PasswordSalt FROM [dbo].[T_Users] WITH (NOLOCK) WHERE IsActive = 1 AND UPPER(UserName) = @UserName";
+            var result = P_Get_Generic_SP<P_UserLoginPasswordModel>(query, ref parms, false);
+            return result;
+
+        }
+        public P_Get_User_Info P_Get_User_Info(string UserName, int ApplicationID, MemoryCacheValueType? _MemoryCacheValueType = null)
+        {
+            List<Dynamic_SP_Params> parms = new List<Dynamic_SP_Params>()
+            {
+                new Dynamic_SP_Params {ParameterName = "UserName", Val = UserName},
+                new Dynamic_SP_Params {ParameterName = "ApplicationID", Val = ApplicationID},
+            };
+            P_Get_User_Info result = ExecuteSelectSQLMap<P_Get_User_Info>("P_Get_User_Info", true, 0, ref parms);
+            return result;
+        }
+        #endregion User
     }
 }

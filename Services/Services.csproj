@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="C:\Users\Hammas Khan\.nuget\packages\select.htmltopdf\24.1.0\contentFiles\any\any\Select.Html.dep" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Select.HtmlToPdf" Version="24.1.0" />
   </ItemGroup>
 

@@ -160,18 +160,10 @@ namespace Data.DataAccess
 
             if (hidePropertyAttribute.IsHideSerialize && isDeserialize == false)
             {
-                if (hidePropertyAttribute.IsCheckHideSerializeFromPublicObject && _PublicClaimObjects.isignorejsonserializeproperty)
+                if (hidePropertyAttribute.IsCheckHideSerializeFromPublicObject)
                 {
                     IsIgnore = false;
                     return;
-                }
-                else if (hidePropertyAttribute.IsCheckHideSerializeFromPublicObjectList && _PublicClaimObjects.ignorejsonserializepropertylist != null)
-                {
-                    if (ValueExistsInArry(_PublicClaimObjects.ignorejsonserializepropertylist, Propertyname))
-                    {
-                        IsIgnore = false;
-                        return;
-                    }
                 }
                 else if (hidePropertyAttribute.RemoteDomainIncludeHideSerialize != null)
                 {
@@ -208,20 +200,7 @@ namespace Data.DataAccess
             }
             else if (hidePropertyAttribute.IsHideDeSerialize && isDeserialize)
             {
-                if (hidePropertyAttribute.IsCheckHideDeSerializeFromPublicObject && _PublicClaimObjects.isignorejsondeserializeproperty)
-                {
-                    IsIgnore = false;
-                    return;
-                }
-                else if (hidePropertyAttribute.IsCheckHideDeSerializeFromPublicObjectList && _PublicClaimObjects.ignorejsondeserializepropertylist != null)
-                {
-                    if (ValueExistsInArry(_PublicClaimObjects.ignorejsondeserializepropertylist, Propertyname))
-                    {
-                        IsIgnore = false;
-                        return;
-                    }
-                }
-                else if (hidePropertyAttribute.RemoteDomainIncludeHideDeSerialize != null)
+                if (hidePropertyAttribute.RemoteDomainIncludeHideDeSerialize != null)
                 {
                     if (ValueExistsInArry(hidePropertyAttribute.RemoteDomainIncludeHideDeSerialize, remotedomain))
                     {

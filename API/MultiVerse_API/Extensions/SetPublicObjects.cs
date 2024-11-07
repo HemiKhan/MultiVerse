@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using Data.Interfaces;
 using Data.DataAccess;
+using Data.Dtos;
 
 namespace MultiVerse_API.Extensions
 {
@@ -54,7 +55,6 @@ namespace MultiVerse_API.Extensions
                 _PublicClaimObjects.jit = (User_.FindFirst(JwtRegisteredClaimNames.Jti)?.Value == null ? "" : User_.FindFirst(JwtRegisteredClaimNames.Jti)?.Value.ToString()!);
                 _PublicClaimObjects.key = (User_.FindFirst("key")?.Value == null ? "" : User_.FindFirst("key")?.Value.ToString()!);
                 _PublicClaimObjects.iswebtoken = (User_.FindFirst("isweb")?.Value == null ? false : Convert.ToBoolean(User_.FindFirst("isweb")?.Value.ToString()));
-                _PublicClaimObjects.issinglesignon = (User_.FindFirst("issinglesignon")?.Value == null ? false : Convert.ToBoolean(User_.FindFirst("issinglesignon")?.Value.ToString()));
             }
             else
             {
@@ -62,11 +62,9 @@ namespace MultiVerse_API.Extensions
                 _PublicClaimObjects.jit = "";
                 _PublicClaimObjects.key = "";
                 _PublicClaimObjects.iswebtoken = false;
-                _PublicClaimObjects.issinglesignon = false;
             }
             //_PublicClaimObjects.bearertoken = StaticPublicObjects.ado.GetBearerToken();
             _PublicClaimObjects.isdevelopment = StaticPublicObjects.ado.IsDevelopment();
-            _PublicClaimObjects.isallowedremotedomain = StaticPublicObjects.ado.IsAllowedDomain();
             _PublicClaimObjects.appsettingfilename = (_PublicClaimObjects.isdevelopment == true ? "appsettings.Development.json" : "appsettings.json");
             _PublicClaimObjects.isswaggercall = (StaticPublicObjects.ado == null ? false : StaticPublicObjects.ado.IsSwaggerCall());
             _PublicClaimObjects.isswaggercalladmin = (StaticPublicObjects.ado == null ? false : StaticPublicObjects.ado.IsSwaggerCall());
@@ -74,8 +72,7 @@ namespace MultiVerse_API.Extensions
             _PublicClaimObjects.hostname = (StaticPublicObjects.ado == null ? "" : StaticPublicObjects.ado.GetHostName());
             _PublicClaimObjects.hosturl = (StaticPublicObjects.ado == null ? "" : StaticPublicObjects.ado.GetHostURL());
             _PublicClaimObjects.remotedomain = (StaticPublicObjects.ado == null ? "" : StaticPublicObjects.ado.GetRemoteDomain());
-            _PublicClaimObjects.remoteurl = (StaticPublicObjects.ado == null ? "" : StaticPublicObjects.ado.GetRemoteURL());
-            //_PublicClaimObjects.P_Get_User_Info_Class = (StaticPublicObjects.ado == null ? null : StaticPublicObjects.ado.P_Get_User_Info_Class(_PublicClaimObjects.username, AppEnum.ApplicationId.AppID));
+            _PublicClaimObjects.P_Get_User_Info = (StaticPublicObjects.ado == null ? null : StaticPublicObjects.ado.P_Get_User_Info(_PublicClaimObjects.username, AppEnum.ApplicationId.AppID));
 
             return _PublicClaimObjects;
         }

@@ -25,21 +25,14 @@ namespace MultiVerse_API.Extensions
             }
             else
             {
-                if (_PublicClaimObjects.P_Get_User_Info_Class!.IsBlocked)
+                if (_PublicClaimObjects.P_Get_User_Info!.IsBlocked)
                 {
                     ErrorMessage = "This User is Blocked";
                     ErrorCode = ErrorList.ErrorListBlock.ErrorCode;
                     StatusCode = ErrorList.ErrorListBlock.StatusCode;
                     Ret.response_code = false;
                 }
-                //else if (_PublicClaimObjects.P_Get_User_Info_Class.IsApplicationAccessAllowed == false && _PublicClaimObjects.P_Get_User_Info_Class.IsAPIAccessAllowed == false && _PublicClaimObjects.P_Get_User_Info_Class.IsAdmin == false)
-                //{
-                //    ErrorMessage = "You Don't Have Access to This Application5";
-                //    ErrorCode = ErrorList.ErrorListBlock.ErrorCode;
-                //    StatusCode = ErrorList.ErrorListBlock.StatusCode;
-                //    Ret.response_code = false;
-                //}
-                else if (_PublicClaimObjects.P_Get_User_Info_Class.encrypted_key != _PublicClaimObjects.key)
+                else if (_PublicClaimObjects.P_Get_User_Info.encrypted_key != _PublicClaimObjects.key)
                 {
                     ErrorMessage = "Invalid Token1";
                     ErrorCode = ErrorList.ErrorListInvalidToken.ErrorCode;

@@ -102,9 +102,7 @@ namespace Data.DataAccess
         public string jit { get; set; } = "";
         public string key { get; set; } = "";
         public bool iswebtoken { get; set; } = false;
-        public bool issinglesignon { get; set; } = false;
-        public P_Get_User_Info? P_Get_User_Info_Class { get; set; } = null;
-        public string? bearertoken { get; set; } = null;
+        public bool isdevelopment { get; set; } = false;
         private string _appsettingfilename = "appsettings.json";
         public string appsettingfilename
         {
@@ -120,58 +118,13 @@ namespace Data.DataAccess
                 _appsettingfilename = Ret;
             }
         }
-        public bool isallowedremotedomain { get; set; } = false;
-        public bool isdevelopment { get; set; } = false;
         public bool isswaggercall { get; set; } = false;
         public bool isswaggercalladmin { get; set; } = false;
         public string path { get; set; } = "";
         public string hostname { get; set; } = "";
         public string hosturl { get; set; } = "";
         public string remotedomain { get; set; } = "";
-        public string remoteurl { get; set; } = "";
-        public bool isignorejsonserializeproperty { get; set; } = false;
-        public bool isignorejsondeserializeproperty { get; set; } = false;
-        public List<string>? ignorejsonserializepropertylist { get; set; } = null;
-        public List<string>? ignorejsondeserializepropertylist { get; set; } = null;
-    }
-
-
-    public class CPPublicClaimObjects
-    {
-        public DateTime requeststarttime { get; set; } = DateTime.UtcNow;
-        private string _username = "";
-        public string username
-        {
-            get
-            {
-                return _username;
-            }
-            set
-            {
-                string Ret = "";
-                if (value != null)
-                    Ret = value.ToUpper();
-                _username = Ret;
-            }
-        }
-        private string _appsettingfilename = "appsettings.json";
-        public string appsettingfilename
-        {
-            get
-            {
-                return _appsettingfilename;
-            }
-            set
-            {
-                string Ret = "appsettings.json";
-                if (value == "appsettings.Development.json")
-                    Ret = value;
-                _appsettingfilename = Ret;
-            }
-        }
-        public string? Email { get; set; } = string.Empty;
-        public bool IsCPLogin { get; set; } = false;
-        public bool IsAdmin { get; set; } = false;
+        public P_Get_User_Info? P_Get_User_Info { get; set; } = null;
     }
     public class Error
     {

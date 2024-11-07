@@ -362,7 +362,21 @@ namespace Data.DataAccess
                 return qs;
             return Crypto.EncryptToHex(qs, "MetroCryptoUSA08861-POMS#?+", isfixedIV);
         }
+        public static string EncryptQueryString(String qs, bool isfixedIV = false)
+        {
+            qs = (qs ?? "");
+            if (qs == "")
+                return qs;
+            return Crypto.EncryptToHex(qs, "MetroCryptoUSA08861-POMS#?+", isfixedIV);
+        }
         public static string DecryptString(String qs, bool isfixedIV = false)
+        {
+            qs = (qs ?? "");
+            if (qs == "")
+                return qs;
+            return Crypto.DecryptFromHex(qs, "MetroCryptoUSA08861-POMS#?+", isfixedIV);
+        }
+        public static string DecryptQueryString(String qs, bool isfixedIV = false)
         {
             qs = (qs ?? "");
             if (qs == "")

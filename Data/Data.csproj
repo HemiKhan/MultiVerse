@@ -7,6 +7,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="DataConfig\**" />
+	  <EmbeddedResource Remove="DataConfig\**" />
+	  <None Remove="DataConfig\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Content Remove="C:\Users\Hammas Khan\.nuget\packages\select.htmltopdf.netcore\24.1.0\contentFiles\any\any\Select.Html.dep" />
 	</ItemGroup>
 
@@ -28,10 +34,6 @@
 		<PackageReference Include="FirebaseAdmin" Version="3.0.0" />
 		<PackageReference Include="Handlebars.Net" Version="2.1.6" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />		
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="DataConfig\" />
 	</ItemGroup>
 
 </Project>

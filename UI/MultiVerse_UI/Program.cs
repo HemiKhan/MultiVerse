@@ -17,14 +17,12 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        Log.Logger = new LoggerConfiguration()
-    .Enrich.FromLogContext()
-    .WriteTo.File(
-    path: AppDomain.CurrentDomain.BaseDirectory + "ErrorLog\\log-.txt",
-    outputTemplate: "Timestamp: {Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} Level: [{Level:u3}] Url: {Url}{NewLine}Msg: {Message:1j}{NewLine}Exception: {Exception}{NewLine}{NewLine}",
-    rollingInterval: RollingInterval.Hour,
-    restrictedToMinimumLevel: LogEventLevel.Warning
-    ).CreateLogger();
+        Log.Logger = new LoggerConfiguration().Enrich.FromLogContext().WriteTo.File(
+            path: AppDomain.CurrentDomain.BaseDirectory + "ErrorLog\\log-.txt",
+            outputTemplate: "Timestamp: {Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} Level: [{Level:u3}] Url: {Url}{NewLine}Msg: {Message:1j}{NewLine}Exception: {Exception}{NewLine}{NewLine}",
+            rollingInterval: RollingInterval.Hour,
+            restrictedToMinimumLevel: LogEventLevel.Warning
+        ).CreateLogger();
 
         var builder = WebApplication.CreateBuilder(args);
 
@@ -76,14 +74,9 @@ internal class Program
         // using AutoMapper
         builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-        builder.Services.AddControllers(
-            ).AddNewtonsoftJson(options =>
-            {
-                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            });
+        builder.Services.AddControllers().AddNewtonsoftJson(options => { options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; });
 
-        builder.Services.AddSingleton<JsonSerializerSettings>(options =>
-            options.GetRequiredService<IOptions<MvcNewtonsoftJsonOptions>>().Value.SerializerSettings);
+        builder.Services.AddSingleton<JsonSerializerSettings>(options => options.GetRequiredService<IOptions<MvcNewtonsoftJsonOptions>>().Value.SerializerSettings);
 
         //dbConnection Get from appsetting.json
         DbStringCollection dbStringCollection = new DbStringCollection()
@@ -99,29 +92,21 @@ internal class Program
         builder.Services.AddOtherServices();
 
         //Restric Domain Attribute Model
-        AllowedDomainListModel allowedDomainListModel = builder.Configuration.GetSection("AllowedDomains").Get<AllowedDomainListModel>();
+        AllowedDomainListModel allowedDomainListModel = builder.Configuration.GetSection("AllowedDomains").Get<AllowedDomainListModel>()!;
         builder.Services.AddSingleton(allowedDomainListModel);
-        AllowedDomainExcludingSubDomainListModel allowedDomainExcludingSubDomainListModel = builder.Configuration.GetSection("AllowedDomainsExcludingSubDomain").Get<AllowedDomainExcludingSubDomainListModel>();
+        AllowedDomainExcludingSubDomainListModel allowedDomainExcludingSubDomainListModel = builder.Configuration.GetSection("AllowedDomainsExcludingSubDomain").Get<AllowedDomainExcludingSubDomainListModel>()!;
         builder.Services.AddSingleton(allowedDomainExcludingSubDomainListModel);
-        AllowedMobileAppKeysModel allowedMobileAppKeysModel = builder.Configuration.GetSection("AllowedMobileAppKeysList").Get<AllowedMobileAppKeysModel>();
+        AllowedMobileAppKeysModel allowedMobileAppKeysModel = builder.Configuration.GetSection("AllowedMobileAppKeysList").Get<AllowedMobileAppKeysModel>()!;
         builder.Services.AddSingleton(allowedMobileAppKeysModel);
-        AllowedWebAppKeysModel allowedWebAppKeysModel = builder.Configuration.GetSection("AllowedWebAppKeysList").Get<AllowedWebAppKeysModel>();
+        AllowedWebAppKeysModel allowedWebAppKeysModel = builder.Configuration.GetSection("AllowedWebAppKeysList").Get<AllowedWebAppKeysModel>()!;
         builder.Services.AddSingleton(allowedWebAppKeysModel);
 
-        SwaggerHideURLs swaggerHideURLs = builder.Configuration.GetSection("SwaggerHideURLs").Get<SwaggerHideURLs>();
+        SwaggerHideURLs swaggerHideURLs = builder.Configuration.GetSection("SwaggerHideURLs").Get<SwaggerHideURLs>()!;
         builder.Services.AddSingleton(swaggerHideURLs);
 
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-        //builder.Services.ConfigureSwagger();
-
         var app = builder.Build();
-
-        // Configure the HTTP request pipeline.
-        //if (app.Environment.IsDevelopment())
-        //{
-        //    app.UseDeveloperExceptionPage();
-        //}
-        string virDir = builder.Configuration.GetSection("VirtualDirectory").Value;
+        
+        string virDir = builder.Configuration.GetSection("VirtualDirectory").Value!;
 
         app.UseSession();
         app.UseStaticFiles();
@@ -171,15 +156,10 @@ internal class Program
         app.UseHttpsRedirection();
         app.UseCors("AnyOrigin");
 
-        // Apply middleware for brute-force prevention
-        //app.UseMiddleware<BruteForceMiddleware>();
-
         app.UseRouting();
         app.UseAuthentication();
         app.UseAuthorization();
-        app.MapControllerRoute(
-            name: "default",
-            pattern: "{controller=Account}/{action=Login}/{id?}");
+        app.MapControllerRoute(name: "default", pattern: "{controller=Account}/{action=Login}/{id?}");
 
         using (var serviceScope = app.Services.CreateScope())
         {
@@ -192,7 +172,7 @@ internal class Program
                 var map = serviceProvider.GetService<IMapper>();
                 var memorycache = serviceProvider.GetService<IMemoryCache>();
 
-                SetPublicObjects.SetStaticPublicObjects(logFile, ado, map, memorycache);
+                SetPublicObjects.SetStaticPublicObjects(logFile!, ado!, map!, memorycache!);
             }
             catch (Exception ex)
             {
@@ -209,7 +189,6 @@ internal class Program
                 ProgramSetPublicClaimObjects.SetPublicClaimObjectsFromCookie(ref context, ref _PublicClaimObjects);
                 context.Items["PublicClaimObjects"] = _PublicClaimObjects;
             }
-            // Call the next middleware in the pipeline
             await next.Invoke();
         });
 

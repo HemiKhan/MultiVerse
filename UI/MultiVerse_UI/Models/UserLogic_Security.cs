@@ -34,7 +34,7 @@ namespace MultiVerse_UI.Models
                 var claim = StaticPublicObjects.ado.GetPublicClaimObjects();
                 if (claim != null)
                 {
-                    Ret = claim.P_Get_User_Info_Class;
+                    Ret = claim.P_Get_User_Info;
                 }
                 return Ret;
             }
@@ -54,7 +54,7 @@ namespace MultiVerse_UI.Models
                 var claim = StaticPublicObjects.ado.GetPublicClaimObjects();
                 if (claim != null)
                 {
-                    Ret = claim.P_Get_User_Info_Class;
+                    Ret = claim.P_Get_User_Info;
                 }
                 return Ret;
             }
@@ -62,7 +62,7 @@ namespace MultiVerse_UI.Models
         public static void SignInAjax()
         {
             IHttpContextAccessor _HttpContextAccessor = StaticPublicObjects.ado.GetIHttpContextAccessor();
-            if (_HttpContextAccessor.HttpContext.Request.Cookies.GetCookie_CookiesAccepted() == false)
+            if (_HttpContextAccessor.HttpContext!.Request.Cookies.GetCookie_CookiesAccepted() == false)
                 return;
 
             string Encryptedappenv = Crypto.EncryptString(StaticPublicObjects.ado.GetApplicationEnvironment(), true);
@@ -173,10 +173,8 @@ namespace MultiVerse_UI.Models
                 _PublicClaimObjectsNew.jit = (token?.Claims.FirstOrDefault(claim => claim.Type == "jit")?.Value == null ? "" : token?.Claims.FirstOrDefault(claim => claim.Type == "jit")?.Value.ToString())!;
                 _PublicClaimObjectsNew.key = (token?.Claims.FirstOrDefault(claim => claim.Type == "key")?.Value == null ? "" : token?.Claims.FirstOrDefault(claim => claim.Type == "key")?.Value.ToString())!;
                 _PublicClaimObjectsNew.iswebtoken = (token?.Claims.FirstOrDefault(claim => claim.Type == "isweb")?.Value == null ? false : Convert.ToBoolean(token?.Claims.FirstOrDefault(claim => claim.Type == "isweb")?.Value.ToString()));
-                _PublicClaimObjectsNew.issinglesignon = (token?.Claims.FirstOrDefault(claim => claim.Type == "issinglesignon")?.Value == null ? false : Convert.ToBoolean(token?.Claims.FirstOrDefault(claim => claim.Type == "issinglesignon")?.Value.ToString()));
 
                 _PublicClaimObjectsNew.isdevelopment = StaticPublicObjects.ado.IsDevelopment();
-                _PublicClaimObjectsNew.isallowedremotedomain = StaticPublicObjects.ado.IsAllowedDomain();
                 _PublicClaimObjectsNew.appsettingfilename = (_PublicClaimObjectsNew.isdevelopment == true ? "appsettings.Development.json" : "appsettings.json");
                 _PublicClaimObjectsNew.isswaggercall = false;
                 _PublicClaimObjectsNew.isswaggercalladmin = false;
@@ -184,8 +182,7 @@ namespace MultiVerse_UI.Models
                 _PublicClaimObjectsNew.hostname = (StaticPublicObjects.ado == null ? "" : StaticPublicObjects.ado.GetHostName());
                 _PublicClaimObjectsNew.hosturl = (StaticPublicObjects.ado == null ? "" : StaticPublicObjects.ado.GetHostURL());
                 _PublicClaimObjectsNew.remotedomain = (StaticPublicObjects.ado == null ? "" : StaticPublicObjects.ado.GetRemoteDomain());
-                _PublicClaimObjectsNew.remoteurl = (StaticPublicObjects.ado == null ? "" : StaticPublicObjects.ado.GetRemoteURL());
-                //_PublicClaimObjectsNew.P_Get_User_Info_Class = (StaticPublicObjects.ado == null ? null : StaticPublicObjects.ado.P_Get_User_Info_Class(_PublicClaimObjectsNew.username, AppEnum.ApplicationId.AppID));
+                _PublicClaimObjectsNew.P_Get_User_Info = (StaticPublicObjects.ado == null ? null : StaticPublicObjects.ado.P_Get_User_Info(_PublicClaimObjectsNew.username, AppEnum.ApplicationId.AppID));
 
             }
         }

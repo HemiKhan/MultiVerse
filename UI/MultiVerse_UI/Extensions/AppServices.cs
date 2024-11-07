@@ -4,7 +4,6 @@ using Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Services.AccountServices;
 using Services.GlobalServices;
-using Services.PatientReportServices;
 
 namespace MultiVerse_UI.Extensions
 {
@@ -19,7 +18,6 @@ namespace MultiVerse_UI.Extensions
 
         public static void AddOtherServices(this IServiceCollection services)
         {
-            services.AddTransient<IPatientReportService, PatientReportService>();
             services.AddTransient<IAccountService, AccountService>();
         }
     }

@@ -36,11 +36,6 @@ namespace Data.AppContext
         {
         }
 
-        #region DBSet
-        [NotMapped]
-        public virtual DbSet<P_Get_User_Info_SP> P_Get_User_Info { get; set; } = null!;
-        #endregion
-
         public int Save()
         {
             return this.SaveChanges();

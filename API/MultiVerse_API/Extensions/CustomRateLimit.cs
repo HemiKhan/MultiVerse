@@ -24,8 +24,8 @@ namespace MultiVerse_API.Extensions
 
             if (_PublicClaimObjects.username != "")
             {
-                if ((_PublicClaimObjects.P_Get_User_Info_Class!.IsAdmin)
-                    || (_PublicClaimObjects.P_Get_User_Info_Class.IsAdmin && StaticPublicObjects.ado.IsAllowedDomain() == false)
+                if ((_PublicClaimObjects.P_Get_User_Info!.IsAdmin)
+                    || (_PublicClaimObjects.P_Get_User_Info.IsAdmin && StaticPublicObjects.ado.IsAllowedDomain() == false)
                     || (StaticPublicObjects.ado.IsAllowedDomain() && StaticPublicObjects.ado.GetSubDomain() != "localhost" && IsIgnoreSubDomainCheck == false)
                     || (StaticPublicObjects.ado.IsAllowedDomainExcludingSubDomain() && StaticPublicObjects.ado.GetSubDomain() != "localhost" && IsIgnoreDomainCheck == false))
                 {

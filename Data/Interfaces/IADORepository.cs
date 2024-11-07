@@ -57,6 +57,34 @@ namespace Data.Interfaces
         public void P_CacheEntry_IU(string cacheKey, string cacheValue, DateTime? expirationTime, int? applicationID = null);
         public void P_CacheEntry_Delete(string cacheKey);
         public DataRow? P_Get_CacheEntry(string cacheKey);
+        public DataTable P_Add_Session_History(int? WebUserID, string Username, string SessionID, int DeviceTypeID, DateTime LoginTime, int ApplicationID, bool IsSuccess, string Latitude, string Longitude);
+        public string GetLocalIPAddress();
+        public string GetRequestPath();
+        public int GetMethodIDFromPath();
+        public DataRow? P_Get_T_Config_Detail(string Config_Key, MemoryCacheValueType? _MemoryCacheValueType = null);
+        public DataRow? P_Get_API_User_Map_Request_Limit(int UserID, int MethodID, string? Username, MemoryCacheValueType? _MemoryCacheValueType = null);
+        public DataTable P_Get_API_User_Map(int UserID, int APIID, string? Username, MemoryCacheValueType? _MemoryCacheValueType = null);
+        public DataRow? P_Get_API_RemoteDomain_IP_Request_Limit(bool Is_RemoteDomain, int MethodID, MemoryCacheValueType? _MemoryCacheValueType = null);
+        public DataRow? P_Get_API_RemoteDomain_IP_WhiteListing(bool Is_RemoteDomain, int APIID, MemoryCacheValueType? _MemoryCacheValueType = null);
+        public DataTable P_Get_List_By_ID(int MT_ID, string SELLER_KEY, string? SELLER_CODE = null, string? SELLER_NAME = null, MemoryCacheValueType? _MemoryCacheValueType = null);
+        public DataTable P_Get_List_By_ID_2(int MT_ID, string? Username = null, MemoryCacheValueType? _MemoryCacheValueType = null);
+        public DataTable P_Get_Role_Rights_From_RoleID(int ROLE_ID, bool IsGroupRoleID, MemoryCacheValueType? _MemoryCacheValueType = null);
+        public DataTable P_Get_Role_Rights_From_RoleID_And_P_ID(int ROLE_ID, bool IsGroupRoleID, int P_ID, MemoryCacheValueType? _MemoryCacheValueType = null);
+        public DataTable P_Get_Role_Rights_From_RoleID_And_PR_ID(int ROLE_ID, bool IsGroupRoleID, int PR_ID, MemoryCacheValueType? _MemoryCacheValueType = null);
+        public DataTable P_Get_Role_Rights_From_RoleID_And_PageRightType_MTV_CODE(int ROLE_ID, bool IsGroupRoleID, string PageRightType_MTV_CODE, MemoryCacheValueType? _MemoryCacheValueType = null);
+        public DataTable P_Get_Role_Rights_From_Username(string Username, MemoryCacheValueType? _MemoryCacheValueType = null);
+        public DataTable P_Get_Role_Rights_From_Username_And_P_ID(string Username, int P_ID, MemoryCacheValueType? _MemoryCacheValueType = null);
+        public DataTable P_Get_Role_Rights_From_Username_And_PR_ID(string Username, int PR_ID, MemoryCacheValueType? _MemoryCacheValueType = null);
+        public DataTable P_Get_Role_Rights_From_Username_And_PageRightType_MTV_CODE(string Username, string PageRightType_MTV_CODE, MemoryCacheValueType? _MemoryCacheValueType = null);
+        public bool P_Is_Has_Right_From_RoleID_And_PR_ID_From_Memory(int ROLE_ID, bool IsGroupRoleID, int PR_ID);
+        public bool P_Is_Has_Right_From_RoleID_And_PageRightType_MTV_CODE_From_Memory(int ROLE_ID, bool IsGroupRoleID, string PageRightType_MTV_CODE);
+        public bool P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(string Username, int PR_ID);
+        public bool P_Is_Has_Right_From_Username_And_PageRightType_MTV_CODE_From_Memory(string Username, string PageRightType_MTV_CODE);
+        public bool P_Is_Has_Right_From_RoleID_And_PR_ID(int ROLE_ID, bool IsGroupRoleID, int PR_ID = 0, MemoryCacheValueType? _MemoryCacheValueType = null);
+        public bool P_Is_Has_Right_From_RoleID_And_PageRightType_MTV_CODE(int ROLE_ID, bool IsGroupRoleID, string PageRightType_MTV_CODE = "", MemoryCacheValueType? _MemoryCacheValueType = null);
+        public bool P_Is_Has_Right_From_Username_And_PR_ID(string Username, int PR_ID = 0, MemoryCacheValueType? _MemoryCacheValueType = null);
+        public bool P_Is_Has_Right_From_Username_And_PageRightType_MTV_CODE(string Username, string PageRightType_MTV_CODE = "", MemoryCacheValueType? _MemoryCacheValueType = null);
+        #endregion General
 
         #region DB
         public int ExecuteNONQuery(string Query, ref List<Dynamic_SP_Params> dynamic_SP_Params, string Database_Name = AppEnum.Database_Name.MultiVerseDB, int CommandTimeOut = 0, string Config_Key = "");
@@ -108,40 +136,6 @@ namespace Data.Interfaces
         public void ExecuteSelectSQLMapMultiple(string Query, bool IsSP, bool IsList, int CommandTimeOut, ref List<Dynamic_SP_Params> List_Dynamic_SP_Params, ref List<object> listofobject, bool Read_Only = false, string Database_Name = AppEnum.Database_Name.MultiVerseDB, string Config_Key = "");
         public void ExecuteSelectSQLMapMultiple(string Query, bool IsSP, bool IsList, int CommandTimeOut, ref List<object> listofobject, bool Read_Only = false, string Database_Name = AppEnum.Database_Name.MultiVerseDB, string Config_Key = "", params (string Name, object Value)[] ParamsNameValues);
         public void ExecuteSelectSQLMapMultiple(string Query, bool IsSP, bool IsList, int CommandTimeOut, ref List<object> listofobject, bool Read_Only = false, string Database_Name = AppEnum.Database_Name.MultiVerseDB, string Config_Key = "");
-        #endregion DB
-
-        public DataTable P_Add_Session_History(int? WebUserID, string Username, string SessionID, int DeviceTypeID, DateTime LoginTime, int ApplicationID, bool IsSuccess, string Latitude, string Longitude);
-        public DataRow? P_Get_User_Info(string UserName, int ApplicationID, MemoryCacheValueType? _MemoryCacheValueType = null);
-        public P_Get_User_Info_SP P_Get_User_Info_Class(string UserName, int ApplicationID, MemoryCacheValueType? _MemoryCacheValueType = null);
-        public string GetLocalIPAddress();
-        public string GetRequestPath();
-        public int GetMethodIDFromPath();
-        public DataRow? P_Get_T_Config_Detail(string Config_Key, MemoryCacheValueType? _MemoryCacheValueType = null);
-        public DataRow? P_Get_API_User_Map_Request_Limit(int UserID, int MethodID, string? Username, MemoryCacheValueType? _MemoryCacheValueType = null);
-        public DataTable P_Get_API_User_Map(int UserID, int APIID, string? Username, MemoryCacheValueType? _MemoryCacheValueType = null);
-        public DataRow? P_Get_API_RemoteDomain_IP_Request_Limit(bool Is_RemoteDomain, int MethodID, MemoryCacheValueType? _MemoryCacheValueType = null);
-        public DataRow? P_Get_API_RemoteDomain_IP_WhiteListing(bool Is_RemoteDomain, int APIID, MemoryCacheValueType? _MemoryCacheValueType = null);
-        public DataTable P_Get_List_By_ID(int MT_ID, string SELLER_KEY, string? SELLER_CODE = null, string? SELLER_NAME = null, MemoryCacheValueType? _MemoryCacheValueType = null);
-        public DataTable P_Get_List_By_ID_2(int MT_ID, string? Username = null, MemoryCacheValueType? _MemoryCacheValueType = null);
-        public DataTable P_Get_Role_Rights_From_RoleID(int ROLE_ID, bool IsGroupRoleID, MemoryCacheValueType? _MemoryCacheValueType = null);
-        public DataTable P_Get_Role_Rights_From_RoleID_And_P_ID(int ROLE_ID, bool IsGroupRoleID, int P_ID, MemoryCacheValueType? _MemoryCacheValueType = null);
-        public DataTable P_Get_Role_Rights_From_RoleID_And_PR_ID(int ROLE_ID, bool IsGroupRoleID, int PR_ID, MemoryCacheValueType? _MemoryCacheValueType = null);
-        public DataTable P_Get_Role_Rights_From_RoleID_And_PageRightType_MTV_CODE(int ROLE_ID, bool IsGroupRoleID, string PageRightType_MTV_CODE, MemoryCacheValueType? _MemoryCacheValueType = null);
-        public DataTable P_Get_Role_Rights_From_Username(string Username, MemoryCacheValueType? _MemoryCacheValueType = null);
-        public DataTable P_Get_Role_Rights_From_Username_And_P_ID(string Username, int P_ID, MemoryCacheValueType? _MemoryCacheValueType = null);
-        public DataTable P_Get_Role_Rights_From_Username_And_PR_ID(string Username, int PR_ID, MemoryCacheValueType? _MemoryCacheValueType = null);
-        public DataTable P_Get_Role_Rights_From_Username_And_PageRightType_MTV_CODE(string Username, string PageRightType_MTV_CODE, MemoryCacheValueType? _MemoryCacheValueType = null);
-        public bool P_Is_Has_Right_From_RoleID_And_PR_ID_From_Memory(int ROLE_ID, bool IsGroupRoleID, int PR_ID);
-        public bool P_Is_Has_Right_From_RoleID_And_PageRightType_MTV_CODE_From_Memory(int ROLE_ID, bool IsGroupRoleID, string PageRightType_MTV_CODE);
-        public bool P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(string Username, int PR_ID);
-        public bool P_Is_Has_Right_From_Username_And_PageRightType_MTV_CODE_From_Memory(string Username, string PageRightType_MTV_CODE);
-        public bool P_Is_Has_Right_From_RoleID_And_PR_ID(int ROLE_ID, bool IsGroupRoleID, int PR_ID = 0, MemoryCacheValueType? _MemoryCacheValueType = null);
-        public bool P_Is_Has_Right_From_RoleID_And_PageRightType_MTV_CODE(int ROLE_ID, bool IsGroupRoleID, string PageRightType_MTV_CODE = "", MemoryCacheValueType? _MemoryCacheValueType = null);
-        public bool P_Is_Has_Right_From_Username_And_PR_ID(string Username, int PR_ID = 0, MemoryCacheValueType? _MemoryCacheValueType = null);
-        public bool P_Is_Has_Right_From_Username_And_PageRightType_MTV_CODE(string Username, string PageRightType_MTV_CODE = "", MemoryCacheValueType? _MemoryCacheValueType = null);
-        #endregion General
-
-        #region Common
         public DataRow P_Common_DR_Procedure(string Query, ref List<Dynamic_SP_Params> List_Dynamic_SP_Params);
         public P_ReturnMessage_Result P_SP_MultiParm_Result<T>(string Query, T res, string USERNAME, string IP = "");
         public P_ReturnMessageWithObj_Result P_SP_MultiParmWithObj_Result<T>(string Query, T res, string USERNAME, string ObjFieldName, string IP = "");
@@ -160,6 +154,11 @@ namespace Data.Interfaces
         public object? Get_SingleRow_Object_Result(string Query, List<Dynamic_SP_Params> _Params, bool IsSP = false);
         public string Get_SingleRow_String_Result(string Query, List<Dynamic_SP_Params> _Params, bool IsSP = false);
         public P_ReturnMessage_Result P_ExecuteProc_Result(string Query, List<Dynamic_SP_Params> dynamic_SP_Params_list, bool IsSP = true);
-        #endregion Common        
+        #endregion DB     
+
+        #region User
+        public Task<P_UserLoginPasswordModel> GetUserLoginCredentials(string UserName, CancellationToken cancellationToken);
+        public P_Get_User_Info P_Get_User_Info(string UserName, int ApplicationID, MemoryCacheValueType? _MemoryCacheValueType = null);
+        #endregion User
     }
 }

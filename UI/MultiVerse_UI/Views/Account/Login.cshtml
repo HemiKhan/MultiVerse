@@ -353,8 +353,9 @@
         });
         function handleFormSubmission() {
             var ObjJson = new Object();
-            ObjJson.UserID = $('#username').val();
+            ObjJson.UserName = $('#username').val();
             ObjJson.Password = $('#password').val();
+            ObjJson.RememberMe = $('#txtRememberMe').is(":checked");
             $.ajax({
                 type: "POST",
                 url: "/Account/Login",

@@ -1,9 +1,7 @@
 ﻿using MultiVerse_UI.Models;
 using Data.DataAccess;
-using Data.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.VisualBasic;
 using System.Data;
 using static MultiVerse_UI.Models.MasterPage;
 
@@ -20,13 +18,11 @@ namespace MultiVerse_UI.Extensions
 
             if (!aResponse.IsSessionEnabled)
             {
-                filterContext.Result = new RedirectResult(aResponse.RedirectURL);
+                filterContext.Result = new RedirectResult(aResponse.RedirectURL!);
                 return;
             }
 
-            //StaticPublicObjects.ado.IsValidToken(StaticPublicObjects.ado.GetPublicClaimObjects(), AppEnum.WebTokenExpiredTime.Seconds);
             var controller = filterContext.Controller as Controller;
-
             if (controller != null)
             {
                 controller.ViewBag.Sidebarstring = Side_Menu.GetSideBar();
@@ -34,7 +30,7 @@ namespace MultiVerse_UI.Extensions
                 controller.ViewBag.PageDT = filterContext.HttpContext.Session.GetObject<DataTable>("PageDT");
                 controller.ViewBag.CurrentPG = filterContext.HttpContext.Session.GetIntNotNull("CurrentPG");
                 var _publicClaimObjects = filterContext.HttpContext.Session.GetObject<PublicClaimObjects>("PublicClaimObjects");
-                controller.ViewBag.FullName = _publicClaimObjects.P_Get_User_Info_Class.FullName;
+                controller.ViewBag.FullName = _publicClaimObjects.P_Get_User_Info!.FullName;
                 controller.ViewBag.UserName = _publicClaimObjects.username;
                 controller.ViewBag.ConnectionId = filterContext.HttpContext.Connection.Id;
                 bool? IsApplicantLogin = filterContext.HttpContext.Session.GetBool("IsApplicantLogin") ?? false;
