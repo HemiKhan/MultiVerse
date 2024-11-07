@@ -1,0 +1,20 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/MultiVerse/DesignTimeBuild/.dtbcache.v2
+/.vs/MultiVerse/FileContentIndex
+/.vs/MultiVerse/v17/DocumentLayout.json
+/.vs/MultiVerse/v17/.suo
+/API/MultiVerse_API/bin/Debug/net8.0
+/API/MultiVerse_API/obj/Debug/net8.0
+/API/MultiVerse_API/obj
+/Data/bin/Debug/net8.0
+/Data/obj/Debug/net8.0
+/Data/obj
+/Services/bin/Debug/net8.0
+/Services/obj
+/UI/MultiVerse_UI/obj
+/UI/NFT_UI/bin/Debug/net8.0
+/UI/NFT_UI/obj/Debug/net8.0
+/UI/NFT_UI/obj
