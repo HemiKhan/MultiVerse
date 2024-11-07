@@ -101,13 +101,13 @@
     <div class="fn_cs_about">
         <div class="left_part">
             <div class="img">
-                <div class="img_in" data-bg-img="~/img/collection/84.png">
-                    <img src="~/img/1x1.jpg" alt="" />
+                <div class="img_in" data-bg-img="~/img/collection/80.png">
+                    <img src="~/img/collection/80.png" alt="" />
                 </div>
             </div>
             <div class="bg_overlay">
                 <div class="bg_color" />
-                <div class="bg_image" data-bg-img="~/img/collection/84.png" />
+                <div class="bg_image" data-bg-img="~/img/collection/80.png" />
             </div>
         </div>
     </div>
@@ -279,6 +279,24 @@
                     </div>
                     <input type="hidden" value="/img/collection/6.png" />
                 </div>
+                <div class="item">
+                    <div class="item_in">
+                        <div class="img">
+                            <div class="abs_img" style="background-image: url('/img/collection/6.png');"></div>
+                            <img src="/img/1x1.jpg" alt="" />
+                        </div>
+                    </div>
+                    <input type="hidden" value="/img/collection/6.png" />
+                </div>
+                <div class="item">
+                    <div class="item_in">
+                        <div class="img">
+                            <div class="abs_img" style="background-image: url('/img/collection/6.png');"></div>
+                            <img src="/img/1x1.jpg" alt="" />
+                        </div>
+                    </div>
+                    <input type="hidden" value="/img/collection/6.png" />
+                </div>
                 <!-- Add more items here as needed -->
             </div>
             <div class="collection_bottom">
@@ -290,6 +308,24 @@
                         </div>
                     </div>
                     <input type="hidden" value="/img/collection/65.png" />
+                </div>
+                <div class="item">
+                    <div class="item_in">
+                        <div class="img">
+                            <div class="abs_img" style="background-image: url('/img/collection/69.png');"></div>
+                            <img src="/img/1x1.jpg" alt="" />
+                        </div>
+                    </div>
+                    <input type="hidden" value="/img/collection/69.png" />
+                </div>
+                <div class="item">
+                    <div class="item_in">
+                        <div class="img">
+                            <div class="abs_img" style="background-image: url('/img/collection/69.png');"></div>
+                            <img src="/img/1x1.jpg" alt="" />
+                        </div>
+                    </div>
+                    <input type="hidden" value="/img/collection/69.png" />
                 </div>
                 <div class="item">
                     <div class="item_in">
@@ -313,6 +349,29 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
 @section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            stickyNav(); // Calls the sticky navigation JavaScript function
+            // Initialize wallet connect button or any other JavaScript initialization
+        });
+
+        function stickyNav() {
+            const header = document.querySelector(".header");
+            window.addEventListener("scroll", function () {
+                let offset = window.scrollY;
+                if (offset > 10) {
+                    header.classList.add("active");
+                } else {
+                    header.classList.remove("active");
+                }
+            });
+        }
+
+        function openNavigation() {
+            // Functionality for opening navigation - replace with actual Redux-like handling
+            console.log("Navigation opened");
+        }
+    </script>
     <script>
         var hero4Slider = new Swiper('.swiper-container', {
             loop: true,

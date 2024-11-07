@@ -13242,11 +13242,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\MultiVerse_UI\\MultiVerse_UI.csproj",
+      "projectUniqueName": "C:\\Users\\bca12\\OneDrive\\Desktop\\GitHub\\MultiVerse\\UI\\MultiVerse_UI\\MultiVerse_UI.csproj",
       "projectName": "MultiVerse_UI",
-      "projectPath": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\MultiVerse_UI\\MultiVerse_UI.csproj",
+      "projectPath": "C:\\Users\\bca12\\OneDrive\\Desktop\\GitHub\\MultiVerse\\UI\\MultiVerse_UI\\MultiVerse_UI.csproj",
       "packagesPath": "C:\\Users\\bca12\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\MultiVerse_UI\\obj\\",
+      "outputPath": "C:\\Users\\bca12\\OneDrive\\Desktop\\GitHub\\MultiVerse\\UI\\MultiVerse_UI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -13268,11 +13268,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\Data\\Data.csproj": {
-              "projectPath": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\Data\\Data.csproj"
+            "C:\\Users\\bca12\\OneDrive\\Desktop\\GitHub\\MultiVerse\\Data\\Data.csproj": {
+              "projectPath": "C:\\Users\\bca12\\OneDrive\\Desktop\\GitHub\\MultiVerse\\Data\\Data.csproj"
             },
-            "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\Services\\Services.csproj": {
-              "projectPath": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\Services\\Services.csproj"
+            "C:\\Users\\bca12\\OneDrive\\Desktop\\GitHub\\MultiVerse\\Services\\Services.csproj": {
+              "projectPath": "C:\\Users\\bca12\\OneDrive\\Desktop\\GitHub\\MultiVerse\\Services\\Services.csproj"
             }
           }
         }
