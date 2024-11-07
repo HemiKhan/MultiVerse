@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\MultiVerse_API.props" />
+</Project>
