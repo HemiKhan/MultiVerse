@@ -1,0 +1,901 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\NFT_UI.bundle.scp.css",
+      "PackagePath": "staticwebassets\\NFT_UI.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\css\\Home.module.css",
+      "PackagePath": "staticwebassets\\css\\Home.module.css"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\css\\globals.css",
+      "PackagePath": "staticwebassets\\css\\globals.css"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\css\\plugins.css",
+      "PackagePath": "staticwebassets\\css\\plugins.css"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\css\\style.css",
+      "PackagePath": "staticwebassets\\css\\style.css"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\1x1.jpg",
+      "PackagePath": "staticwebassets\\img\\1x1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\L.png",
+      "PackagePath": "staticwebassets\\img\\L.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\LL.png",
+      "PackagePath": "staticwebassets\\img\\LL.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\LLL.png",
+      "PackagePath": "staticwebassets\\img\\LLL.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\about\\1.jpg",
+      "PackagePath": "staticwebassets\\img\\about\\1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\about\\2.jpg",
+      "PackagePath": "staticwebassets\\img\\about\\2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\about\\bg.jpg",
+      "PackagePath": "staticwebassets\\img\\about\\bg.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\bg.mp4",
+      "PackagePath": "staticwebassets\\img\\bg.mp4"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\bg4.jpg",
+      "PackagePath": "staticwebassets\\img\\bg4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\bg87.jpg",
+      "PackagePath": "staticwebassets\\img\\bg87.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\blog\\1.jpg",
+      "PackagePath": "staticwebassets\\img\\blog\\1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\blog\\2.jpg",
+      "PackagePath": "staticwebassets\\img\\blog\\2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\blog\\3.jpg",
+      "PackagePath": "staticwebassets\\img\\blog\\3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\blog\\4.jpg",
+      "PackagePath": "staticwebassets\\img\\blog\\4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\blog\\author.jpg",
+      "PackagePath": "staticwebassets\\img\\blog\\author.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\blog\\comment-author1.jpg",
+      "PackagePath": "staticwebassets\\img\\blog\\comment-author1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\blog\\comment-author2.jpg",
+      "PackagePath": "staticwebassets\\img\\blog\\comment-author2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\blog\\comment-author3.jpg",
+      "PackagePath": "staticwebassets\\img\\blog\\comment-author3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\blog\\single.jpg",
+      "PackagePath": "staticwebassets\\img\\blog\\single.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\collection\\0.jpg",
+      "PackagePath": "staticwebassets\\img\\collection\\0.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\collection\\12.png",
+      "PackagePath": "staticwebassets\\img\\collection\\12.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\collection\\13.png",
+      "PackagePath": "staticwebassets\\img\\collection\\13.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\collection\\16.png",
+      "PackagePath": "staticwebassets\\img\\collection\\16.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\collection\\17.png",
+      "PackagePath": "staticwebassets\\img\\collection\\17.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\collection\\25.png",
+      "PackagePath": "staticwebassets\\img\\collection\\25.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\collection\\34.png",
+      "PackagePath": "staticwebassets\\img\\collection\\34.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\collection\\5.png",
+      "PackagePath": "staticwebassets\\img\\collection\\5.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\collection\\50.png",
+      "PackagePath": "staticwebassets\\img\\collection\\50.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\collection\\53.png",
+      "PackagePath": "staticwebassets\\img\\collection\\53.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\collection\\6.png",
+      "PackagePath": "staticwebassets\\img\\collection\\6.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\collection\\60.png",
+      "PackagePath": "staticwebassets\\img\\collection\\60.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\collection\\63.png",
+      "PackagePath": "staticwebassets\\img\\collection\\63.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\collection\\65.png",
+      "PackagePath": "staticwebassets\\img\\collection\\65.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\collection\\67.png",
+      "PackagePath": "staticwebassets\\img\\collection\\67.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\collection\\69.png",
+      "PackagePath": "staticwebassets\\img\\collection\\69.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\collection\\7.png",
+      "PackagePath": "staticwebassets\\img\\collection\\7.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\collection\\72.png",
+      "PackagePath": "staticwebassets\\img\\collection\\72.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\collection\\76.png",
+      "PackagePath": "staticwebassets\\img\\collection\\76.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\collection\\80.png",
+      "PackagePath": "staticwebassets\\img\\collection\\80.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\collection\\84.png",
+      "PackagePath": "staticwebassets\\img\\collection\\84.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\collection\\9.png",
+      "PackagePath": "staticwebassets\\img\\collection\\9.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\drops\\12.png",
+      "PackagePath": "staticwebassets\\img\\drops\\12.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\drops\\13.png",
+      "PackagePath": "staticwebassets\\img\\drops\\13.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\drops\\16.png",
+      "PackagePath": "staticwebassets\\img\\drops\\16.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\drops\\17.png",
+      "PackagePath": "staticwebassets\\img\\drops\\17.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\drops\\25.png",
+      "PackagePath": "staticwebassets\\img\\drops\\25.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\drops\\34.png",
+      "PackagePath": "staticwebassets\\img\\drops\\34.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\drops\\5.png",
+      "PackagePath": "staticwebassets\\img\\drops\\5.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\drops\\50.png",
+      "PackagePath": "staticwebassets\\img\\drops\\50.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\drops\\53.png",
+      "PackagePath": "staticwebassets\\img\\drops\\53.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\drops\\6.png",
+      "PackagePath": "staticwebassets\\img\\drops\\6.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\drops\\60.png",
+      "PackagePath": "staticwebassets\\img\\drops\\60.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\drops\\63.png",
+      "PackagePath": "staticwebassets\\img\\drops\\63.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\drops\\65.png",
+      "PackagePath": "staticwebassets\\img\\drops\\65.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\drops\\67.png",
+      "PackagePath": "staticwebassets\\img\\drops\\67.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\drops\\69.png",
+      "PackagePath": "staticwebassets\\img\\drops\\69.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\drops\\7.png",
+      "PackagePath": "staticwebassets\\img\\drops\\7.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\drops\\72.png",
+      "PackagePath": "staticwebassets\\img\\drops\\72.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\drops\\76.png",
+      "PackagePath": "staticwebassets\\img\\drops\\76.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\drops\\80.png",
+      "PackagePath": "staticwebassets\\img\\drops\\80.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\drops\\84.png",
+      "PackagePath": "staticwebassets\\img\\drops\\84.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\drops\\9.png",
+      "PackagePath": "staticwebassets\\img\\drops\\9.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\full_slider\\1.jpg",
+      "PackagePath": "staticwebassets\\img\\full_slider\\1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\full_slider\\2.jpg",
+      "PackagePath": "staticwebassets\\img\\full_slider\\2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\full_slider\\3.jpg",
+      "PackagePath": "staticwebassets\\img\\full_slider\\3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\full_slider\\4.jpg",
+      "PackagePath": "staticwebassets\\img\\full_slider\\4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\full_slider\\5.jpg",
+      "PackagePath": "staticwebassets\\img\\full_slider\\5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\log.svg",
+      "PackagePath": "staticwebassets\\img\\log.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\logo.png",
+      "PackagePath": "staticwebassets\\img\\logo.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\logo.svg",
+      "PackagePath": "staticwebassets\\img\\logo.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\logoo.png",
+      "PackagePath": "staticwebassets\\img\\logoo.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\market\\discord.png",
+      "PackagePath": "staticwebassets\\img\\market\\discord.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\market\\opensea.png",
+      "PackagePath": "staticwebassets\\img\\market\\opensea.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\roadmap.png",
+      "PackagePath": "staticwebassets\\img\\roadmap.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\slider\\12.png",
+      "PackagePath": "staticwebassets\\img\\slider\\12.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\slider\\13.png",
+      "PackagePath": "staticwebassets\\img\\slider\\13.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\slider\\16.png",
+      "PackagePath": "staticwebassets\\img\\slider\\16.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\slider\\17.png",
+      "PackagePath": "staticwebassets\\img\\slider\\17.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\slider\\25.png",
+      "PackagePath": "staticwebassets\\img\\slider\\25.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\slider\\34.png",
+      "PackagePath": "staticwebassets\\img\\slider\\34.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\slider\\5.png",
+      "PackagePath": "staticwebassets\\img\\slider\\5.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\slider\\50.png",
+      "PackagePath": "staticwebassets\\img\\slider\\50.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\slider\\53.png",
+      "PackagePath": "staticwebassets\\img\\slider\\53.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\slider\\6.png",
+      "PackagePath": "staticwebassets\\img\\slider\\6.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\slider\\60.png",
+      "PackagePath": "staticwebassets\\img\\slider\\60.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\slider\\63.png",
+      "PackagePath": "staticwebassets\\img\\slider\\63.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\slider\\65.png",
+      "PackagePath": "staticwebassets\\img\\slider\\65.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\slider\\67.png",
+      "PackagePath": "staticwebassets\\img\\slider\\67.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\slider\\69.png",
+      "PackagePath": "staticwebassets\\img\\slider\\69.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\slider\\7.png",
+      "PackagePath": "staticwebassets\\img\\slider\\7.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\slider\\72.png",
+      "PackagePath": "staticwebassets\\img\\slider\\72.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\slider\\76.png",
+      "PackagePath": "staticwebassets\\img\\slider\\76.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\slider\\80.png",
+      "PackagePath": "staticwebassets\\img\\slider\\80.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\slider\\84.png",
+      "PackagePath": "staticwebassets\\img\\slider\\84.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\slider\\9.png",
+      "PackagePath": "staticwebassets\\img\\slider\\9.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\video\\1.jpg",
+      "PackagePath": "staticwebassets\\img\\video\\1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\wallet\\coinbase.png",
+      "PackagePath": "staticwebassets\\img\\wallet\\coinbase.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\wallet\\metamask.png",
+      "PackagePath": "staticwebassets\\img\\wallet\\metamask.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\wallet\\venly.png",
+      "PackagePath": "staticwebassets\\img\\wallet\\venly.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\img\\wallet\\walletconnect.png",
+      "PackagePath": "staticwebassets\\img\\wallet\\walletconnect.png"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\js\\jquery.min.js",
+      "PackagePath": "staticwebassets\\js\\jquery.min.js"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\js\\jquery.min.map",
+      "PackagePath": "staticwebassets\\js\\jquery.min.map"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\browser.svg",
+      "PackagePath": "staticwebassets\\svg\\browser.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\cancel.svg",
+      "PackagePath": "staticwebassets\\svg\\cancel.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\checked.svg",
+      "PackagePath": "staticwebassets\\svg\\checked.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\discord.svg",
+      "PackagePath": "staticwebassets\\svg\\discord.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\down.svg",
+      "PackagePath": "staticwebassets\\svg\\down.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\lock.svg",
+      "PackagePath": "staticwebassets\\svg\\lock.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\loupe.svg",
+      "PackagePath": "staticwebassets\\svg\\loupe.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\opensea.svg",
+      "PackagePath": "staticwebassets\\svg\\opensea.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\play.svg",
+      "PackagePath": "staticwebassets\\svg\\play.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\portal.svg",
+      "PackagePath": "staticwebassets\\svg\\portal.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\reply.svg",
+      "PackagePath": "staticwebassets\\svg\\reply.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\behance-1.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\behance-1.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\behance-2.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\behance-2.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\envato.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\envato.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\facebook-1.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\facebook-1.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\facebook-2.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\facebook-2.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\facebook-3.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\facebook-3.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\facebook-4.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\facebook-4.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\facebook-5.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\facebook-5.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\facebook-6.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\facebook-6.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\instagram-1.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\instagram-1.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\instagram-2.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\instagram-2.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\instagram-3.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\instagram-3.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\instagram-4.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\instagram-4.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\linkedin-1.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\linkedin-1.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\linkedin-2.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\linkedin-2.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\linkedin-3.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\linkedin-3.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\ok-1.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\ok-1.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\ok-2.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\ok-2.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\ok-3.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\ok-3.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\pinterest-1.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\pinterest-1.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\pinterest-2.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\pinterest-2.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\pinterest-3.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\pinterest-3.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\skype-1.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\skype-1.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\skype-2.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\skype-2.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\snapchat-1.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\snapchat-1.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\snapchat-2.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\snapchat-2.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\twitter-1.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\twitter-1.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\twitter-2.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\twitter-2.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\twitter-3.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\twitter-3.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\twitter-4.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\twitter-4.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\vk-1.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\vk-1.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\vk-2.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\vk-2.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\vk-3.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\vk-3.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\vk-4.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\vk-4.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\wechat-1.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\wechat-1.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\wechat-2.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\wechat-2.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\whatsapp-1.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\whatsapp-1.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\whatsapp-2.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\whatsapp-2.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\whatsapp-3.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\whatsapp-3.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\whatsapp-4.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\whatsapp-4.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\youtube-1.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\youtube-1.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\youtube-2.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\youtube-2.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\youtube-3.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\youtube-3.svg"
+    },
+    {
+      "Id": "C:\\Users\\bca12\\source\\repos\\HemiKhan\\MultiVerse\\UI\\NFT_UI\\wwwroot\\svg\\social\\youtube-4.svg",
+      "PackagePath": "staticwebassets\\svg\\social\\youtube-4.svg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.NFT_UI.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.NFT_UI.props",
+      "PackagePath": "build\\NFT_UI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.NFT_UI.props",
+      "PackagePath": "buildMultiTargeting\\NFT_UI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.NFT_UI.props",
+      "PackagePath": "buildTransitive\\NFT_UI.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

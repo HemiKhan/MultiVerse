@@ -1,0 +1,400 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/waves.js@0.7.6/dist/waves.min.css" />
+<link href="https://cdn.jsdelivr.net/npm/swiper@7/swiper-bundle.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@7/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@0.5.21/dist/vanta.waves.min.js"></script>
+<style>
+    #vanta-effect {
+        /* Apply gradient background */
+        background: linear-gradient(90deg, rgba(27, 18, 29, 1) 0%, rgba(18, 15, 47, 1) 50%, rgba(27, 18, 29, 1) 100%);
+    }
+
+    .fn_cs_hero_slider {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .bg_overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(27, 18, 29, 1) 0%, rgba(18, 15, 47, 1) 50%, rgba(27, 18, 29, 1) 100%);
+        z-index: 1;
+    }
+
+    .left_part, .slider_part {
+        position: relative;
+        z-index: 2; /* Ensures content is above water effect */
+    }
+</style>
+
+<section id="hero">
+    <!-- Optional WaterWave Effect -->
+    <div id="vanta-effect" class="fn_cs_hero_slider">
+        <div class="bg_overlay"></div>
+        <div class="left_part">
+            <h3 class="fn__maintitle big" data-text="Metaverse of Women">
+                Metaverse of Women
+            </h3>
+            <p>
+                Metaverse of Women represent a collection of 5555. Our collection is designed not only to inspire but to open doors to exclusive benefits, play-to-earn experiences, and a supportive network within the metaverse.
+                The Metaverse of Women are stored as ERC-721 tokens on the Ethereum blockchain and hosted on IPFS.
+            </p>
+            <a href="https://opensea.io/" class="metaportal_fn_button" target="_blank" rel="noreferrer">
+                <span>Buy On Opensea</span>
+            </a>
+        </div>
+        <div class="slider_part">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="item">
+                            <div class="img_holder">
+                                <img src="~/img/drops/25.png" alt="Metaverse Image 1" style="opacity:1; margin-bottom:0;" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="item">
+                            <div class="img_holder">
+                                <img src="~/img/slider/34.png" alt="Metaverse Image 3" style="opacity:1; margin-bottom:0;" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="item">
+                            <div class="img_holder">
+                                <img src="~/img/slider/69.png" alt="Metaverse Image 2" style="opacity:1; margin-bottom:0;" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="item">
+                            <div class="img_holder">
+                                <img src="~/img/slider/34.png" alt="Metaverse Image 3" style="opacity:1; margin-bottom:0;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="fn_cs_section_divider">
+    <div class="divider">
+        <span class="short" />
+        <span class="long" />
+        <span class="short" />
+    </div>
+</div>
+
+<section id="about">
+
+    <div class="fn_cs_about">
+        <div class="left_part">
+            <div class="img">
+                <div class="img_in" data-bg-img="~/img/collection/84.png">
+                    <img src="~/img/1x1.jpg" alt="" />
+                </div>
+            </div>
+            <div class="bg_overlay">
+                <div class="bg_color" />
+                <div class="bg_image" data-bg-img="~/img/collection/84.png" />
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="right_part">
+        <div class="right_in">
+            <h3 class="fn__maintitle" data-text="Metaverse of Women">
+                Metaverse of Women
+            </h3>
+            <div class="fn_cs_divider">
+                <div class="divider">
+                    <span />
+                    <span />
+                </div>
+            </div>
+            <div class="desc">
+                <p>
+                    Metaverse of Women is a purpose-driven NFT collection on the Ethereum blockchain, celebrating the diversity, strength, and creativity of women worldwide. Each NFT connects holders to a community that champions empowerment and inclusivity within the digital world. By owning a Metaverse of Women NFT, you gain access to exclusive events, a play-to-earn mining game with $MW coin rewards, and priority in future releases. More than art, our collection is a movement, fostering meaningful connections and supporting women’s causes globally.
+                    Join us to experience a metaverse where art and impact meet.
+                </p>
+                <h3 class="fn__maintitle" data-text="BEHIND THE STORY">
+                    BEHIND THE STORY
+                </h3>
+                <p>
+                    The story of Metaverse of Women began with a vision to celebrate and empower women through the vast possibilities of the metaverse. Inspired by the diversity and resilience of women worldwide, our team of artists and creators crafted each NFT to represent unique stories, dreams, and identities. This collection isn’t just digital art; it's a community movement, designed to bring people together, foster connections, and provide real utility to holders—from play-to-earn gaming and $MW coin rewards to exclusive access in our virtual events. Metaverse of Women aims to be more than an NFT; it's a bridge to inclusivity and empowerment in the digital age.
+                </p>
+
+
+            </div>
+            <a href="https://discord.gg/aWFAha6wgj"
+               class="metaportal_fn_button"
+               target="_blank"
+               rel="noreferrer">
+                <span>Find us On Discord</span>
+            </a>
+        </div>
+    </div>
+    </div>
+    </div>
+    <div class="container">
+
+        <div class="fn_cs_mint">
+            <div class="left_part">
+                <h3 class="fn__maintitle" data-text="BENEFITS OF MINTING">
+                    BENEFITS OF MINTING
+                </h3>
+                <div class="fn_cs_divider">
+                    <div class="divider">
+                        <span />
+                        <span />
+                    </div>
+                </div>
+                <div class="desc">
+                    <h5 class=" fn__maintitle">Access to the Exclusive $MW Coin Mining Game</h5>
+                    <p class=" text ti-align-justified">
+                        Only Metaverse of Women NFT holders can access our soon-to-launch mining game, designed for an engaging play-to-earn experience. Collect $MW coins as you explore, mine, and uncover virtual treasures in this metaverse-inspired game.
+                        <br />
+                        Play to Earn: Earn $MW coins based on your performance and activities in the game. The more you engage, the more you can earn!
+                    </p>
+                    <h1 class=" fn__maintitle">Claim $MW Coin Rewards</h1>
+                    <p class=" text ti-align-justified">
+                        As an NFT holder, you'll be eligible to claim $MW coins just by holding your NFT and participating in community events. These tokens are tradable and can be used within the metaverse for special perks and utilities.
+                        <br />
+                        Early Adopter Bonuses: Early minters will receive bonus $MW coins, giving you a head start in the game economy.
+                    </p>
+                    <h4 class="fn__maintitle">Member-Only Events and Community Access</h4>
+                    <p class=" text ti-align-justified">
+                        Enjoy exclusive access to members-only events, virtual meetups, and art showcases where you can network, share ideas, and connect with other NFT holders and influential women in tech, art, and media.
+                        <br />
+                        Priority Invitations: Minted members receive priority access to all events, from virtual galleries to live AMAs with the creators and industry experts.
+                    </p>
+                    <h4 class="fn__maintitle">VIP Status in Future Drops and Collaborations</h4>
+                    <p class=" text ti-align-justified">
+                        By owning a Metaverse of Women NFT, you secure a place on the allowlist for future drops, collaborations, and upcoming digital or physical products.
+                        <br />
+                        Merchandise Perks: Unlock limited-edition Metaverse of Women merchandise and collectibles, exclusively available to NFT holders.
+                    </p>
+
+                </div>
+
+                <a href="/nft-single" class="metaportal_fn_button">
+                    <span>How to Mint</span>
+                </a>
+
+            </div>
+            <div class="right_part">
+
+                <div class="fn_cs_steps">
+                    <ul>
+                        <li>
+                            <div class="item">
+                                <div class="item_in">
+                                    <h3 class="fn__gradient_title">01</h3>
+                                    <p>Connect your Wallet</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item">
+                                <div class="item_in">
+                                    <h3 class="fn__gradient_title">02</h3>
+                                    <p>Select Your Quantity</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item">
+                                <div class="item_in">
+                                    <h3 class="fn__gradient_title">03</h3>
+                                    <p>Confirm The Transaction</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item">
+                                <div class="item_in">
+                                    <h3 class="fn__gradient_title">04</h3>
+                                    <p>Receive Your NFT’s</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="fn_cs_video">
+                    <img src="/img/video/1.jpg" alt="" />
+                    <a class="popup-youtube"
+                       href="https://www.youtube.com/embed/7e90gBu4pas">
+                        <img src="/svg/play.svg" alt="" class="fn__svg" />
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<div class="fn_cs_section_divider">
+    <div class="divider">
+        <span class="short" />
+        <span class="long" />
+        <span class="short" />
+    </div>
+</div>
+
+<section id="collection">
+    <div class="container">
+        <h3 class="fn__maintitle big" data-text="Our Collection" data-align="center">
+            Our Collection
+        </h3>
+        <div class="fn_cs_collection">
+            <div class="collection_top">
+                <div class="item">
+                    <div class="item_in">
+                        <div class="img">
+                            <div class="abs_img" style="background-image: url('/img/collection/5.png');"></div>
+                            <img src="/img/1x1.jpg" alt="" />
+                        </div>
+                    </div>
+                    <input type="hidden" value="/img/collection/5.png" />
+                </div>
+                <div class="item">
+                    <div class="item_in">
+                        <div class="img">
+                            <div class="abs_img" style="background-image: url('/img/collection/6.png');"></div>
+                            <img src="/img/1x1.jpg" alt="" />
+                        </div>
+                    </div>
+                    <input type="hidden" value="/img/collection/6.png" />
+                </div>
+                <!-- Add more items here as needed -->
+            </div>
+            <div class="collection_bottom">
+                <div class="item">
+                    <div class="item_in">
+                        <div class="img">
+                            <div class="abs_img" style="background-image: url('/img/collection/65.png');"></div>
+                            <img src="/img/1x1.jpg" alt="" />
+                        </div>
+                    </div>
+                    <input type="hidden" value="/img/collection/65.png" />
+                </div>
+                <div class="item">
+                    <div class="item_in">
+                        <div class="img">
+                            <div class="abs_img" style="background-image: url('/img/collection/69.png');"></div>
+                            <img src="/img/1x1.jpg" alt="" />
+                        </div>
+                    </div>
+                    <input type="hidden" value="/img/collection/69.png" />
+                </div>
+                <!-- Add more items here as needed -->
+            </div>
+        </div>
+        <div class="fn_cs_desc">
+            <p>
+                Metaverse of Women represent a collection of 5555, designed to inspire and offer exclusive benefits, play-to-earn experiences, and a supportive network within the metaverse. Stored as ERC-721 tokens on the Ethereum blockchain and hosted on IPFS.
+            </p>
+        </div>
+    </div>
+</section>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+@section Scripts {
+    <script>
+        var hero4Slider = new Swiper('.swiper-container', {
+            loop: true,
+            speed: 1000,
+            autoplay: {
+                delay: 300,
+                disableOnInteraction: false,
+            },
+            slidesPerView: "auto",
+            spaceBetween: 50,
+            direction: "horizontal",
+            loopAdditionalSlides: 10,
+            watchSlidesProgress: true,
+
+            onSwiper: function (mySwiper) {
+                var slidersCount = mySwiper.params.loop
+                    ? mySwiper.slides.length - 2
+                    : mySwiper.slides.length;
+                var widthParts = 100 / slidersCount;
+                var step = document.querySelector(".fn_cs_roadmap .step_in");
+                roadmapStep(mySwiper, step, widthParts);
+            },
+
+            onSlideChange: function (mySwiper) {
+                var slidersCount = mySwiper.params.loop
+                    ? mySwiper.slides.length - 2
+                    : mySwiper.slides.length;
+                var widthParts = 100 / slidersCount;
+                var step = document.querySelector(".fn_cs_roadmap .step_in");
+                roadmapStep(mySwiper, step, widthParts);
+            },
+        });
+        VANTA.WAVES({
+            el: "#vanta-effect",
+            mouseControls: true,
+            touchControls: true,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x51136d,       // Darker tone at the start of the gradient
+            color2: 0x120f2f,      // Mid gradient color
+            shininess: 50.00,      // Adjust shininess of the water effect
+            waveHeight: 20.00,     // Adjust wave height
+            waveSpeed: 0.5         // Adjust wave speed
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const collection = document.querySelector(".fn_cs_collection");
+            const items = collection.querySelectorAll(".item");
+            const itemsLength = items.length;
+
+            setInterval(function () {
+                let numberOne = Math.floor(Math.random() * itemsLength);
+                let numberTwo;
+
+                do {
+                    numberTwo = Math.floor(Math.random() * itemsLength);
+                } while (numberTwo === numberOne);
+
+                const firstDiv = items[numberOne];
+                const secondDiv = items[numberTwo];
+                const firstImage = firstDiv.querySelector("input").value;
+                const secondImage = secondDiv.querySelector("input").value;
+
+                firstDiv.classList.add("ready");
+                secondDiv.classList.add("ready");
+
+                setTimeout(function () {
+                    // Swap images
+                    firstDiv.querySelector("input").value = secondImage;
+                    firstDiv.querySelector(".abs_img").style.backgroundImage = `url(${secondImage})`;
+
+                    secondDiv.querySelector("input").value = firstImage;
+                    secondDiv.querySelector(".abs_img").style.backgroundImage = `url(${firstImage})`;
+
+                    firstDiv.classList.remove("ready");
+                    secondDiv.classList.remove("ready");
+                }, 500);
+            }, 2000);
+        });
+    </script>
+}
+

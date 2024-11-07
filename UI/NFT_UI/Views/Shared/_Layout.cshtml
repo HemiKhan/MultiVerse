@@ -1,0 +1,332 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Metaverse of Women | @ViewBag.Title</title>
+    <link href="~/css/plugins.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/css/home.module.css" rel="stylesheet" />
+    <link href="~/css/globals.css" rel="stylesheet" />
+</head>
+
+<body>
+    @*     <div class="metaportal_fn_preloader">
+    <div class="loading-container">
+    <div class="loading">
+    <div class="l1">
+    <div />
+    </div>
+    <div class="l2">
+    <div />
+    </div>
+    <div class="l3">
+    <div />
+    </div>
+    <div class="l4">
+    <div />
+    </div>
+    </div>
+    </div>
+    </div> *@
+
+    <div class="metaportal_fn_leftnav_closer" onclick="ShowHideSidebar();"></div>
+    <div class="metaportal_fn_leftnav">
+        <a href="#"
+           class="fn__closer">
+            <span />
+        </a>
+        <div class="navbox">
+            <div class="list_holder">
+                <ul class="metaportal_fn_items">
+                    <li>
+                        <div class="item">
+                            <a href="https://opensea.io/"
+                               target="_blank"
+                               rel="noreferrer" />
+                            <span class="icon">
+                                <img src="/img/market/opensea.png" alt="" />
+                            </span>
+                            <span class="text">Opensea</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item">
+                            <a href="https://discord.gg/aWFAha6wgj"
+                               target="_blank"
+                               rel="noreferrer" />
+                            <span class="icon">
+                                <img src="/img/market/discord.png" alt="" />
+                            </span>
+                            <span class="text">Discord</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav_holder">
+                <span class="icon">
+                    <img src="/svg/down.svg" alt="" class="fn__svg" />
+                </span>
+
+                <ul>
+                    <li>
+                        <a href="/">
+                            <a>
+                                <span class="creative_link">Home</span>
+                            </a>
+                        </a>
+                    </li>
+
+
+                    <li>
+                        <a href="/nft/1">
+                            <a>
+                                <span class="creative_link">Mint Page</span>
+                            </a>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/collection">
+                            <a>
+                                <span class="creative_link">Collection</span>
+                            </a>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/blog">
+                            <a>
+                                <span class="creative_link">Blog</span>
+                            </a>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/coming-soon">
+                            <a>
+                                <span class="creative_link">Coming Soon</span>
+                            </a>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="info_holder">
+                <div class="copyright">
+                    <p>
+                        Copyright 2024 - Designed by{" "}
+                        <a href="#"
+                           target="_blank"
+                           rel="noreferrer">
+                            Metaverse of Women
+                        </a>
+                    </p>
+                </div>
+                <div class="social_icons">
+                    <ul>
+                        <li>
+                            <a href="https://x.com/MetaverseWomen_">
+                                <img src="/svg/social/twitter-1.svg"
+                                     alt=""
+                                     class="fn__svg" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://discord.gg/aWFAha6wgj">
+                                <img src="/svg/discord.svg"
+                                     alt=""
+                                     class="fn__svg" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="/svg/social/instagram-1.svg"
+                                     alt=""
+                                     class="fn__svg" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="/svg/social/pinterest-1.svg"
+                                     alt=""
+                                     class="fn__svg" />
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="metaportal_fn_main">
+
+        <div class="metaportal_fn_mobnav">
+            <div class="mob_top">
+                <div class="social_trigger">
+                    <div class="trigger" onclick="ShowHideSidebar();">
+                        <span />
+                    </div>
+                    <div class="social">
+                        <ul>
+
+                            <li>
+                                <a href="https://www.twitter.com/"
+                                   target="_blank"
+                                   rel="noreferrer">
+                                    Tw.
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/"
+                                   target="_blank"
+                                   rel="noreferrer">
+                                    In.
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://discord.gg/aWFAha6wgj"
+                                   target="_blank"
+                                   rel="noreferrer">
+                                    discord.
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="wallet">
+                    <a href="#"
+                       class="metaportal_fn_button wallet_opener">
+                        <span>
+                            <ConnectWallet />
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="mob_bot">
+                <ul>
+                    <li>
+                        <a class="creative_link" href="#home">
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a class="creative_link" href="#about">
+                            About
+                        </a>
+                    </li>
+                    <li>
+                        <a class="creative_link" href="#collection">
+                            Collection
+                        </a>
+                    </li>
+                    <li>
+                        <a class="creative_link" href="#news">
+                            Blog
+                        </a>
+                    </li>
+                    <li>
+                        <a class="creative_link" href="#contact">
+                            Contact
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!--Header Start -->
+        <header id="header">
+            <div class="header">
+                <div class="header_in">
+                    <div class="trigger_logo">
+                        <div class="trigger" onclick="ShowHideSidebar();">
+                            <span></span>
+                        </div>
+                        <div class="logo">
+                            <a href="/Home/Index">
+                                <img src="~/img/LLL.png" alt="" />
+                            </a>
+                        </div>
+                    </div>
+                    <div class="nav" style="opacity:1;">
+                        <ul>
+                            <li>
+                                <a href="#" class="creative_link">Home</a>
+                            </li>
+                            <li>
+                                <a href="#about" class="creative_link">About</a>
+                            </li>
+                            <li>
+                                <a href="/Home/Index" class="creative_link">Collection</a>
+                            </li>
+                            <li>
+                                <a href="/Home/Index" class="creative_link">Blog</a>
+                            </li>
+                            <li>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="wallet">
+                        <a href="#" class="metaportal_fn_button wallet_opener">
+                            <span>
+                                <ConnectWallet />
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!--Header End -->
+
+        <div class="metaportal_fn_content">
+            <!--Content Start -->
+            @RenderBody()
+            <!--Content End -->
+
+            <footer id="footer">
+                <div class="container">
+                    <div class="footer">
+                        <div class="left_part">
+                            <p>
+                                Copyright 2024 — Developed by
+                                <a href=""
+                                   target="_blank"
+                                   rel="noreferrer">
+                                    Metaverse of Women
+                                </a>
+                            </p>
+                        </div>
+                        <div class="right_part">
+                            <ul>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <a href="#" class="metaportal_fn_totop" style="height: 183px">
+            <span class="totop_inner">
+                <span class="icon">
+                    <img src="/svg/down.svg" alt="" class="fn__svg" style="opacity:1;" />
+                </span>
+                <span class="text">Scroll To Top</span>
+            </span>
+        </a>
+    </div>
+
+    <script src="~/js/jquery.min.js"></script>
+    <script>
+        function ShowHideSidebar() {
+            $(".metaportal_fn_leftnav_closer").toggleClass("active");
+            $(".metaportal_fn_leftnav").toggleClass("active");
+        }
+
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>
