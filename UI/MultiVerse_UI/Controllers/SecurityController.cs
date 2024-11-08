@@ -132,8 +132,8 @@ namespace MultiVerse_UI.Controllers
             _parms.Add(new Dynamic_SP_Params { ParameterName = "MT_ID", Val = 2 });
             List<SelectDropDownList> BlockTypeList = StaticPublicObjects.ado.Get_DropDownList_Result("SELECT code = MTV_CODE, [name] = [Name] FROM [dbo].[T_Master_Type_Value] WITH (NOLOCK) WHERE MT_ID = @MT_ID ORDER BY [Sort_]", _parms);
 
-            List<SelectDropDownList> ApplicationList = StaticPublicObjects.ado.Get_DropDownList_Result("SELECT code = App_ID, [name] = [App_Name] FROM [dbo].[T_Application] WITH (NOLOCK)");
-            List<SelectDropDownList> RoleList = StaticPublicObjects.ado.Get_DropDownList_Result("SELECT code = R_ID, [name] = [RoleName] FROM [dbo].[T_Roles] WITH (NOLOCK)");
+            List<SelectDropDownList> ApplicationList = StaticPublicObjects.ado.Get_DropDownList_Result("SELECT code = App_ID, [name] = [App_Name] FROM [dbo].[T_Application] WITH (NOLOCK) WHERE IsActive = 1");
+            List<SelectDropDownList> RoleList = StaticPublicObjects.ado.Get_DropDownList_Result("SELECT code = R_ID, [name] = [RoleName] FROM [dbo].[T_Roles] WITH (NOLOCK) WHERE IsActive = 1");
 
             getModalDetail.getmodelsize = GetModalSize.modal_lg;
             getModalDetail.modaltitle = (Modal_ID == 0 ? "Add New User" : "Edit User");
