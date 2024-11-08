@@ -1,57 +1,43 @@
 ﻿
 using Data.DataAccess;
 
-namespace EBook_Data.Dtos
+namespace Data.Dtos
 {
     #region User Setup
     public class P_Users_Result
     {
         public int RowNo { get; set; } = 0;
-        public int USER_ID { get; set; } = 0;
+        public int User_ID { get; set; } = 0;
         public string Encrypted_USER_ID
         {
             get
             {
-                return Crypto.EncryptNumericToStringWithOutNull(USER_ID);
+                return Crypto.EncryptNumericToStringWithOutNull(User_ID);
             }
         }
-        public string UserType_MTV_CODE { get; set; } = "";
-        public int D_ID { get; set; } = 0;
-        public int SecurityQuestion_MTV_ID { get; set; } = 0;
-        public int BlockType_MTV_ID { get; set; } = 0;
-        public string USERNAME { get; set; } = "";
-        public string UserType { get; set; } = "";
-        public string Department { get; set; } = "";
-        public string Designation { get; set; } = "";
-        public string FirstName { get; set; } = "";
-        public string MiddleName { get; set; } = "";
-        public string LastName { get; set; } = "";
-        public string Company { get; set; } = "";
-        public string Address { get; set; } = "";
-        public string Address2 { get; set; } = "";
-        public string City { get; set; } = "";
-        public string State { get; set; } = "";
-        public string Country { get; set; } = "";
+        public int R_ID { get; set; } = 0;
+        public string AppName { get; set; } = "";
+        public string RoleName { get; set; } = "";
+        public string UserName { get; set; } = "";
         public string Email { get; set; } = "";
-        public string Mobile { get; set; } = "";
-        public string Phone { get; set; } = "";
-        public string PhoneExt { get; set; } = "";
-        public string SecurityQuestion { get; set; } = "";
-        public string EncryptedAnswer { get; set; } = "";
-        public int TIMEZONE_ID { get; set; } = 0;
-        public string TIMEZONE_Name { get; set; } = "";
-        public bool IsApproved { get; set; } = false;
-        public string BlockType { get; set; } = "";
+        public string FirstName { get; set; } = "";
+        public string LastName { get; set; } = "";
+        public string UserType { get; set; } = "";
         public string PasswordExpiry { get; set; } = "";
-        public bool IsAPIUser { get; set; } = false;
+        public string TelegramID { get; set; } = "";
+        public string TelegramUserName { get; set; } = "";
+        public string BlockType { get; set; } = "";
+        public bool IsApproved { get; set; }
+        public bool IsGroupRoleID { get; set; }
+        public bool IsTempPassword { get; set; }
         public bool IsActive { get; set; } = false;
     }
-    public class P_AddOrEdit_User_Response
+    public class P_AddOrEdit_User_Request
     {
-        public int USER_ID { get; set; } = 0;
+        public int User_ID { get; set; } = 0;
 
         private string _USERNAME = "";
-        public string USERNAME
+        public string UserName
         {
             get
             {
@@ -63,11 +49,21 @@ namespace EBook_Data.Dtos
             }
         }
 
-        public string UserType_MTV_CODE { get; set; } = default!;
-        public string Password { get; set; } = default!;
-        public string ConfirmPassword { get; set; } = default!;
-        public int D_ID { get; set; }
-        public string Designation { get; set; } = default!;
+        private string _Email = "";
+        public string Email
+        {
+            get
+            {
+                return this._Email;
+            }
+            set
+            {
+                this._Email = (value == null ? "" : value.ToLower());
+            }
+        }
+
+        public string TelegramUserName { get; set; } = default!;
+        public string TelegramID { get; set; } = default!;
 
         private string _FirstName = "";
         public string FirstName
@@ -79,19 +75,6 @@ namespace EBook_Data.Dtos
             set
             {
                 this._FirstName = (value == null ? "" : value);
-            }
-        }
-
-        private string _MiddleName = "";
-        public string MiddleName
-        {
-            get
-            {
-                return this._MiddleName;
-            }
-            set
-            {
-                this._MiddleName = (value == null ? "" : value);
             }
         }
 
@@ -108,13 +91,30 @@ namespace EBook_Data.Dtos
             }
         }
 
-        public string Company { get; set; } = default!;
-        public string Address { get; set; } = default!;
-        public string Address2 { get; set; } = default!;
-        public string City { get; set; } = default!;
-        public string State { get; set; } = default!;
-        public string ZipCode { get; set; } = default!;
-        public string Country { get; set; } = default!;
+        public string Password { get; set; } = default!;
+        public string ConfirmPassword { get; set; } = default!;
+        public DateTime PasswordExpiryDateTime { get; set; } = default!;
+        public string UserType_MTV_CODE { get; set; } = default!;
+        public string BlockType_MTV_CODE { get; set; } = default!;
+        public bool IsApproved { get; set; } = false;
+        public bool IsTempPassword { get; set; } = false;
+    }
+    public class P_AddOrEdit_User_Response
+    {
+        public int User_ID { get; set; } = 0;
+
+        private string _USERNAME = "";
+        public string UserName
+        {
+            get
+            {
+                return this._USERNAME;
+            }
+            set
+            {
+                this._USERNAME = (value == null ? "" : value.ToUpper());
+            }
+        }
 
         private string _Email = "";
         public string Email
@@ -129,16 +129,42 @@ namespace EBook_Data.Dtos
             }
         }
 
-        public string Mobile { get; set; } = default!;
-        public string Phone { get; set; } = default!;
-        public string PhoneExt { get; set; } = default!;
-        public int SecurityQuestion_MTV_ID { get; set; }
-        public string EncryptedAnswer { get; set; } = default!;
-        public int TIMEZONE_ID { get; set; }
+        public string TelegramUserName { get; set; } = default!;
+        public string TelegramID { get; set; } = default!;
+
+        private string _FirstName = "";
+        public string FirstName
+        {
+            get
+            {
+                return this._FirstName;
+            }
+            set
+            {
+                this._FirstName = (value == null ? "" : value);
+            }
+        }
+
+        private string _LastName = "";
+        public string LastName
+        {
+            get
+            {
+                return this._LastName;
+            }
+            set
+            {
+                this._LastName = (value == null ? "" : value);
+            }
+        }
+
+        public string PasswordHash { get; set; } = default!;
+        public string PasswordSalt { get; set; } = default!;
+        public DateTime PasswordExpiryDateTime { get; set; } = default!;
+        public string UserType_MTV_CODE { get; set; } = default!;
+        public string BlockType_MTV_CODE { get; set; } = default!;
         public bool IsApproved { get; set; } = false;
-        public int BlockType_MTV_ID { get; set; }
-        public bool IsAPIUser { get; set; } = false;
-        public bool IsActive { get; set; } = true;
+        public bool IsTempPassword { get; set; } = false;
     }
     public class P_Get_User_By_ID
     {
@@ -260,72 +286,6 @@ namespace EBook_Data.Dtos
 
 
         public string USERNAME { get; set; }
-    }
-
-    public class P_UserApplicationAccess_Result
-    {
-        public int RowNo { get; set; } = 0;
-        public int UAA_ID { get; set; } = 0;
-        public string Encrypted_UAA_ID
-        {
-            get
-            {
-                return Crypto.EncryptNumericToStringWithOutNull(UAA_ID);
-            }
-        }
-        public int Application_MTV_ID { get; set; } = 0;
-        public string USERNAME { get; set; } = "";
-        public string ApplicationName { get; set; } = "";
-        public string NAV_USERNAME { get; set; } = "";
-        public string LastLoginDateTime { get; set; } = "";
-        public bool IsActive { get; set; } = false;
-    }
-    public class P_AddOrEdit_UserApplicationAccess_Response
-    {
-        public int UAA_ID { get; set; } = 0;
-        public int Application_MTV_ID { get; set; } = 0;
-        public string USERNAME { get; set; } = "";
-        public string NAV_USERNAME { get; set; } = "";
-    }
-    public class P_AddOrEdit_UserApplicationAccess_Req
-    {
-        public int UAA_ID { get; set; } = 0;
-        public string User_Name { get; set; } = "";
-        public string Application_MTV_ID { get; set; } = "";
-        public string NAV_USERNAME { get; set; } = "";
-    }
-
-    public class P_User_Application_Hub_Access_Result
-    {
-        public int RowNo { get; set; } = 0;
-        public int UAHA_ID { get; set; } = 0;
-
-        public string Encrypted_UAHA_ID
-        {
-            get
-            {
-                return Crypto.EncryptNumericToStringWithOutNull(UAHA_ID);
-            }
-        }
-        public string USERNAME { get; set; } = "";
-        public int Application_MTV_ID { get; set; }
-        public string HUB_CODE { get; set; } = "";
-        public int HL_ID { get; set; } = 0;
-        public string HubName { get; set; } = "";
-        public string ApplicationName { get; set; } = "";
-        public bool IsAddRight { get; set; }
-        public bool IsEditRight { get; set; }
-        public bool IsDeleteRight { get; set; }
-        public bool IsActive { get; set; }
-    }
-    public class P_User_Application_Hub_Access_Response
-    {
-        public int UAHA_ID { get; set; } = 0;
-        public int Application_MTV_ID { get; set; } = 0;
-        public string HUB_CODE { get; set; } = "";
-        public bool IsAddRight { get; set; }
-        public bool IsEditRight { get; set; }
-        public bool IsDeleteRight { get; set; }
     }
     #endregion User Setup
 

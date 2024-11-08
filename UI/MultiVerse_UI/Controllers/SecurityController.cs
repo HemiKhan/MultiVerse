@@ -1,8 +1,6 @@
 ﻿using Data.DataAccess;
 using Data.Dtos;
-using EBook_Data.Dtos;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using MultiVerse_UI.Extensions;
 using MultiVerse_UI.Models;
 using Newtonsoft.Json;
@@ -32,6 +30,393 @@ namespace MultiVerse_UI.Controllers
             this._PublicClaimObjects = StaticPublicObjects.ado.GetPublicClaimObjects();
         }
         #endregion Controller Constructor
+
+        #region User Setup
+        [CustomPageSetup]
+        public IActionResult UserSetup()
+        {
+            bool IsView = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects!.username, RightsList_ID.Page_Setup_View);
+            if (IsView)
+            {
+                bool IsAdd = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects.username, RightsList_ID.User_Setup_Add);
+                bool IsEdit = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects.username, RightsList_ID.User_Setup_Edit);
+                bool IsDelete = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects.username, RightsList_ID.User_Setup_Delete);
+                ViewBag.RightsListObj = new { IsView = IsView, IsAdd = IsAdd, IsEdit = IsEdit, IsDelete = IsDelete };
+                ViewBag.RightsList = JsonConvert.SerializeObject(ViewBag.RightsListObj);
+
+                DataSet DS = new DataSet();
+                (string Name, object Value)[] ParamsNameValues = new (string, object)[1];
+                ParamsNameValues[0] = ("Username", _PublicClaimObjects.username);
+                DS = StaticPublicObjects.ado.ExecuteStoreProcedureDS("P_Get_UserSetup_Dropdown_Lists", ParamsNameValues);
+                ViewBag.RolesList = JsonConvert.SerializeObject(DS.Tables[0]);
+                ViewBag.ApplicationAccessList = JsonConvert.SerializeObject(DS.Tables[1]);
+                ViewBag.BlockList = JsonConvert.SerializeObject(DS.Tables[2]);
+                ViewBag.UserTypeList = JsonConvert.SerializeObject(DS.Tables[3]);
+                return View();
+            }
+            else
+            {
+                string ID = "";
+                Exception exception = new Exception("You Don't Have Rights To Access User Setup");
+                ID = _httpContextAccessor.HttpContext!.Session.SetupSessionError("No Rights", "/Security/UserSetup", "User Setup", exception);
+                return Redirect($"/Error/Index?ID={ID}");
+            }
+        }
+
+        [CheckSessionExpiration]
+        [HttpPost]
+        public IActionResult GetUsersList([FromBody] ReportParams _ReportParams)
+        {
+            ReportResponsePageSetup reportResponse = new ReportResponsePageSetup();
+            try
+            {
+                if (StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects!.username, RightsList_ID.Page_Setup_View))
+                {
+                    List<Dynamic_SP_Params> List_Dynamic_SP_Params = new List<Dynamic_SP_Params>();
+                    ModalFunctions.GetKendoFilter(ref _ReportParams, ref List_Dynamic_SP_Params, _PublicClaimObjects, true);
+
+                    List<P_Users_Result> ResultList = StaticPublicObjects.ado.P_Get_Generic_List_SP<P_Users_Result>("P_Get_Users_List", ref List_Dynamic_SP_Params);
+
+                    reportResponse.TotalRowCount = ModalFunctions.GetValueFromReturnParameter<long>(List_Dynamic_SP_Params, "TotalRowCount", typeof(long));
+                    reportResponse.ResultData = ResultList;
+                    reportResponse.response_code = true;
+                }
+                else
+                {
+                    reportResponse.TotalRowCount = 0;
+                    reportResponse.ResultData = null;
+                    reportResponse.response_code = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                StaticPublicObjects.logFile.ErrorLog(FunctionName: "GetUsersList", SmallMessage: ex.Message, Message: ex.ToString());
+                reportResponse.TotalRowCount = 0;
+                reportResponse.ResultData = null;
+                reportResponse.response_code = false;
+            }
+            return Globals.GetAjaxJsonReturn(reportResponse);
+        }
+
+        [CheckSessionExpiration]
+        [HttpPost]
+        public string GetAddEditUserModal([FromBody] string Encrypted_USER_ID)
+        {
+            string HtmlString = "";
+            DataSet DS = new DataSet();
+            int Modal_ID = Crypto.DecryptNumericToStringWithOutNull(Encrypted_USER_ID);
+
+            bool IsAdd = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects!.username, RightsList_ID.Page_Setup_Add);
+            bool IsEdit = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects.username, RightsList_ID.Page_Setup_Edit);
+            if ((Modal_ID == 0 && IsAdd == false) || (Modal_ID > 0 && IsEdit == false))
+                return "No Rights";
+
+            GetModalDetail getModalDetail = new GetModalDetail();
+            List<ModalBodyTypeInfo> List_ModalBodyTypeInfo = new List<ModalBodyTypeInfo>();
+            ModalBodyTypeInfo modalBodyTypeInfo = new ModalBodyTypeInfo();
+            List<Dynamic_SP_Params> _parms = new List<Dynamic_SP_Params>();
+
+            P_AddOrEdit_User_Response ModalEdit = new P_AddOrEdit_User_Response();
+            if (Modal_ID > 0)
+            {
+                _parms = new List<Dynamic_SP_Params>();
+                _parms.Add(new Dynamic_SP_Params { ParameterName = "ModalID", Val = Modal_ID });
+                ModalEdit = StaticPublicObjects.ado.P_Get_Generic_SP<P_AddOrEdit_User_Response>("SELECT [User_ID],UserName,Email,TelegramUserName,TelegramID,FirstName,LastName,PasswordHash,PasswordSalt,PasswordExpiryDateTime,UserType_MTV_CODE,BlockType_MTV_CODE,IsApproved,IsTempPassword FROM [dbo].[T_Users] WITH (NOLOCK) WHERE [User_ID] = @ModalID", ref _parms, false);
+            }
+
+            List<SelectDropDownList> ApplicationList = StaticPublicObjects.ado.Get_DropDownList_Result("SELECT code = App_ID, [name] = [App_Name] FROM [dbo].[T_Application] WITH (NOLOCK)");
+
+            getModalDetail.getmodelsize = GetModalSize.modal_md;
+            getModalDetail.modaltitle = (Modal_ID == 0 ? "Add New User" : "Edit User");
+            getModalDetail.modalfootercancelbuttonname = "Cancel";
+            getModalDetail.modalfootersuccessbuttonname = (Modal_ID == 0 ? "Add" : "Update");
+            getModalDetail.modalBodyTypeInfos = new List<ModalBodyTypeInfo>();
+
+            getModalDetail.onclickmodalsuccess = "AddOrEditUser()";
+
+            modalBodyTypeInfo = new ModalBodyTypeInfo();
+            modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRInput;
+            modalBodyTypeInfo.GetInputTypeString = GetInputStringType.text;
+            modalBodyTypeInfo.LabelName = "User ID";
+            modalBodyTypeInfo.PlaceHolder = "User ID";
+            modalBodyTypeInfo.id = "User_ID";
+            modalBodyTypeInfo.IsRequired = true;
+            if (ModalEdit.User_ID > 0)
+            {
+                modalBodyTypeInfo.value = ModalEdit.User_ID;
+            }
+            modalBodyTypeInfo.AttributeList = new List<AttributeList>();
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "readonly", Value = "readonly" });
+            if (ModalEdit.User_ID > 0)
+                List_ModalBodyTypeInfo.Add(modalBodyTypeInfo);
+
+            modalBodyTypeInfo = new ModalBodyTypeInfo();
+            modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRInput;
+            modalBodyTypeInfo.GetInputTypeString = GetInputStringType.text;
+            modalBodyTypeInfo.LabelName = "User Name";
+            modalBodyTypeInfo.PlaceHolder = "User Name";
+            modalBodyTypeInfo.id = "UserName";
+            modalBodyTypeInfo.IsRequired = true;
+            if (ModalEdit.UserName != "")
+            {
+                modalBodyTypeInfo.value = ModalEdit.UserName;
+            }
+            modalBodyTypeInfo.ClassName = "form-control";
+            modalBodyTypeInfo.AttributeList = new List<AttributeList>();
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onfocus", Value = "validate(this);" });
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onkeydown", Value = "validate(this);" });
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onchange", Value = "validate(this);" });
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "autocomplete", Value = "off" });
+            List_ModalBodyTypeInfo.Add(modalBodyTypeInfo);
+
+            modalBodyTypeInfo = new ModalBodyTypeInfo();
+            modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRInput;
+            modalBodyTypeInfo.GetInputTypeString = GetInputStringType.text;
+            modalBodyTypeInfo.ClassName = "form-control";
+            modalBodyTypeInfo.LabelName = "Password";
+            modalBodyTypeInfo.PlaceHolder = "Password";
+            modalBodyTypeInfo.id = "Password";
+            modalBodyTypeInfo.IsRequired = true;
+            modalBodyTypeInfo.value = "";
+            modalBodyTypeInfo.AttributeList = new List<AttributeList>();
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onfocus", Value = "validate(this);" });
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onkeydown", Value = "validate(this);" });
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onchange", Value = "validate(this);" });
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "autocomplete", Value = "off" });
+            if (ModalEdit.User_ID == 0)
+                List_ModalBodyTypeInfo.Add(modalBodyTypeInfo);
+
+            modalBodyTypeInfo = new ModalBodyTypeInfo();
+            modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRInput;
+            modalBodyTypeInfo.GetInputTypeString = GetInputStringType.text;
+            modalBodyTypeInfo.ClassName = "form-control";
+            modalBodyTypeInfo.LabelName = "Confirm Password";
+            modalBodyTypeInfo.PlaceHolder = "Confirm Password";
+            modalBodyTypeInfo.id = "ConfirmPassword";
+            modalBodyTypeInfo.IsRequired = true;
+            modalBodyTypeInfo.value = "";
+            modalBodyTypeInfo.AttributeList = new List<AttributeList>();
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onfocus", Value = "validate(this);" });
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onkeydown", Value = "validate(this);" });
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onchange", Value = "validate(this);" });
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "autocomplete", Value = "off" });
+            if (ModalEdit.User_ID == 0)
+                List_ModalBodyTypeInfo.Add(modalBodyTypeInfo);
+
+            modalBodyTypeInfo = new ModalBodyTypeInfo();
+            modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRInput;
+            modalBodyTypeInfo.GetInputTypeString = GetInputStringType.text;
+            modalBodyTypeInfo.LabelName = "Email";
+            modalBodyTypeInfo.PlaceHolder = "Email";
+            modalBodyTypeInfo.id = "Email";
+            modalBodyTypeInfo.IsRequired = true;
+            if (ModalEdit.Email != "")
+            {
+                modalBodyTypeInfo.value = ModalEdit.Email;
+            }
+            modalBodyTypeInfo.ClassName = "form-control";
+            modalBodyTypeInfo.AttributeList = new List<AttributeList>();
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onfocus", Value = "validate(this);" });
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onkeydown", Value = "validate(this);" });
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onchange", Value = "validate(this);" });
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "autocomplete", Value = "off" });
+            List_ModalBodyTypeInfo.Add(modalBodyTypeInfo);
+
+            modalBodyTypeInfo = new ModalBodyTypeInfo();
+            modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRInput;
+            modalBodyTypeInfo.GetInputTypeString = GetInputStringType.text;
+            modalBodyTypeInfo.LabelName = "Telegram Name";
+            modalBodyTypeInfo.PlaceHolder = "Telegram User Name";
+            modalBodyTypeInfo.id = "TelegramUserName";
+            modalBodyTypeInfo.IsRequired = false;
+            if (ModalEdit.TelegramUserName != "")
+            {
+                modalBodyTypeInfo.value = ModalEdit.TelegramUserName;
+            }
+            modalBodyTypeInfo.ClassName = "form-control";
+            modalBodyTypeInfo.AttributeList = new List<AttributeList>();
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "autocomplete", Value = "off" });
+            List_ModalBodyTypeInfo.Add(modalBodyTypeInfo);
+
+            modalBodyTypeInfo = new ModalBodyTypeInfo();
+            modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRInput;
+            modalBodyTypeInfo.GetInputTypeString = GetInputStringType.text;
+            modalBodyTypeInfo.LabelName = "Telegram ID";
+            modalBodyTypeInfo.PlaceHolder = "Telegram ID";
+            modalBodyTypeInfo.id = "TelegramID";
+            modalBodyTypeInfo.IsRequired = false;
+            if (ModalEdit.TelegramID != "")
+            {
+                modalBodyTypeInfo.value = ModalEdit.TelegramID;
+            }
+            modalBodyTypeInfo.ClassName = "form-control";
+            modalBodyTypeInfo.AttributeList = new List<AttributeList>();
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "autocomplete", Value = "off" });
+            List_ModalBodyTypeInfo.Add(modalBodyTypeInfo);
+
+            modalBodyTypeInfo = new ModalBodyTypeInfo();
+            modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRInput;
+            modalBodyTypeInfo.GetInputTypeString = GetInputStringType.text;
+            modalBodyTypeInfo.LabelName = "First Name";
+            modalBodyTypeInfo.PlaceHolder = "First Name";
+            modalBodyTypeInfo.id = "FirstName";
+            modalBodyTypeInfo.IsRequired = false;
+            if (ModalEdit.FirstName != "")
+            {
+                modalBodyTypeInfo.value = ModalEdit.FirstName;
+            }
+            modalBodyTypeInfo.ClassName = "form-control";
+            modalBodyTypeInfo.AttributeList = new List<AttributeList>();
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "autocomplete", Value = "off" });
+            List_ModalBodyTypeInfo.Add(modalBodyTypeInfo);
+
+            modalBodyTypeInfo = new ModalBodyTypeInfo();
+            modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRInput;
+            modalBodyTypeInfo.GetInputTypeString = GetInputStringType.text;
+            modalBodyTypeInfo.LabelName = "Last Name";
+            modalBodyTypeInfo.PlaceHolder = "Last Name";
+            modalBodyTypeInfo.id = "LastName";
+            modalBodyTypeInfo.IsRequired = false;
+            if (ModalEdit.LastName != "")
+            {
+                modalBodyTypeInfo.value = ModalEdit.LastName;
+            }
+            modalBodyTypeInfo.ClassName = "form-control";
+            modalBodyTypeInfo.AttributeList = new List<AttributeList>();
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "autocomplete", Value = "off" });
+            List_ModalBodyTypeInfo.Add(modalBodyTypeInfo);
+
+            modalBodyTypeInfo = new ModalBodyTypeInfo();
+            modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRInput;
+            modalBodyTypeInfo.GetInputTypeString = GetInputStringType.date;
+            modalBodyTypeInfo.LabelName = "Password Expiry";
+            modalBodyTypeInfo.PlaceHolder = "Password Expiry";
+            modalBodyTypeInfo.id = "PasswordExpiryDateTime";
+            modalBodyTypeInfo.IsRequired = false;
+            if (ModalEdit.PasswordExpiryDateTime.ToString() != "")
+            {
+                modalBodyTypeInfo.value = ModalEdit.PasswordExpiryDateTime;
+            }
+            modalBodyTypeInfo.ClassName = "form-control";
+            modalBodyTypeInfo.AttributeList = new List<AttributeList>();
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "autocomplete", Value = "off" });
+            List_ModalBodyTypeInfo.Add(modalBodyTypeInfo);
+
+            modalBodyTypeInfo = new ModalBodyTypeInfo();
+            modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRselect;
+            modalBodyTypeInfo.GetInputTypeString = GetInputStringType.text;
+            modalBodyTypeInfo.LabelName = "User Type";
+            modalBodyTypeInfo.id = "UserType_MTV_CODE";
+            modalBodyTypeInfo.IsRequired = false;
+            if (!string.IsNullOrWhiteSpace(ModalEdit.UserType_MTV_CODE))
+            {
+                modalBodyTypeInfo.IsSelectOption = true;
+                modalBodyTypeInfo.value = ModalEdit.UserType_MTV_CODE;
+            }
+            modalBodyTypeInfo.selectLists = ApplicationList;
+            modalBodyTypeInfo.ClassName = "form-control";
+            modalBodyTypeInfo.AttributeList = new List<AttributeList>();
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onfocus", Value = "validate(this);" });
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onkeydown", Value = "validate(this);" });
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onchange", Value = "validate(this);" });
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "autocomplete", Value = "off" });
+            List_ModalBodyTypeInfo.Add(modalBodyTypeInfo);
+
+            modalBodyTypeInfo = new ModalBodyTypeInfo();
+            modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRselect;
+            modalBodyTypeInfo.GetInputTypeString = GetInputStringType.text;
+            modalBodyTypeInfo.LabelName = "Block Type";
+            modalBodyTypeInfo.id = "BlockType_MTV_CODE";
+            modalBodyTypeInfo.IsRequired = false;
+            if (!string.IsNullOrWhiteSpace(ModalEdit.BlockType_MTV_CODE))
+            {
+                modalBodyTypeInfo.IsSelectOption = true;
+                modalBodyTypeInfo.value = ModalEdit.BlockType_MTV_CODE;
+            }
+            modalBodyTypeInfo.selectLists = ApplicationList;
+            modalBodyTypeInfo.ClassName = "form-control";
+            modalBodyTypeInfo.AttributeList = new List<AttributeList>();
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onfocus", Value = "validate(this);" });
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onkeydown", Value = "validate(this);" });
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onchange", Value = "validate(this);" });
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "autocomplete", Value = "off" });
+            List_ModalBodyTypeInfo.Add(modalBodyTypeInfo);
+
+            modalBodyTypeInfo = new ModalBodyTypeInfo();
+            modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRCheckBox;
+            modalBodyTypeInfo.LabelName = "IsApproved";
+            modalBodyTypeInfo.IsRequired = false;
+            modalBodyTypeInfo.GetInputTypeString = GetInputStringType.checkbox;
+            modalBodyTypeInfo.PlaceHolder = "IsApproved";
+            modalBodyTypeInfo.id = "IsApproved";
+            modalBodyTypeInfo.value = "";
+            if (ModalEdit.User_ID > 0)
+            {
+                modalBodyTypeInfo.ischecked = ModalEdit.IsApproved;
+            }
+            else
+            {
+                modalBodyTypeInfo.ischecked = false;
+            }
+            List_ModalBodyTypeInfo.Add(modalBodyTypeInfo);
+
+            modalBodyTypeInfo = new ModalBodyTypeInfo();
+            modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRCheckBox;
+            modalBodyTypeInfo.LabelName = "Is TempPassword";
+            modalBodyTypeInfo.IsRequired = false;
+            modalBodyTypeInfo.GetInputTypeString = GetInputStringType.checkbox;
+            modalBodyTypeInfo.PlaceHolder = "Is TempPassword";
+            modalBodyTypeInfo.id = "IsTempPassword";
+            modalBodyTypeInfo.value = "";
+            if (ModalEdit.User_ID > 0)
+            {
+                modalBodyTypeInfo.ischecked = ModalEdit.IsTempPassword;
+            }
+            else
+            {
+                modalBodyTypeInfo.ischecked = false;
+            }
+            List_ModalBodyTypeInfo.Add(modalBodyTypeInfo);
+
+            getModalDetail.modalBodyTypeInfos = List_ModalBodyTypeInfo;
+            HtmlString = ModalFunctions.GetModalWithBody(getModalDetail);
+            return HtmlString;
+        }
+
+        [CheckSessionExpiration]
+        [HttpPost]
+        public IActionResult AddOrEdit_User([FromBody] P_AddOrEdit_Page_Response res)
+        {
+            bool IsAdd = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects!.username, RightsList_ID.User_Setup_Add);
+            bool IsEdit = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects.username, RightsList_ID.User_Setup_Edit);
+            if ((IsAdd == false) || (IsEdit == false))
+                return Content(JsonConvert.SerializeObject("No Rights"));
+
+            P_ReturnMessage_Result response = StaticPublicObjects.ado.P_SP_MultiParm_Result("P_AddOrEdit_User", res, _PublicClaimObjects.username);
+            if (response.ReturnCode == false)
+                StaticPublicObjects.logFile.ErrorLog(FunctionName: "AddOrEdit_User", SmallMessage: response.ReturnText!, Message: response.ReturnText!);
+            return Content(JsonConvert.SerializeObject(response));
+        }
+
+        [CheckSessionExpiration]
+        [HttpPost]
+        public IActionResult Remove_User([FromBody] string Ery_User_ID)
+        {
+            bool IsDelete = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects!.username, RightsList_ID.User_Setup_Delete);
+            if (IsDelete)
+            {
+                int User_ID = Crypto.DecryptNumericToStringWithOutNull(Ery_User_ID);
+                P_ReturnMessage_Result response = StaticPublicObjects.ado.P_SP_Remove_Generic_Result("T_Users", "User_ID", User_ID);
+                if (response.ReturnCode == false)
+                    StaticPublicObjects.logFile.ErrorLog(FunctionName: "Remove_User", SmallMessage: response.ReturnText!, Message: response.ReturnText!);
+                return Content(JsonConvert.SerializeObject(response));
+            }
+            else
+            {
+                return Content(JsonConvert.SerializeObject("No Rights"));
+            }
+        }
+        #endregion User Setup
 
         #region Page Setup
         [CustomPageSetup]
@@ -503,7 +888,7 @@ namespace MultiVerse_UI.Controllers
             if (IsDelete)
             {
                 int PG_ID = Crypto.DecryptNumericToStringWithOutNull(Ery_PG_ID);
-                P_ReturnMessage_Result response = StaticPublicObjects.ado.P_SP_SingleParm_Result("P_Remove_PageGroup", "PG_ID", PG_ID, _PublicClaimObjects.username);
+                P_ReturnMessage_Result response = StaticPublicObjects.ado.P_SP_Remove_Generic_Result("T_Page_Group", "PG_ID", PG_ID);
                 if (response.ReturnCode == false)
                     StaticPublicObjects.logFile.ErrorLog(FunctionName: "Remove_PageGroup", SmallMessage: response.ReturnText!, Message: response.ReturnText!);
                 return Content(JsonConvert.SerializeObject(response));
@@ -522,7 +907,7 @@ namespace MultiVerse_UI.Controllers
             if (IsDelete)
             {
                 int P_ID = Crypto.DecryptNumericToStringWithOutNull(Ery_P_ID);
-                P_ReturnMessage_Result response = StaticPublicObjects.ado.P_SP_SingleParm_Result("P_Remove_Page", "P_ID", P_ID, _PublicClaimObjects.username);
+                P_ReturnMessage_Result response = StaticPublicObjects.ado.P_SP_Remove_Generic_Result("T_Page", "P_ID", P_ID);
                 if (response.ReturnCode == false)
                     StaticPublicObjects.logFile.ErrorLog(FunctionName: "Remove_Page", SmallMessage: response.ReturnText!, Message: response.ReturnText!);
                 return Content(JsonConvert.SerializeObject(response));
@@ -697,39 +1082,6 @@ namespace MultiVerse_UI.Controllers
             catch (Exception ex)
             {
                 StaticPublicObjects.logFile.ErrorLog(FunctionName: "GetFilterData_RoleGroupMap_List", SmallMessage: ex.Message, Message: ex.ToString());
-                reportResponse.TotalRowCount = 0;
-                reportResponse.ResultData = null;
-                reportResponse.response_code = false;
-            }
-            return Globals.GetAjaxJsonReturn(reportResponse);
-        }
-        [HttpPost]
-        public IActionResult GetFilterData_DepartmentRoleMap_List([FromBody] ReportParams _ReportParams)
-        {
-            ReportResponse reportResponse = new ReportResponse();
-            try
-            {
-                if (StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects.username, RightsList_ID.Role_Setup_View))
-                {
-                    List<Dynamic_SP_Params> List_Dynamic_SP_Params = new List<Dynamic_SP_Params>();
-                    ModalFunctions.GetKendoFilter(ref _ReportParams, ref List_Dynamic_SP_Params, _PublicClaimObjects, true);
-
-                    List<P_DepartmentRoleMap_Result> ResultList = StaticPublicObjects.ado.P_Get_Generic_List_SP<P_DepartmentRoleMap_Result>("P_Get_DepartmentRoleMap_List", ref List_Dynamic_SP_Params);
-
-                    reportResponse.TotalRowCount = ModalFunctions.GetValueFromReturnParameter<long>(List_Dynamic_SP_Params, "TotalRowCount", typeof(long));
-                    reportResponse.ResultData = ResultList;
-                    reportResponse.response_code = true;
-                }
-                else
-                {
-                    reportResponse.TotalRowCount = 0;
-                    reportResponse.ResultData = null;
-                    reportResponse.response_code = false;
-                }
-            }
-            catch (Exception ex)
-            {
-                StaticPublicObjects.logFile.ErrorLog(FunctionName: "GetFilterData_DepartmentRoleMap_List", SmallMessage: ex.Message, Message: ex.ToString());
                 reportResponse.TotalRowCount = 0;
                 reportResponse.ResultData = null;
                 reportResponse.response_code = false;
@@ -1107,166 +1459,12 @@ namespace MultiVerse_UI.Controllers
 
             return HtmlString;
         }
-        [HttpPost]
-        public string GetAddEditDepartmentRoleMappingModal([FromBody] int DepartmentRoleMappingID)
-        {
-            string HtmlString = "";
-
-            bool IsAdd = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects.username, RightsList_ID.Role_Setup_Add);
-            bool IsEdit = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects.username, RightsList_ID.Role_Setup_Edit);
-
-            if ((DepartmentRoleMappingID == 0 && IsAdd == false) || (DepartmentRoleMappingID > 0 && IsEdit == false))
-                return "No Rights";
-
-            GetModalDetail getModalDetail = new GetModalDetail();
-            List<ModalBodyTypeInfo> List_ModalBodyTypeInfo = new List<ModalBodyTypeInfo>();
-            ModalBodyTypeInfo modalBodyTypeInfo = new ModalBodyTypeInfo();
-
-            P_AddOrEdit_Department_Role_Mapping_Response DeptartmentRoleMappingEdit = new P_AddOrEdit_Department_Role_Mapping_Response();
-            if (DepartmentRoleMappingID > 0)
-            {
-                List<Dynamic_SP_Params> List_Dynamic_SP_Params = new List<Dynamic_SP_Params>();
-                Dynamic_SP_Params Dynamic_SP_Params = new Dynamic_SP_Params();
-                Dynamic_SP_Params.ParameterName = "DRM_ID";
-                Dynamic_SP_Params.Val = DepartmentRoleMappingID;
-                List_Dynamic_SP_Params.Add(Dynamic_SP_Params);
-                DeptartmentRoleMappingEdit = StaticPublicObjects.ado.ExecuteSelectSQLMap<P_AddOrEdit_Department_Role_Mapping_Response>("SELECT DRM_ID DepartmentRoleMappingID, R_ID RoleID, D_ID DepartmentID, IsActive Active FROM [dbo].[T_Department_Role_Mapping] with (nolock) WHERE DRM_ID = @DRM_ID", false, 0, ref List_Dynamic_SP_Params);
-            }
-
-            List<Dynamic_SP_Params> RoleGroup_Params = null;
-            List<SelectDropDownList> List_Department_SelectDropDownList = StaticPublicObjects.ado.ExecuteSelectSQLMapList<SelectDropDownList>("SELECT code = D_ID, name = DepartmentName FROM [dbo].T_Department with (nolock) WHERE isActive = 1", false, 0, ref RoleGroup_Params);
-            List<SelectDropDownList> List_Role_SelectDropDownList = new List<SelectDropDownList>();
-            if (DepartmentRoleMappingID > 0)
-            {
-                List_Role_SelectDropDownList = StaticPublicObjects.ado.ExecuteSelectSQLMapList<SelectDropDownList>("SELECT code = R_ID, name = RoleName FROM [dbo].[T_Roles] with (nolock) WHERE isActive = 1", false, 0, ref RoleGroup_Params);
-            }
-
-            getModalDetail.getmodelsize = GetModalSize.modal_md;
-            getModalDetail.modaltitle = (DepartmentRoleMappingID == 0 ? "Add New Department Role Mapping" : "Edit Department Role Mapping");
-            getModalDetail.modalfootercancelbuttonname = "Cancel";
-            getModalDetail.modalfootersuccessbuttonname = (DepartmentRoleMappingID == 0 ? "Add" : "Update");
-            getModalDetail.modalBodyTypeInfos = new List<ModalBodyTypeInfo>();
-
-            getModalDetail.onclickmodalsuccess = "AddOrEdit_Department_Role_Mapping()";
-
-            modalBodyTypeInfo = new ModalBodyTypeInfo();
-            modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRInput;
-            modalBodyTypeInfo.LabelName = "Department Role Mapping ID";
-            modalBodyTypeInfo.IsRequired = false;
-            modalBodyTypeInfo.GetInputTypeString = GetInputStringType.number;
-            modalBodyTypeInfo.PlaceHolder = "Department Role Mapping ID";
-            modalBodyTypeInfo.id = "modaldepartmentrolemapid";
-            if (DeptartmentRoleMappingEdit.DepartmentRoleMappingID > 0)
-            {
-                modalBodyTypeInfo.value = DeptartmentRoleMappingEdit.DepartmentRoleMappingID;
-            }
-            else
-            {
-                modalBodyTypeInfo.value = "";
-            }
-            modalBodyTypeInfo.ClassName = "form-control";
-            modalBodyTypeInfo.AttributeList = new List<AttributeList>
-            {
-                new AttributeList { Name = "readonly", Value = "readonly" }
-            };
-            if (DeptartmentRoleMappingEdit.DepartmentRoleMappingID > 0)
-                List_ModalBodyTypeInfo.Add(modalBodyTypeInfo);
-
-            modalBodyTypeInfo = new ModalBodyTypeInfo();
-            modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRselect;
-            modalBodyTypeInfo.LabelName = "Department Name";
-            modalBodyTypeInfo.IsRequired = true;
-            modalBodyTypeInfo.GetInputTypeString = GetInputStringType.text;
-            modalBodyTypeInfo.id = "modaldrmdepartmentname";
-            if (DeptartmentRoleMappingEdit.DepartmentID > 0)
-            {
-                modalBodyTypeInfo.IsSelectOption = true;
-                modalBodyTypeInfo.value = DeptartmentRoleMappingEdit.DepartmentID;
-            }
-            else
-            {
-                modalBodyTypeInfo.value = "";
-            }
-            modalBodyTypeInfo.selectLists = List_Department_SelectDropDownList;
-            modalBodyTypeInfo.ClassName = "form-control";
-            if (DepartmentRoleMappingID > 0)
-            {
-                modalBodyTypeInfo.AttributeList = new List<AttributeList>
-                {
-                    new AttributeList(){Name = "onfocus", Value = "validate(this)"},
-                    new AttributeList(){Name = "onkeydown", Value = "validate(this)"},
-                    new AttributeList { Name = "onchange", Value = "validate(this)" },
-                    new AttributeList(){Name = "autocomplete", Value = "off"}
-                };
-            }
-            else
-            {
-                modalBodyTypeInfo.AttributeList = new List<AttributeList>
-                {
-                    new AttributeList(){Name = "onfocus", Value = "validate(this)"},
-                    new AttributeList(){Name = "onkeydown", Value = "validate(this)"},
-                    new AttributeList { Name = "onchange", Value = "Load_Roles_By_Department_Dropdown(this.value)" },
-                    new AttributeList(){Name = "autocomplete", Value = "off"}
-                };
-            }
-            List_ModalBodyTypeInfo.Add(modalBodyTypeInfo);
-
-            modalBodyTypeInfo = new ModalBodyTypeInfo();
-            modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRselect;
-            modalBodyTypeInfo.LabelName = "Role Name";
-            modalBodyTypeInfo.IsRequired = true;
-            modalBodyTypeInfo.GetInputTypeString = GetInputStringType.text;
-            modalBodyTypeInfo.id = "modaldrmrolename";
-            if (DeptartmentRoleMappingEdit.RoleID > 0)
-            {
-                modalBodyTypeInfo.IsSelectOption = true;
-                modalBodyTypeInfo.value = DeptartmentRoleMappingEdit.RoleID;
-            }
-            else
-            {
-                modalBodyTypeInfo.value = "";
-            }
-            modalBodyTypeInfo.selectLists = List_Role_SelectDropDownList;
-            modalBodyTypeInfo.ClassName = "form-control";
-            modalBodyTypeInfo.AttributeList = new List<AttributeList>
-            {
-                new AttributeList(){Name = "onfocus", Value = "validate(this)"},
-                new AttributeList(){Name = "onkeydown", Value = "validate(this)"},
-                new AttributeList(){Name = "onchange", Value = "validate(this)"},
-                new AttributeList(){Name = "autocomplete", Value = "off"}
-            };
-            List_ModalBodyTypeInfo.Add(modalBodyTypeInfo);
-
-            modalBodyTypeInfo = new ModalBodyTypeInfo();
-            modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRCheckBox;
-            modalBodyTypeInfo.LabelName = "Is Active";
-            modalBodyTypeInfo.IsRequired = false;
-            if (DeptartmentRoleMappingEdit.DepartmentRoleMappingID > 0)
-            {
-                modalBodyTypeInfo.ischecked = DeptartmentRoleMappingEdit.Active;
-            }
-            else
-            {
-                modalBodyTypeInfo.ischecked = true;
-            }
-            modalBodyTypeInfo.GetInputTypeString = GetInputStringType.checkbox;
-            modalBodyTypeInfo.PlaceHolder = "Is Active";
-            modalBodyTypeInfo.id = "modaldrmdepartmentrolemappingisactive";
-            modalBodyTypeInfo.value = "";
-            List_ModalBodyTypeInfo.Add(modalBodyTypeInfo);
-
-            getModalDetail.modalBodyTypeInfos = List_ModalBodyTypeInfo;
-
-            HtmlString = ModalFunctions.GetModalWithBody(getModalDetail);
-
-            return HtmlString;
-        }
 
 
         [HttpPost]
         public IActionResult AddOrEdit_Role([FromBody] P_AddOrEdit_Role_Response res)
         {
-            bool IsAdd = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects.username, RightsList_ID.Role_Setup_Add);
+            bool IsAdd = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects!.username, RightsList_ID.Role_Setup_Add);
             bool IsEdit = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects.username, RightsList_ID.Role_Setup_Edit);
 
             if ((IsAdd == false) || (IsEdit == false))
@@ -1306,29 +1504,15 @@ namespace MultiVerse_UI.Controllers
                 StaticPublicObjects.logFile.ErrorLog(FunctionName: "AddOrEdit_Role_Group_Mapping", SmallMessage: response.ReturnText!, Message: response.ReturnText!);
             return Content(JsonConvert.SerializeObject(response));
         }
-        [HttpPost]
-        public IActionResult AddOrEdit_Department_Role_Mapping([FromBody] P_AddOrEdit_Department_Role_Mapping_Response res)
-        {
-            bool IsAdd = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects.username, RightsList_ID.Role_Setup_Add);
-            bool IsEdit = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects.username, RightsList_ID.Role_Setup_Edit);
-
-            if ((IsAdd == false) || (IsEdit == false))
-                return Content(JsonConvert.SerializeObject("No Rights"));
-
-            P_ReturnMessage_Result response = StaticPublicObjects.ado.P_SP_MultiParm_Result("P_AddOrEdit_Department_Role_Mapping", res, _PublicClaimObjects.username);
-            if (response.ReturnCode == false)
-                StaticPublicObjects.logFile.ErrorLog(FunctionName: "AddOrEdit_Department_Role_Mapping", SmallMessage: response.ReturnText!, Message: response.ReturnText!);
-            return Content(JsonConvert.SerializeObject(response));
-        }
 
 
         [HttpPost]
         public IActionResult Remove_Role([FromBody] int RoleID)
         {
-            bool IsDelete = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects.username, RightsList_ID.Role_Setup_Delete);
+            bool IsDelete = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects!.username, RightsList_ID.Role_Setup_Delete);
             if (IsDelete)
             {
-                P_ReturnMessage_Result response = StaticPublicObjects.ado.P_SP_SingleParm_Result("P_Remove_Roles", "R_ID", RoleID, _PublicClaimObjects.username);
+                P_ReturnMessage_Result response = StaticPublicObjects.ado.P_SP_Remove_Generic_Result("T_Roles", "R_ID", RoleID);
                 if (response.ReturnCode == false)
                     StaticPublicObjects.logFile.ErrorLog(FunctionName: "Remove_Role", SmallMessage: response.ReturnText!, Message: response.ReturnText!);
                 return Content(JsonConvert.SerializeObject(response));
@@ -1341,10 +1525,10 @@ namespace MultiVerse_UI.Controllers
         [HttpPost]
         public IActionResult Remove_Role_Group([FromBody] int RoleGroupID)
         {
-            bool IsDelete = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects.username, RightsList_ID.Role_Setup_Delete);
+            bool IsDelete = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects!.username, RightsList_ID.Role_Setup_Delete);
             if (IsDelete)
             {
-                P_ReturnMessage_Result response = StaticPublicObjects.ado.P_SP_SingleParm_Result("P_Remove_Role_Group", "RoleGroupID", RoleGroupID, _PublicClaimObjects.username);
+                P_ReturnMessage_Result response = StaticPublicObjects.ado.P_SP_Remove_Generic_Result("T_Role_Group", "RoleGroupID", RoleGroupID);
                 if (response.ReturnCode == false)
                     StaticPublicObjects.logFile.ErrorLog(FunctionName: "Remove_Role_Group", SmallMessage: response.ReturnText!, Message: response.ReturnText!);
                 return Content(JsonConvert.SerializeObject(response));
@@ -1357,28 +1541,12 @@ namespace MultiVerse_UI.Controllers
         [HttpPost]
         public IActionResult Remove_Role_Group_Mapping([FromBody] int RoleGroupMappingID)
         {
-            bool IsDelete = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects.username, RightsList_ID.Role_Setup_Delete);
+            bool IsDelete = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects!.username, RightsList_ID.Role_Setup_Delete);
             if (IsDelete)
             {
-                P_ReturnMessage_Result response = StaticPublicObjects.ado.P_SP_SingleParm_Result("P_Remove_Role_Group_Mapping", "RGM_ID", RoleGroupMappingID, _PublicClaimObjects.username);
+                P_ReturnMessage_Result response = StaticPublicObjects.ado.P_SP_Remove_Generic_Result("T_Role_Group_Mapping", "RGM_ID", RoleGroupMappingID);
                 if (response.ReturnCode == false)
                     StaticPublicObjects.logFile.ErrorLog(FunctionName: "Remove_Role_Group_Mapping", SmallMessage: response.ReturnText!, Message: response.ReturnText!);
-                return Content(JsonConvert.SerializeObject(response));
-            }
-            else
-            {
-                return Content(JsonConvert.SerializeObject("No Rights"));
-            }
-        }
-        [HttpPost]
-        public IActionResult Remove_Department_Role_Mapping([FromBody] int DepartmentRoleMappingID)
-        {
-            bool IsDelete = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects.username, RightsList_ID.Role_Setup_Delete);
-            if (IsDelete)
-            {
-                P_ReturnMessage_Result response = StaticPublicObjects.ado.P_SP_SingleParm_Result("P_Remove_Department_Role_Mapping", "DRM_ID", DepartmentRoleMappingID, _PublicClaimObjects.username);
-                if (response.ReturnCode == false)
-                    StaticPublicObjects.logFile.ErrorLog(FunctionName: "Remove_Department_Role_Mapping", SmallMessage: response.ReturnText!, Message: response.ReturnText!);
                 return Content(JsonConvert.SerializeObject(response));
             }
             else
@@ -2117,10 +2285,10 @@ namespace MultiVerse_UI.Controllers
         [HttpPost]
         public IActionResult Remove_PageRights([FromBody] int PR_ID)
         {
-            bool IsDelete = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects.username, RightsList_ID.Right_Setup_Delete);
+            bool IsDelete = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects!.username, RightsList_ID.Right_Setup_Delete);
             if (IsDelete)
             {
-                P_ReturnMessage_Result response = StaticPublicObjects.ado.P_SP_SingleParm_Result("P_Remove_Page_Rights", "PR_ID", PR_ID, _PublicClaimObjects.username);
+                P_ReturnMessage_Result response = StaticPublicObjects.ado.P_SP_Remove_Generic_Result("T_Page_Rights", "PR_ID", PR_ID);
                 if (response.ReturnCode == false)
                     StaticPublicObjects.logFile.ErrorLog(FunctionName: "Remove_PageRights", SmallMessage: response.ReturnText!, Message: response.ReturnText!);
                 return Content(JsonConvert.SerializeObject(response));
@@ -2130,10 +2298,10 @@ namespace MultiVerse_UI.Controllers
         [HttpPost]
         public IActionResult Remove_RolePageRights([FromBody] int RPRM_ID)
         {
-            bool IsDelete = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects.username, RightsList_ID.Right_Setup_Delete);
+            bool IsDelete = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects!.username, RightsList_ID.Right_Setup_Delete);
             if (IsDelete)
             {
-                P_ReturnMessage_Result response = StaticPublicObjects.ado.P_SP_SingleParm_Result("P_Remove_Role_Page_Rights", "RPRM_ID", RPRM_ID, _PublicClaimObjects.username);
+                P_ReturnMessage_Result response = StaticPublicObjects.ado.P_SP_Remove_Generic_Result("T_Role_Page_Rights_Mapping", "RPRM_ID", RPRM_ID);
                 if (response.ReturnCode == false)
                     StaticPublicObjects.logFile.ErrorLog(FunctionName: "Remove_RolePageRights", SmallMessage: response.ReturnText!, Message: response.ReturnText!);
                 return Content(JsonConvert.SerializeObject(response));
@@ -2146,10 +2314,10 @@ namespace MultiVerse_UI.Controllers
         [HttpPost]
         public IActionResult Remove_UserRoleMap([FromBody] int URM_ID)
         {
-            bool IsDelete = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects.username, RightsList_ID.Right_Setup_Delete);
+            bool IsDelete = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects!.username, RightsList_ID.Right_Setup_Delete);
             if (IsDelete)
             {
-                P_ReturnMessage_Result response = StaticPublicObjects.ado.P_SP_SingleParm_Result("P_Remove_User_Role_Mapping", "URM_ID", URM_ID, _PublicClaimObjects.username);
+                P_ReturnMessage_Result response = StaticPublicObjects.ado.P_SP_Remove_Generic_Result("T_User_Role_Mapping", "URM_ID", URM_ID);
                 if (response.ReturnCode == false)
                     StaticPublicObjects.logFile.ErrorLog(FunctionName: "Remove_UserRoleMap", SmallMessage: response.ReturnText!, Message: response.ReturnText!);
                 return Content(JsonConvert.SerializeObject(response));
@@ -2183,7 +2351,7 @@ namespace MultiVerse_UI.Controllers
         public IActionResult Get_Users_By_GroupRole_Dropdown([FromBody] bool IsGroupRole)
         {
             List<SelectDropDownList> list = new List<SelectDropDownList>();
-            
+
             return Content(JsonConvert.SerializeObject(list));
         }
 
@@ -2739,10 +2907,10 @@ namespace MultiVerse_UI.Controllers
         [HttpPost]
         public IActionResult Remove_MT([FromBody] int MT_ID)
         {
-            bool IsDelete = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects.username, RightsList_ID.Master_Setup_Delete);
+            bool IsDelete = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects!.username, RightsList_ID.Master_Setup_Delete);
             if (IsDelete)
             {
-                P_ReturnMessage_Result response = StaticPublicObjects.ado.P_SP_SingleParm_Result("P_Remove_MasterType", "MT_ID", MT_ID, _PublicClaimObjects.username);
+                P_ReturnMessage_Result response = StaticPublicObjects.ado.P_SP_Remove_Generic_Result("T_Master_Type", "MT_ID", MT_ID);
                 if (response.ReturnCode == false)
                     StaticPublicObjects.logFile.ErrorLog(FunctionName: "Remove_MT", SmallMessage: response.ReturnText!, Message: response.ReturnText!);
                 return Content(JsonConvert.SerializeObject(response));
@@ -2755,10 +2923,10 @@ namespace MultiVerse_UI.Controllers
         [HttpPost]
         public IActionResult Remove_MTV([FromBody] int MTV_ID)
         {
-            bool IsDelete = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects.username, RightsList_ID.Master_Setup_Delete);
+            bool IsDelete = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects!.username, RightsList_ID.Master_Setup_Delete);
             if (IsDelete)
             {
-                P_ReturnMessage_Result response = StaticPublicObjects.ado.P_SP_SingleParm_Result("P_Remove_MasterTypeValue", "MTV_ID", MTV_ID, _PublicClaimObjects.username);
+                P_ReturnMessage_Result response = StaticPublicObjects.ado.P_SP_Remove_Generic_Result("T_Master_Type_Value", "MTV_ID", MTV_ID);
                 if (response.ReturnCode == false)
                     StaticPublicObjects.logFile.ErrorLog(FunctionName: "Remove_MTV", SmallMessage: response.ReturnText!, Message: response.ReturnText!);
                 return Content(JsonConvert.SerializeObject(response));

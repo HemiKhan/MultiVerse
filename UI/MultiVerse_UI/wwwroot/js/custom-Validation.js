@@ -1116,7 +1116,6 @@ function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
-
 function GetModalDataCommon(modalSize = "modal-lg", modalTitle, modalBody = undefined, modalFooter = undefined, jsonData = undefined, url = undefined, isFunc = false, isAjaxCall = false, acceptJson = false, bodyCallbackParms = [], footerCallbackParams = []) {
     $("#PageLoader").show();
 
