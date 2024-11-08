@@ -132,7 +132,7 @@
                     }
                 },
                 controllername: "Report",
-                controllermethodname: "ExportInExcel_UsersDetail", 
+                controllermethodname: "ExportInExcel_UsersDetail",
                 sortable: true,
                 resizable: false,
                 reorderable: false,
@@ -140,8 +140,8 @@
                 filterable: {
                     extra: true,
                 },
-                customfixheader: false, 
-                pageloaderid: "PageLoader", 
+                customfixheader: false,
+                pageloaderid: "PageLoader",
                 dataBound: onKendoDataBound,
                 dataBinding: function (e) {
                     $("#PageLoader").hide();
@@ -191,7 +191,7 @@
                         field: "LastName",
                         title: "Last Name",
                         width: 150,
-                    },                    
+                    },
                     {
                         field: "PasswordExpiry",
                         title: "Password Expiry",
@@ -216,10 +216,10 @@
                         width: 180,
                         filterable: { extra: false, operators: { string: { contains: "contain" } } }
                     },
-                    { 
-                        field: "IsApproved", 
-                        title: "IsApproved", 
-                        width: 120, 
+                    {
+                        field: "IsApproved",
+                        title: "IsApproved",
+                        width: 120,
                     },
                     {
                         field: "IsActive", title: "Is Active", width: 120,
@@ -266,12 +266,58 @@
 
         function GetAddEditUserSetupModal(Encrypted_USER_ID) {
             // if ((Encrypted_USER_ID == "" && RigthsList.IsAdd == true) || (Encrypted_USER_ID != "" && RigthsList.IsEdit == true)) {
-                GetAddEditModalAjaxCommon(Encrypted_USER_ID, "/Security/GetAddEditUserModal");
+            GetAddEditModalAjaxCommon(Encrypted_USER_ID, "/Security/GetAddEditUserModal", function (res) {
+                Select2Initial("UserType_MTV_CODE", false);
+                Select2Initial("BlockType_MTV_CODE", false);
+                Select2MultiInitial("Application", false);
+                Select2Initial("Role", false);
+                KendoDateTimeInitial("PasswordExpiryDateTime", false);
+            });
             // } else {
-                // WarningMessage('No Rights', "You Don't Have Rights To Access.", true, "Ok");
-                // $("#PageLoader").hide();
-                // return;
+            // WarningMessage('No Rights', "You Don't Have Rights To Access.", true, "Ok");
+            // $("#PageLoader").hide();
+            // return;
             // }
+        }
+        function AddOrEditUser() {
+            var ObjJson = new Object();
+            ObjJson.User_ID = $("#User_ID").val();
+            ObjJson.UserName = $("#UserName").val();
+            ObjJson.Password = $("#Password").val();
+            ObjJson.ConfirmPassword = $("#ConfirmPassword").val();
+            ObjJson.Email = $("#Email").val();
+            ObjJson.TelegramUserName = $("#TelegramUserName").val();
+            ObjJson.TelegramID = $("#TelegramID").val();
+            ObjJson.FirstName = $("#FirstName").val();
+            ObjJson.LastName = $("#LastName").val();
+            ObjJson.PasswordExpiryDateTime = $("#PasswordExpiryDateTime").val();
+            ObjJson.UserType_MTV_CODE = $("#UserType_MTV_CODE").val();
+            ObjJson.BlockType_MTV_CODE = $("#BlockType_MTV_CODE").val();
+            ObjJson.IsApproved = $("#IsApproved").is(":checked");
+            ObjJson.IsTempPassword = $("#IsTempPassword").is(":checked");
+
+            if (ObjJson.UserName == "") {
+                toastr.error("User Name is Required!");
+                return;
+            }
+
+            if (ObjJson.User_ID == undefined && ObjJson.Password == "") {
+                toastr.error("Password is Required!");
+                return;
+            }
+
+            if (ObjJson.User_ID == undefined && ObjJson.ConfirmPassword == "") {
+                toastr.error("Confirm Password is Required!");
+                return;
+            }
+
+            if (ObjJson.User_ID == undefined && ObjJson.Password != ObjJson.ConfirmPassword) {
+                toastr.error("Pasword and Confirm Password not matched!");
+                return;
+            }
+
+            var JsonData = JSON.stringify(ObjJson);
+            AddEditRemoveAjaxCommon(JsonData, "/Security/AddOrEdit_User", null, false, 'grid');
         }
         function User_Remove(this_, Encrypted_USER_ID, UserName, IsActive) {
             if (RightsList.IsDelete) {
@@ -286,7 +332,7 @@
                 return;
             }
         }
-       
+
         //User ************************************************************* End */
 
         function onCustomFilterValidate(id, IsRun, IsClearFilter) {

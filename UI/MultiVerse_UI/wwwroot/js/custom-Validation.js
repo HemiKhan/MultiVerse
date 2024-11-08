@@ -77,6 +77,37 @@ function KendoDateInitial(id = 'kendoDatePicker', isclass = true, _animation = f
         }
     });
 }
+function KendoDateTimeInitial(id = 'kendoDateTimePicker', isclass = true, _animation = false, _format = 'MM/dd/yyyy hh:mm tt', _addclearbutton = true) {
+    $((isclass ? '.' : '#') + id).kendoDateTimePicker({
+        animation: _animation,
+        format: _format,
+        open: function (e) {
+            if (_addclearbutton) {
+                var clearbuttonContainer = e.sender.dateView.calendar.element.find(".clear-button-container");
+
+                if (!clearbuttonContainer.length) {
+                    // Create a container for custom buttons
+                    clearbuttonContainer = $('<div class="k-footer clear-button-container"></div>');
+
+                    // Create custom button (Clear Date & Time) and append it to the container
+                    var clearbutton = $('<button tabindex="-1" class="k-button custom-clear-button k-flex k-button-md k-button-flat k-button-flat-primary k-rounded-md" title="Clear Date & Time"><span style="color:red" class="k-button-text">Clear Date & Time</span></button>');
+                    clearbuttonContainer.append(clearbutton);
+
+                    // Append the custom buttons container to the DateTimePicker popup
+                    e.sender.dateView.calendar.element.append(clearbuttonContainer);
+
+                    // Handle click events for the custom button
+                    clearbutton.on("click", function () {
+                        // Clear the selected date and time
+                        e.sender.value(null);
+                        // Close the DateTimePicker
+                        e.sender.close();
+                    });
+                }
+            }
+        }
+    });
+}
 function CKEDITORInitial(id) {
     CKEDITOR.replace(id, {
         height: 150,
@@ -86,6 +117,12 @@ function CKEDITORInitial(id) {
 }
 function Select2Initial(id = 'select2', isclass = true) {
     $((isclass ? '.' : '#') + id).select2();
+}
+function Select2MultiInitial(id = 'select2', isclass = true) {
+    // Initialize select2 for multi-select elements
+    $((isclass ? '.' : '#') + id).select2({
+        multiple: true
+    });
 }
 function customValidation(value, validationType, element) {
     //if (validationType === 'checkboxrequired') {

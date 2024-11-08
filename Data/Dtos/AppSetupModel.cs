@@ -62,8 +62,8 @@ namespace Data.Dtos
             }
         }
 
-        public string TelegramUserName { get; set; } = default!;
-        public string TelegramID { get; set; } = default!;
+        public string? TelegramUserName { get; set; } = "";
+        public string? TelegramID { get; set; } = "";
 
         private string _FirstName = "";
         public string FirstName
@@ -91,11 +91,11 @@ namespace Data.Dtos
             }
         }
 
-        public string Password { get; set; } = default!;
-        public string ConfirmPassword { get; set; } = default!;
-        public DateTime PasswordExpiryDateTime { get; set; } = default!;
-        public string UserType_MTV_CODE { get; set; } = default!;
-        public string BlockType_MTV_CODE { get; set; } = default!;
+        public string Password { get; set; } = "";
+        public string ConfirmPassword { get; set; } = "";
+        public string? PasswordExpiryDateTime { get; set; } = "";
+        public string UserType_MTV_CODE { get; set; } = "";
+        public string BlockType_MTV_CODE { get; set; } = "";
         public bool IsApproved { get; set; } = false;
         public bool IsTempPassword { get; set; } = false;
     }
@@ -129,8 +129,8 @@ namespace Data.Dtos
             }
         }
 
-        public string TelegramUserName { get; set; } = default!;
-        public string TelegramID { get; set; } = default!;
+        public string? TelegramUserName { get; set; } = "";
+        public string? TelegramID { get; set; } = "";
 
         private string _FirstName = "";
         public string FirstName
@@ -158,11 +158,11 @@ namespace Data.Dtos
             }
         }
 
-        public string PasswordHash { get; set; } = default!;
-        public string PasswordSalt { get; set; } = default!;
-        public DateTime PasswordExpiryDateTime { get; set; } = default!;
-        public string UserType_MTV_CODE { get; set; } = default!;
-        public string BlockType_MTV_CODE { get; set; } = default!;
+        public string? PasswordHash { get; set; } = "";
+        public string? PasswordSalt { get; set; } = "";
+        public string? PasswordExpiryDateTime { get; set; } = "";
+        public string? UserType_MTV_CODE { get; set; } = "";
+        public string? BlockType_MTV_CODE { get; set; } = "";
         public bool IsApproved { get; set; } = false;
         public bool IsTempPassword { get; set; } = false;
     }

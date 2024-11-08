@@ -1325,11 +1325,11 @@ namespace Services.GlobalServices
             string connectionString = "";
             if (Database_Name == AppEnum.Database_Name.MultiVerseDB)
             {
-                connectionString = _dbStringCollection1.MultiVerse_ConnectionModel!.ConnectionString; 
+                connectionString = _dbStringCollection1.MultiVerse_ConnectionModel!.ConnectionString;
             }
             else
             {
-                connectionString = _dbStringCollection1.Default_ConnectionModel!.ConnectionString; 
+                connectionString = _dbStringCollection1.Default_ConnectionModel!.ConnectionString;
             }
             return connectionString;
         }
@@ -2783,7 +2783,37 @@ namespace Services.GlobalServices
             result.ReturnText = DR["Return_Text"].ToString();
             return result;
         }
+        public P_ReturnMessage_Result P_ExcuteDynamic_Result<T>(string Query, T res)
+        {
+            P_ReturnMessage_Result result = new P_ReturnMessage_Result();
 
+            List<Dynamic_SP_Params> dynamic_SP_Params_list = new List<Dynamic_SP_Params>();
+
+            PropertyInfo[] properties = typeof(T).GetProperties();
+            foreach (var property in properties)
+            {
+                if (property.GetCustomAttribute<ExcludeFromDynamicSPParamsAttribute>() == null)
+                {
+                    Dynamic_SP_Params dynamic_SP_Params = new Dynamic_SP_Params();
+                    dynamic_SP_Params.ParameterName = property.Name;
+                    dynamic_SP_Params.Val = property.GetValue(res);
+                    dynamic_SP_Params_list.Add(dynamic_SP_Params);
+                }
+            }
+            dynamic_SP_Params_list.Add(new Dynamic_SP_Params { ParameterName = "AddedBy", Val = GetPublicClaimObjects().username });
+            dynamic_SP_Params_list.Add(new Dynamic_SP_Params { ParameterName = "Return_Code", Val = false, IsInputType = false });
+            dynamic_SP_Params_list.Add(new Dynamic_SP_Params { ParameterName = "Return_Text", Val = "", IsInputType = false, Size = int.MaxValue });
+
+            DataTable dt = ExecuteStoreProcedureDT(Query, ref dynamic_SP_Params_list);
+
+            var returnCodeParam = dynamic_SP_Params_list.First(p => p.ParameterName == "Return_Code");
+            var returnTextParam = dynamic_SP_Params_list.First(p => p.ParameterName == "Return_Text");
+
+            result.ReturnCode = Convert.ToBoolean(returnCodeParam.Val);
+            result.ReturnText = returnTextParam.Val.ToString();
+
+            return result;
+        }
         #endregion DB
 
         #region User
@@ -2808,7 +2838,6 @@ namespace Services.GlobalServices
             P_Get_User_Info result = ExecuteSelectSQLMap<P_Get_User_Info>("P_Get_User_Info", true, 0, ref parms);
             return result;
         }
-
         public P_ReturnMessage_Result P_AddOrEdit_User_Role_Map(string Json)
         {
             List<Dynamic_SP_Params> dynamic_SP_Params_list = new List<Dynamic_SP_Params>();
@@ -2828,6 +2857,44 @@ namespace Services.GlobalServices
             int RoleID = Convert.ToInt32(StaticPublicObjects.ado.ExecuteSelectObj("SELECT ROLE_ID FROM [POMS_DB].[dbo].[T_User_Role_Mapping] WITH (NOLOCK) WHERE USERNAME = @UserName", ref dynamic_SP_Params_list));
             return RoleID;
         }
+        public P_ReturnMessage_Result P_AddOrEdit_User(P_AddOrEdit_User_Request req)
+        {
+            P_ReturnMessage_Result result = new P_ReturnMessage_Result();
+
+            if (req.User_ID == 0 && req.Password != req.ConfirmPassword)
+            {
+                result.ReturnCode = false;
+                result.ReturnText = "password and confirm password not matched!";
+                return result;
+            }
+
+            P_AddOrEdit_User_Response res = new P_AddOrEdit_User_Response();
+            res.User_ID = req.User_ID;
+            res.UserName = req.UserName;
+            res.Email = req.Email;
+            res.TelegramUserName = req.TelegramUserName;
+            res.TelegramID = req.TelegramID;
+            res.FirstName = req.FirstName;
+            res.LastName = req.LastName;
+            if (req.User_ID == 0)
+            {
+                byte[] storeSalt = Crypto.GenerateSalt(new byte[20]);
+                string PasswordSalt = Convert.ToBase64String(storeSalt);
+                string PasswordHash = Crypto.EncodePassword(1, req.Password, PasswordSalt);
+                res.PasswordHash = PasswordHash;
+                res.PasswordSalt = PasswordSalt;
+            }
+            res.PasswordExpiryDateTime = req.PasswordExpiryDateTime;
+            res.UserType_MTV_CODE = req.UserType_MTV_CODE;
+            res.BlockType_MTV_CODE = req.BlockType_MTV_CODE;
+            res.IsApproved = req.IsApproved;
+            res.IsTempPassword = req.IsTempPassword;
+
+            result = P_ExcuteDynamic_Result("P_AddOrEdit_User", res);
+
+            return result;
+        }
+
         #endregion User
     }
 }

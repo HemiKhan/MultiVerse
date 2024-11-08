@@ -124,9 +124,18 @@ namespace MultiVerse_UI.Controllers
                 ModalEdit = StaticPublicObjects.ado.P_Get_Generic_SP<P_AddOrEdit_User_Response>("SELECT [User_ID],UserName,Email,TelegramUserName,TelegramID,FirstName,LastName,PasswordHash,PasswordSalt,PasswordExpiryDateTime,UserType_MTV_CODE,BlockType_MTV_CODE,IsApproved,IsTempPassword FROM [dbo].[T_Users] WITH (NOLOCK) WHERE [User_ID] = @ModalID", ref _parms, false);
             }
 
-            List<SelectDropDownList> ApplicationList = StaticPublicObjects.ado.Get_DropDownList_Result("SELECT code = App_ID, [name] = [App_Name] FROM [dbo].[T_Application] WITH (NOLOCK)");
+            _parms = new List<Dynamic_SP_Params>();
+            _parms.Add(new Dynamic_SP_Params { ParameterName = "MT_ID", Val = 1 });
+            List<SelectDropDownList> UserTypeList = StaticPublicObjects.ado.Get_DropDownList_Result("SELECT code = MTV_CODE, [name] = [Name] FROM [dbo].[T_Master_Type_Value] WITH (NOLOCK) WHERE MT_ID = @MT_ID ORDER BY [Sort_]", _parms);
 
-            getModalDetail.getmodelsize = GetModalSize.modal_md;
+            _parms = new List<Dynamic_SP_Params>();
+            _parms.Add(new Dynamic_SP_Params { ParameterName = "MT_ID", Val = 2 });
+            List<SelectDropDownList> BlockTypeList = StaticPublicObjects.ado.Get_DropDownList_Result("SELECT code = MTV_CODE, [name] = [Name] FROM [dbo].[T_Master_Type_Value] WITH (NOLOCK) WHERE MT_ID = @MT_ID ORDER BY [Sort_]", _parms);
+
+            List<SelectDropDownList> ApplicationList = StaticPublicObjects.ado.Get_DropDownList_Result("SELECT code = App_ID, [name] = [App_Name] FROM [dbo].[T_Application] WITH (NOLOCK)");
+            List<SelectDropDownList> RoleList = StaticPublicObjects.ado.Get_DropDownList_Result("SELECT code = R_ID, [name] = [RoleName] FROM [dbo].[T_Roles] WITH (NOLOCK)");
+
+            getModalDetail.getmodelsize = GetModalSize.modal_lg;
             getModalDetail.modaltitle = (Modal_ID == 0 ? "Add New User" : "Edit User");
             getModalDetail.modalfootercancelbuttonname = "Cancel";
             getModalDetail.modalfootersuccessbuttonname = (Modal_ID == 0 ? "Add" : "Update");
@@ -153,6 +162,7 @@ namespace MultiVerse_UI.Controllers
             modalBodyTypeInfo = new ModalBodyTypeInfo();
             modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRInput;
             modalBodyTypeInfo.GetInputTypeString = GetInputStringType.text;
+            modalBodyTypeInfo.ClassName = "form-control";
             modalBodyTypeInfo.LabelName = "User Name";
             modalBodyTypeInfo.PlaceHolder = "User Name";
             modalBodyTypeInfo.id = "UserName";
@@ -161,7 +171,6 @@ namespace MultiVerse_UI.Controllers
             {
                 modalBodyTypeInfo.value = ModalEdit.UserName;
             }
-            modalBodyTypeInfo.ClassName = "form-control";
             modalBodyTypeInfo.AttributeList = new List<AttributeList>();
             modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onfocus", Value = "validate(this);" });
             modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onkeydown", Value = "validate(this);" });
@@ -206,6 +215,7 @@ namespace MultiVerse_UI.Controllers
             modalBodyTypeInfo = new ModalBodyTypeInfo();
             modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRInput;
             modalBodyTypeInfo.GetInputTypeString = GetInputStringType.text;
+            modalBodyTypeInfo.ClassName = "form-control";
             modalBodyTypeInfo.LabelName = "Email";
             modalBodyTypeInfo.PlaceHolder = "Email";
             modalBodyTypeInfo.id = "Email";
@@ -214,7 +224,6 @@ namespace MultiVerse_UI.Controllers
             {
                 modalBodyTypeInfo.value = ModalEdit.Email;
             }
-            modalBodyTypeInfo.ClassName = "form-control";
             modalBodyTypeInfo.AttributeList = new List<AttributeList>();
             modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onfocus", Value = "validate(this);" });
             modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onkeydown", Value = "validate(this);" });
@@ -225,15 +234,15 @@ namespace MultiVerse_UI.Controllers
             modalBodyTypeInfo = new ModalBodyTypeInfo();
             modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRInput;
             modalBodyTypeInfo.GetInputTypeString = GetInputStringType.text;
+            modalBodyTypeInfo.ClassName = "form-control";
             modalBodyTypeInfo.LabelName = "Telegram Name";
             modalBodyTypeInfo.PlaceHolder = "Telegram User Name";
             modalBodyTypeInfo.id = "TelegramUserName";
             modalBodyTypeInfo.IsRequired = false;
             if (ModalEdit.TelegramUserName != "")
             {
-                modalBodyTypeInfo.value = ModalEdit.TelegramUserName;
+                modalBodyTypeInfo.value = ModalEdit.TelegramUserName!;
             }
-            modalBodyTypeInfo.ClassName = "form-control";
             modalBodyTypeInfo.AttributeList = new List<AttributeList>();
             modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "autocomplete", Value = "off" });
             List_ModalBodyTypeInfo.Add(modalBodyTypeInfo);
@@ -241,15 +250,15 @@ namespace MultiVerse_UI.Controllers
             modalBodyTypeInfo = new ModalBodyTypeInfo();
             modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRInput;
             modalBodyTypeInfo.GetInputTypeString = GetInputStringType.text;
+            modalBodyTypeInfo.ClassName = "form-control";
             modalBodyTypeInfo.LabelName = "Telegram ID";
             modalBodyTypeInfo.PlaceHolder = "Telegram ID";
             modalBodyTypeInfo.id = "TelegramID";
             modalBodyTypeInfo.IsRequired = false;
             if (ModalEdit.TelegramID != "")
             {
-                modalBodyTypeInfo.value = ModalEdit.TelegramID;
+                modalBodyTypeInfo.value = ModalEdit.TelegramID!;
             }
-            modalBodyTypeInfo.ClassName = "form-control";
             modalBodyTypeInfo.AttributeList = new List<AttributeList>();
             modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "autocomplete", Value = "off" });
             List_ModalBodyTypeInfo.Add(modalBodyTypeInfo);
@@ -257,6 +266,7 @@ namespace MultiVerse_UI.Controllers
             modalBodyTypeInfo = new ModalBodyTypeInfo();
             modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRInput;
             modalBodyTypeInfo.GetInputTypeString = GetInputStringType.text;
+            modalBodyTypeInfo.ClassName = "form-control";
             modalBodyTypeInfo.LabelName = "First Name";
             modalBodyTypeInfo.PlaceHolder = "First Name";
             modalBodyTypeInfo.id = "FirstName";
@@ -265,7 +275,6 @@ namespace MultiVerse_UI.Controllers
             {
                 modalBodyTypeInfo.value = ModalEdit.FirstName;
             }
-            modalBodyTypeInfo.ClassName = "form-control";
             modalBodyTypeInfo.AttributeList = new List<AttributeList>();
             modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "autocomplete", Value = "off" });
             List_ModalBodyTypeInfo.Add(modalBodyTypeInfo);
@@ -273,6 +282,7 @@ namespace MultiVerse_UI.Controllers
             modalBodyTypeInfo = new ModalBodyTypeInfo();
             modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRInput;
             modalBodyTypeInfo.GetInputTypeString = GetInputStringType.text;
+            modalBodyTypeInfo.ClassName = "form-control";
             modalBodyTypeInfo.LabelName = "Last Name";
             modalBodyTypeInfo.PlaceHolder = "Last Name";
             modalBodyTypeInfo.id = "LastName";
@@ -281,7 +291,6 @@ namespace MultiVerse_UI.Controllers
             {
                 modalBodyTypeInfo.value = ModalEdit.LastName;
             }
-            modalBodyTypeInfo.ClassName = "form-control";
             modalBodyTypeInfo.AttributeList = new List<AttributeList>();
             modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "autocomplete", Value = "off" });
             List_ModalBodyTypeInfo.Add(modalBodyTypeInfo);
@@ -289,15 +298,15 @@ namespace MultiVerse_UI.Controllers
             modalBodyTypeInfo = new ModalBodyTypeInfo();
             modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRInput;
             modalBodyTypeInfo.GetInputTypeString = GetInputStringType.date;
+            modalBodyTypeInfo.ClassName = "form-control";
             modalBodyTypeInfo.LabelName = "Password Expiry";
             modalBodyTypeInfo.PlaceHolder = "Password Expiry";
             modalBodyTypeInfo.id = "PasswordExpiryDateTime";
             modalBodyTypeInfo.IsRequired = false;
-            if (ModalEdit.PasswordExpiryDateTime.ToString() != "")
+            if (ModalEdit.PasswordExpiryDateTime!.ToString() != "")
             {
                 modalBodyTypeInfo.value = ModalEdit.PasswordExpiryDateTime;
             }
-            modalBodyTypeInfo.ClassName = "form-control";
             modalBodyTypeInfo.AttributeList = new List<AttributeList>();
             modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "autocomplete", Value = "off" });
             List_ModalBodyTypeInfo.Add(modalBodyTypeInfo);
@@ -305,16 +314,36 @@ namespace MultiVerse_UI.Controllers
             modalBodyTypeInfo = new ModalBodyTypeInfo();
             modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRselect;
             modalBodyTypeInfo.GetInputTypeString = GetInputStringType.text;
-            modalBodyTypeInfo.LabelName = "User Type";
-            modalBodyTypeInfo.id = "UserType_MTV_CODE";
+            modalBodyTypeInfo.ClassName = "form-control";
+            modalBodyTypeInfo.LabelName = "Application";
+            modalBodyTypeInfo.id = "Application";
             modalBodyTypeInfo.IsRequired = false;
+            modalBodyTypeInfo.isselect = false;
+            modalBodyTypeInfo.ismultiselect = true;
             if (!string.IsNullOrWhiteSpace(ModalEdit.UserType_MTV_CODE))
             {
                 modalBodyTypeInfo.IsSelectOption = true;
                 modalBodyTypeInfo.value = ModalEdit.UserType_MTV_CODE;
             }
             modalBodyTypeInfo.selectLists = ApplicationList;
+            modalBodyTypeInfo.AttributeList = new List<AttributeList>();
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "multiple", Value = "multiple" });
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "autocomplete", Value = "off" });
+            List_ModalBodyTypeInfo.Add(modalBodyTypeInfo);
+
+            modalBodyTypeInfo = new ModalBodyTypeInfo();
+            modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRselect;
+            modalBodyTypeInfo.GetInputTypeString = GetInputStringType.text;
             modalBodyTypeInfo.ClassName = "form-control";
+            modalBodyTypeInfo.LabelName = "Role";
+            modalBodyTypeInfo.id = "Role";
+            modalBodyTypeInfo.IsRequired = false;
+            if (!string.IsNullOrWhiteSpace(ModalEdit.UserType_MTV_CODE))
+            {
+                modalBodyTypeInfo.IsSelectOption = true;
+                modalBodyTypeInfo.value = ModalEdit.UserType_MTV_CODE;
+            }
+            modalBodyTypeInfo.selectLists = RoleList;
             modalBodyTypeInfo.AttributeList = new List<AttributeList>();
             modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onfocus", Value = "validate(this);" });
             modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onkeydown", Value = "validate(this);" });
@@ -325,6 +354,27 @@ namespace MultiVerse_UI.Controllers
             modalBodyTypeInfo = new ModalBodyTypeInfo();
             modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRselect;
             modalBodyTypeInfo.GetInputTypeString = GetInputStringType.text;
+            modalBodyTypeInfo.ClassName = "form-control";
+            modalBodyTypeInfo.LabelName = "User Type";
+            modalBodyTypeInfo.id = "UserType_MTV_CODE";
+            modalBodyTypeInfo.IsRequired = false;
+            if (!string.IsNullOrWhiteSpace(ModalEdit.UserType_MTV_CODE))
+            {
+                modalBodyTypeInfo.IsSelectOption = true;
+                modalBodyTypeInfo.value = ModalEdit.UserType_MTV_CODE;
+            }
+            modalBodyTypeInfo.selectLists = UserTypeList;
+            modalBodyTypeInfo.AttributeList = new List<AttributeList>();
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onfocus", Value = "validate(this);" });
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onkeydown", Value = "validate(this);" });
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onchange", Value = "validate(this);" });
+            modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "autocomplete", Value = "off" });
+            List_ModalBodyTypeInfo.Add(modalBodyTypeInfo);
+
+            modalBodyTypeInfo = new ModalBodyTypeInfo();
+            modalBodyTypeInfo.ModelBodyType = GetModelBodyType.TRselect;
+            modalBodyTypeInfo.GetInputTypeString = GetInputStringType.text;
+            modalBodyTypeInfo.ClassName = "form-control";
             modalBodyTypeInfo.LabelName = "Block Type";
             modalBodyTypeInfo.id = "BlockType_MTV_CODE";
             modalBodyTypeInfo.IsRequired = false;
@@ -333,8 +383,7 @@ namespace MultiVerse_UI.Controllers
                 modalBodyTypeInfo.IsSelectOption = true;
                 modalBodyTypeInfo.value = ModalEdit.BlockType_MTV_CODE;
             }
-            modalBodyTypeInfo.selectLists = ApplicationList;
-            modalBodyTypeInfo.ClassName = "form-control";
+            modalBodyTypeInfo.selectLists = BlockTypeList;
             modalBodyTypeInfo.AttributeList = new List<AttributeList>();
             modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onfocus", Value = "validate(this);" });
             modalBodyTypeInfo.AttributeList.Add(new AttributeList { Name = "onkeydown", Value = "validate(this);" });
@@ -385,16 +434,17 @@ namespace MultiVerse_UI.Controllers
 
         [CheckSessionExpiration]
         [HttpPost]
-        public IActionResult AddOrEdit_User([FromBody] P_AddOrEdit_Page_Response res)
+        public IActionResult AddOrEdit_User([FromBody] P_AddOrEdit_User_Request req)
         {
             bool IsAdd = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects!.username, RightsList_ID.User_Setup_Add);
             bool IsEdit = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(_PublicClaimObjects.username, RightsList_ID.User_Setup_Edit);
             if ((IsAdd == false) || (IsEdit == false))
                 return Content(JsonConvert.SerializeObject("No Rights"));
 
-            P_ReturnMessage_Result response = StaticPublicObjects.ado.P_SP_MultiParm_Result("P_AddOrEdit_User", res, _PublicClaimObjects.username);
+            P_ReturnMessage_Result response = StaticPublicObjects.ado.P_AddOrEdit_User(req);
             if (response.ReturnCode == false)
                 StaticPublicObjects.logFile.ErrorLog(FunctionName: "AddOrEdit_User", SmallMessage: response.ReturnText!, Message: response.ReturnText!);
+
             return Content(JsonConvert.SerializeObject(response));
         }
 

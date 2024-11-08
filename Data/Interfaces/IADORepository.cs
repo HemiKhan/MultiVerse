@@ -154,6 +154,7 @@ namespace Data.Interfaces
         public object? Get_SingleRow_Object_Result(string Query, List<Dynamic_SP_Params> _Params, bool IsSP = false);
         public string Get_SingleRow_String_Result(string Query, List<Dynamic_SP_Params> _Params, bool IsSP = false);
         public P_ReturnMessage_Result P_ExecuteProc_Result(string Query, List<Dynamic_SP_Params> dynamic_SP_Params_list, bool IsSP = true);
+        public P_ReturnMessage_Result P_ExcuteDynamic_Result<T>(string Query, T res);
         #endregion DB     
 
         #region User
@@ -161,6 +162,7 @@ namespace Data.Interfaces
         public P_Get_User_Info P_Get_User_Info(string UserName, int ApplicationID, MemoryCacheValueType? _MemoryCacheValueType = null);
         public P_ReturnMessage_Result P_AddOrEdit_User_Role_Map(string Json);
         public int Get_RoleID_From_UserName(string UserName);
+        public P_ReturnMessage_Result P_AddOrEdit_User(P_AddOrEdit_User_Request req);
 
         #endregion User
     }
