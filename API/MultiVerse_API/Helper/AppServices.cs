@@ -2,7 +2,9 @@
 using Data.Dtos;
 using Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Services.AccountServices;
 using Services.GlobalServices;
+using Services.NFTServices;
 
 namespace MultiVerse_API.Helper
 {
@@ -13,6 +15,12 @@ namespace MultiVerse_API.Helper
             services.AddDbContext<IMultiVerse_DB_Context_10, MultiVerse_DB_Context_10>(op => op.UseSqlServer(dbStringCollection.MultiVerse_ConnectionModel!.ConnectionString, optionBuilder => optionBuilder.MigrationsAssembly("Data")));
             services.AddScoped<IADORepository, ADORepository>();
             services.AddScoped<ILogFile, LogFile>();
+        }
+
+        public static void AddOtherServices(this IServiceCollection services)
+        {
+            services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<INFTService, NFTService>();
         }
     }
 }

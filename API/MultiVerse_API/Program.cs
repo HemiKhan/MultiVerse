@@ -134,6 +134,7 @@ internal class Program
         builder.Services.AddSignalR();
 
         builder.Services.ApplicationDI(dbStringCollection);
+        builder.Services.AddOtherServices();
 
         //Restric Domain Attribute Model
         AllowedDomainListModel allowedDomainListModel = builder.Configuration.GetSection("AllowedDomains").Get<AllowedDomainListModel>()!;
@@ -264,30 +265,30 @@ internal class Program
                 StaticPublicObjects.logFile.ErrorLog(FunctionName: "Program Set RequestStartTime", SmallMessage: ex.Message, Message: ex.ToString());
             }
 
-            APILimitResponse Ret = new APILimitResponse();
-            string responsetext = "";
-            Ret = ValidateUserToken.GetValidateUserToken(context, ref _PublicClaimObjects, ref responsetext);
+            //APILimitResponse Ret = new APILimitResponse();
+            //string responsetext = "";
+            //Ret = ValidateUserToken.GetValidateUserToken(context, ref _PublicClaimObjects, ref responsetext);
 
-            if (Ret.response_code == false)
-            {
-                context.Response.StatusCode = Ret.statuscode;
-                context.Response.ContentType = "application/json";
-                context.Response.WriteAsync(responsetext);
-                return;
-            }
+            //if (Ret.response_code == false)
+            //{
+            //    context.Response.StatusCode = Ret.statuscode;
+            //    context.Response.ContentType = "application/json";
+            //    context.Response.WriteAsync(responsetext);
+            //    return;
+            //}
 
-            APIWhiteListingResponse whitelistingresponse = new APIWhiteListingResponse();
-            CustomWhiteListing.VerifyWhiteListing(AppEnum.ApplicationId.AppID, ref whitelistingresponse);
+            //APIWhiteListingResponse whitelistingresponse = new APIWhiteListingResponse();
+            //CustomWhiteListing.VerifyWhiteListing(AppEnum.ApplicationId.AppID, ref whitelistingresponse);
 
-            if (whitelistingresponse.response_code == false)
-            {
-                responsetext = "";
-                LogAllFailedRequest.GetLogAllFailedRequest(whitelistingresponse, context, _PublicClaimObjects, ref responsetext);
-                context.Response.StatusCode = 401;
-                context.Response.ContentType = "application/json";
-                context.Response.WriteAsync(responsetext);
-                return;
-            }
+            //if (whitelistingresponse.response_code == false)
+            //{
+            //    responsetext = "";
+            //    LogAllFailedRequest.GetLogAllFailedRequest(whitelistingresponse, context, _PublicClaimObjects, ref responsetext);
+            //    context.Response.StatusCode = 401;
+            //    context.Response.ContentType = "application/json";
+            //    context.Response.WriteAsync(responsetext);
+            //    return;
+            //}
 
             // Call the next middleware in the pipeline
             await next.Invoke();
