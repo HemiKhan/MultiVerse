@@ -47,12 +47,44 @@
 
         public struct RightsList_ID
         {
-            #region JobSetup;
-            public const int Job_Setup_View = 207100;
-            public const int Job_Setup_Add = 207101;
-            public const int Job_Setup_Edit = 207102;
-            public const int Job_Setup_Delete = 207103;
-            #endregion JobSetup;
+            #region UserSetup;     
+            public const int User_Setup_View = 202100;
+            public const int User_Setup_Add = 202101;
+            public const int User_Setup_Edit = 202102;
+            public const int User_Setup_Delete = 202103;
+            #endregion UserSetup;
+
+            #region PageSetup;     
+            public const int Page_Setup_View = 203100;
+            public const int Page_Setup_Add = 203101;
+            public const int Page_Setup_Edit = 203102;
+            public const int Page_Setup_Delete = 203103;
+            #endregion PageSetup;
+
+            #region RoleSetup;     
+            public const int Role_Setup_View = 204100;
+            public const int Role_Setup_Add = 204101;
+            public const int Role_Setup_Edit = 204102;
+            public const int Role_Setup_Delete = 204103;
+            #endregion RoleSetup;
+            
+            #region RightsSetup;     
+            public const int Right_Setup_View = 205100;
+            public const int Right_Setup_Add = 205101;
+            public const int Right_Setup_Edit = 205102;
+            public const int Right_Setup_Delete = 205103;
+            #endregion RightsSetup;
+            
+            #region MasterSetup;
+            public const int Master_Setup_View = 207100;
+            public const int Master_Setup_Add = 207101;
+            public const int Master_Setup_Edit = 207102;
+            public const int Master_Setup_Delete = 207103;
+            #endregion MasterSetup;
+            
+            #region AuditHistory;     
+            public const int Audit_History_View = 206100;
+            #endregion ;
         }
     }
 }

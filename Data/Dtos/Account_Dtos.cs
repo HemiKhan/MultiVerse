@@ -11,11 +11,8 @@ namespace Data.Dtos
     #region Login
     public class SignIn_Req
     {
-        [Required(AllowEmptyStrings = false, ErrorMessage = "*UserName* is required")]
         public string UserName { get; set; } = "";
-        [Required(AllowEmptyStrings = false, ErrorMessage = "*Password* is required")]
         public string Password { get; set; } = "";
-        [IgnoreDataMemberAttribute]
         public bool RememberMe { get; set; } = false;
     }
     public class SignIn_Res
@@ -62,9 +59,10 @@ namespace Data.Dtos
         public string? FirstName { get; set; } = "";
         public string? LastName { get; set; } = "";
         public string? UserType { get; set; } = "";
-        public string? Department { get; set; } = "";
-        public string? Designation { get; set; } = "";
+        public string? TelegramUserName { get; set; } = "";
+        public string? TelegramID { get; set; } = "";
         public string? PasswordExpiryDateTime { get; set; } = "";
+        public bool IsTempPassword { get; set; } = false;
         public bool IsBlocked { get; set; } = false;
         public bool IsAdmin { get; set; } = false;
         public int RoleID { get; set; } = 0;

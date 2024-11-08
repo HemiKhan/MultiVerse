@@ -53,7 +53,7 @@ namespace Services.AccountServices
                     return res;
                 }
                 else
-                {
+                {   
                     string PasswordHash = Crypto.EncodePassword(1, req.Password, credentials.PasswordSalt);
                     if (PasswordHash != null && PasswordHash.Equals(credentials.PasswordHash))
                     {
@@ -62,7 +62,7 @@ namespace Services.AccountServices
                         DateTime? jwtokenexpiry = Globals.GetTokenExpiryTime(res.JWToken);
                         if (jwtokenexpiry != null)
                             res.JWTokenExpiry = Convert.ToDateTime(jwtokenexpiry).ToString("yyyy-MM-dd HH:mm:ss.fff");
-                        res.UserName = user_Info.UserName;
+                        res.UserName = user_Info.UserName!;
 
                         User_Token_Expiry user = new User_Token_Expiry();
                         user.Username = user_Info.UserName;

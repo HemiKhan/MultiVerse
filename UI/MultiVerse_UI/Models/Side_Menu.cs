@@ -21,7 +21,7 @@ namespace MultiVerse_UI.Models
             int Current_PG_ID = 0;
             int Current_P_ID = 0;
 
-            string? Last_Page_Login = _HttpContextAccessor.HttpContext.Session.GetString("Last_Page_Login");
+            string? Last_Page_Login = _HttpContextAccessor.HttpContext!.Session.GetString("Last_Page_Login");
             if (Last_Page_Login != null)
             {
                 if (CurrentURL.ToLower() == Last_Page_Login.ToLower())
@@ -31,7 +31,7 @@ namespace MultiVerse_UI.Models
                 else
                 {
                     (string Name, object Value)[] ParamsNameValues = { ("PageURL", (Strings.Left(CurrentURL, 1) == "/" ? "" : "/") + CurrentURL) };
-                    DR = StaticPublicObjects.ado.ExecuteSelectDR("select CurrentPG_ID=p.PG_ID ,CurrentP_ID=p.P_ID from [dbo].[T_Page] p with (nolock) where p.PageURL= @PageURL", ParamsNameValues);
+                    DR = StaticPublicObjects.ado.ExecuteSelectDR("select CurrentPG_ID=p.PG_ID ,CurrentP_ID=p.P_ID from [dbo].[T_Page] p with (nolock) where p.PageURL= @PageURL", ParamsNameValues)!;
                 }
             }
 
@@ -43,7 +43,7 @@ namespace MultiVerse_UI.Models
 
                 dynamic_SP_Params = new Dynamic_SP_Params();
                 dynamic_SP_Params.ParameterName = "Application_MTV_ID";
-                dynamic_SP_Params.Val = AppEnum.ApplicationId.CareerPortalAppID;
+                dynamic_SP_Params.Val = AppEnum.ApplicationId.AppID;
                 List_dynamic_SP_Params.Add(dynamic_SP_Params);
 
                 dynamic_SP_Params = new Dynamic_SP_Params();
@@ -56,8 +56,9 @@ namespace MultiVerse_UI.Models
                 if (IsApplicantLogin == false)
                 {
                     dynamic_SP_Params = new Dynamic_SP_Params();
+
                     dynamic_SP_Params.ParameterName = "USERNAME";
-                    dynamic_SP_Params.Val = UserLogic_Security.CurrentUserStatic.UserName;
+                    dynamic_SP_Params.Val = UserLogic_Security.CurrentUserStatic!.UserName;
                     List_dynamic_SP_Params.Add(dynamic_SP_Params);
                     DS = StaticPublicObjects.ado.ExecuteStoreProcedureDS("P_Get_Pages_Info_By_User", ref List_dynamic_SP_Params);
                 }
@@ -65,7 +66,7 @@ namespace MultiVerse_UI.Models
                 {
                     dynamic_SP_Params = new Dynamic_SP_Params();
                     dynamic_SP_Params.ParameterName = "Applicant_ID";
-                    dynamic_SP_Params.Val = UserLogic_Security.CurrentUserStatic.UserName;
+                    dynamic_SP_Params.Val = UserLogic_Security.CurrentUserStatic!.UserName;
                     List_dynamic_SP_Params.Add(dynamic_SP_Params);
                     DS = StaticPublicObjects.ado.ExecuteStoreProcedureDS("P_Get_Pages_Info_By_Applicant_User", ref List_dynamic_SP_Params);
                 }

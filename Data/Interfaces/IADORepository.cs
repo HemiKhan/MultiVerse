@@ -159,6 +159,9 @@ namespace Data.Interfaces
         #region User
         public Task<P_UserLoginPasswordModel> GetUserLoginCredentials(string UserName, CancellationToken cancellationToken);
         public P_Get_User_Info P_Get_User_Info(string UserName, int ApplicationID, MemoryCacheValueType? _MemoryCacheValueType = null);
+        public P_ReturnMessage_Result P_AddOrEdit_User_Role_Map(string Json);
+        public int Get_RoleID_From_UserName(string UserName);
+
         #endregion User
     }
 }

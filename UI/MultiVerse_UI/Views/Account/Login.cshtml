@@ -13,11 +13,6 @@
     <title>@ViewBag.Title</title>
     <link rel="icon" type="image/png" sizes="16x16" href="~/img/IconLogo.png" />
     <link rel="stylesheet" href="~/css/Ample/style.min.css?ID=@ViewBag.GUID" />
-
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js?ID=@ViewBag.GUID"></script>
-    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js?ID=@ViewBag.GUID"></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
     <style>
         /* Login Start */
         @@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
@@ -309,7 +304,6 @@
         </p>
     </div>
 
-
     <section>
         <img src="~/img/bgLogin.jpg" class="bg" />
         <img src="~/img/truck.png" class="truck" />
@@ -317,10 +311,10 @@
             <h2>Sign In</h2>
             <form id="myForm">
                 <div class="inputBox">
-                    <input id="username" type="text" placeholder="Username" name="UserID" />
+                    <input id="username" type="text" placeholder="Username" name="UserName" />
                 </div>
                 <div class="inputBox">
-                    <input id="password" type="password" placeholder="Password" name="Password" id="passwordField" />
+                    <input id="password" type="password" placeholder="Password" name="Password" />
                 </div>
                 <div class="inputBox" style="margin-bottom:20px">
                     <input id="txtRememberMe" type="hidden" name="RememberMe" value="false">
@@ -339,55 +333,76 @@
     </section>
 
     <!--Scripts -->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js?ID=@ViewBag.GUID"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js?ID=@ViewBag.GUID"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/custom-validation.js"></script>
     <script>
+        // Update hidden RememberMe field based on checkbox change
         $("#checkbox-signup").change(function () {
-            $("#txtRememberMe").val($("#checkbox-signup").is(":checked"))
+            $("#txtRememberMe").val($("#checkbox-signup").is(":checked"));
         });
 
+        // Form submission event
         document.getElementById('myForm').addEventListener('submit', function (e) {
             $("#PageLoader").show();
-            e.preventDefault();
-            handleFormSubmission();
+            e.preventDefault();  // Prevent the default form submission
+            handleFormSubmission();  // Handle the form submission via AJAX
         });
+
         function handleFormSubmission() {
-            var ObjJson = new Object();
-            ObjJson.UserName = $('#username').val();
-            ObjJson.Password = $('#password').val();
-            ObjJson.RememberMe = $('#txtRememberMe').is(":checked");
+            // Collect form data
+            var ObjJson = {
+                UserName: $('#username').val().trim(),
+                Password: $('#password').val().trim(),
+                RememberMe: $('#txtRememberMe').val() === "true"  // Parse RememberMe value from hidden input
+            };
+
+            // Validate the form before making the AJAX request
+            if (ObjJson.UserName === "" || ObjJson.Password === "") {
+                showError("Username and Password cannot be empty");
+                $("#PageLoader").hide();
+                return;
+            }
+
+            // Make the AJAX POST request
             $.ajax({
                 type: "POST",
-                url: "/Account/Login",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(ObjJson),
-                dataType: "text",
+                url: "/Account/LoginForm",
+                contentType: "application/json; charset=utf-8",  // Send the data as JSON
+                data: JSON.stringify(ObjJson),  // Serialize the object to JSON
+                dataType: "json",  // Expect JSON response from the server
                 success: function (response) {
-                    if (response !== "") {
-                        window.location.href = JSON.parse(response);
+                    if (response.Result) {
+                        // If login is successful, redirect to the given URL
+                        window.location.href = response.RedirectUrl;
                     } else {
+                        // Show error message if login failed
                         $("#PageLoader").hide();
-                        showError('Login failed');
+                        showError(response.ErrorMsg || 'Login failed');
                     }
                 },
-                failure: function (response) {
-                    $("#PageLoader").hide();
-                },
                 error: function (response) {
+                    // Handle AJAX error
                     $("#PageLoader").hide();
+                    showError('An error occurred during login');
                 }
             });
         }
+
         function showError(message, color = 'red') {
+            // Display the error message in the login form
             var errorMessageLabel = $('.LoginErrorMessage');
             errorMessageLabel.text(message).addClass('active').fadeIn().css('color', color);
 
+            // Hide the error message after 60 seconds
             setTimeout(function () {
                 errorMessageLabel.fadeOut(function () {
                     errorMessageLabel.removeClass('active');
                 });
-            }, 60000); // Keep the message visible for 60 seconds
+            }, 60000);  // Message visible for 60 seconds
         }
+
     </script>
 
 </body>

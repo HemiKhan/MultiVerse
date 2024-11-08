@@ -547,7 +547,7 @@
         public struct ApplicationId
         {
             public const int CareerPortalAppID = 148116;
-            public const int AppID = 148104;
+            public const int AppID = 1;
         }
         public struct ApplicationName
         {

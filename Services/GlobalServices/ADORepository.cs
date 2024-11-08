@@ -2808,6 +2808,26 @@ namespace Services.GlobalServices
             P_Get_User_Info result = ExecuteSelectSQLMap<P_Get_User_Info>("P_Get_User_Info", true, 0, ref parms);
             return result;
         }
+
+        public P_ReturnMessage_Result P_AddOrEdit_User_Role_Map(string Json)
+        {
+            List<Dynamic_SP_Params> dynamic_SP_Params_list = new List<Dynamic_SP_Params>();
+            dynamic_SP_Params_list.Add(new Dynamic_SP_Params { ParameterName = "Json", Val = Json });
+            dynamic_SP_Params_list.Add(new Dynamic_SP_Params { ParameterName = "AddedBy", Val = GetPublicClaimObjects().username });
+
+            P_ReturnMessage_Result response = new P_ReturnMessage_Result();
+            DataRow DR = StaticPublicObjects.ado.ExecuteStoreProcedureDR("P_AddOrEdit_User_Role_Map", ref dynamic_SP_Params_list)!;
+            response.ReturnCode = Convert.ToBoolean(DR["Return_Code"]);
+            response.ReturnText = DR["Return_Text"].ToString();
+            return response;
+        }
+        public int Get_RoleID_From_UserName(string UserName)
+        {
+            List<Dynamic_SP_Params> dynamic_SP_Params_list = new List<Dynamic_SP_Params>();
+            dynamic_SP_Params_list.Add(new Dynamic_SP_Params { ParameterName = "UserName", Val = UserName });
+            int RoleID = Convert.ToInt32(StaticPublicObjects.ado.ExecuteSelectObj("SELECT ROLE_ID FROM [POMS_DB].[dbo].[T_User_Role_Mapping] WITH (NOLOCK) WHERE USERNAME = @UserName", ref dynamic_SP_Params_list));
+            return RoleID;
+        }
         #endregion User
     }
 }

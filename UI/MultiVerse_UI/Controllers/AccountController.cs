@@ -1,5 +1,6 @@
 ﻿using Data.DataAccess;
 using Data.Dtos;
+using HandlebarsDotNet.Runtime;
 using Microsoft.AspNetCore.Mvc;
 using MultiVerse_UI.Extensions;
 using Newtonsoft.Json;
@@ -68,11 +69,19 @@ namespace MultiVerse_UI.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> Login(string RedirectURL, SignIn_Req Login, CancellationToken cancellationToken)
+        public async Task<IActionResult> LoginForm([FromBody] SignIn_Req Login)
         {
             try
             {
                 SignIn_Res response = new SignIn_Res();
+
+                var cancellationTokenSource = new CancellationTokenSource();
+                var cancellationToken = cancellationTokenSource.Token;
+
+                //byte[] storeSalt = Crypto.GenerateSalt(new byte[20]);
+                //string PasswordSalt1 = Convert.ToBase64String(storeSalt);
+                //string PasswordHash1 = Crypto.EncodePassword(1, Login.Password, PasswordSalt1);
+
                 response = await account.LoginAsync(Login, account.GenerateToken, cancellationToken);
                 if (response.ResponseCode == true)
                 {
@@ -113,8 +122,8 @@ namespace MultiVerse_UI.Controllers
                     ViewBag.GUID = GUID_;
 
                     string ReturnURL = Request.Cookies["URLCookie" + Crypto.EncryptQueryString(_PublicClaimObjectsNew.username)] ?? "/Account/Home";
-                    if (string.IsNullOrEmpty(RedirectURL) == false)
-                        ReturnURL = RedirectURL;
+                    //if (string.IsNullOrEmpty(RedirectURL) == false)
+                    //    ReturnURL = RedirectURL;
 
                     return Redirect(ReturnURL);
                 }

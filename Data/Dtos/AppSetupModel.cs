@@ -3,6 +3,332 @@ using Data.DataAccess;
 
 namespace EBook_Data.Dtos
 {
+    #region User Setup
+    public class P_Users_Result
+    {
+        public int RowNo { get; set; } = 0;
+        public int USER_ID { get; set; } = 0;
+        public string Encrypted_USER_ID
+        {
+            get
+            {
+                return Crypto.EncryptNumericToStringWithOutNull(USER_ID);
+            }
+        }
+        public string UserType_MTV_CODE { get; set; } = "";
+        public int D_ID { get; set; } = 0;
+        public int SecurityQuestion_MTV_ID { get; set; } = 0;
+        public int BlockType_MTV_ID { get; set; } = 0;
+        public string USERNAME { get; set; } = "";
+        public string UserType { get; set; } = "";
+        public string Department { get; set; } = "";
+        public string Designation { get; set; } = "";
+        public string FirstName { get; set; } = "";
+        public string MiddleName { get; set; } = "";
+        public string LastName { get; set; } = "";
+        public string Company { get; set; } = "";
+        public string Address { get; set; } = "";
+        public string Address2 { get; set; } = "";
+        public string City { get; set; } = "";
+        public string State { get; set; } = "";
+        public string Country { get; set; } = "";
+        public string Email { get; set; } = "";
+        public string Mobile { get; set; } = "";
+        public string Phone { get; set; } = "";
+        public string PhoneExt { get; set; } = "";
+        public string SecurityQuestion { get; set; } = "";
+        public string EncryptedAnswer { get; set; } = "";
+        public int TIMEZONE_ID { get; set; } = 0;
+        public string TIMEZONE_Name { get; set; } = "";
+        public bool IsApproved { get; set; } = false;
+        public string BlockType { get; set; } = "";
+        public string PasswordExpiry { get; set; } = "";
+        public bool IsAPIUser { get; set; } = false;
+        public bool IsActive { get; set; } = false;
+    }
+    public class P_AddOrEdit_User_Response
+    {
+        public int USER_ID { get; set; } = 0;
+
+        private string _USERNAME = "";
+        public string USERNAME
+        {
+            get
+            {
+                return this._USERNAME;
+            }
+            set
+            {
+                this._USERNAME = (value == null ? "" : value.ToUpper());
+            }
+        }
+
+        public string UserType_MTV_CODE { get; set; } = default!;
+        public string Password { get; set; } = default!;
+        public string ConfirmPassword { get; set; } = default!;
+        public int D_ID { get; set; }
+        public string Designation { get; set; } = default!;
+
+        private string _FirstName = "";
+        public string FirstName
+        {
+            get
+            {
+                return this._FirstName;
+            }
+            set
+            {
+                this._FirstName = (value == null ? "" : value);
+            }
+        }
+
+        private string _MiddleName = "";
+        public string MiddleName
+        {
+            get
+            {
+                return this._MiddleName;
+            }
+            set
+            {
+                this._MiddleName = (value == null ? "" : value);
+            }
+        }
+
+        private string _LastName = "";
+        public string LastName
+        {
+            get
+            {
+                return this._LastName;
+            }
+            set
+            {
+                this._LastName = (value == null ? "" : value);
+            }
+        }
+
+        public string Company { get; set; } = default!;
+        public string Address { get; set; } = default!;
+        public string Address2 { get; set; } = default!;
+        public string City { get; set; } = default!;
+        public string State { get; set; } = default!;
+        public string ZipCode { get; set; } = default!;
+        public string Country { get; set; } = default!;
+
+        private string _Email = "";
+        public string Email
+        {
+            get
+            {
+                return this._Email;
+            }
+            set
+            {
+                this._Email = (value == null ? "" : value.ToLower());
+            }
+        }
+
+        public string Mobile { get; set; } = default!;
+        public string Phone { get; set; } = default!;
+        public string PhoneExt { get; set; } = default!;
+        public int SecurityQuestion_MTV_ID { get; set; }
+        public string EncryptedAnswer { get; set; } = default!;
+        public int TIMEZONE_ID { get; set; }
+        public bool IsApproved { get; set; } = false;
+        public int BlockType_MTV_ID { get; set; }
+        public bool IsAPIUser { get; set; } = false;
+        public bool IsActive { get; set; } = true;
+    }
+    public class P_Get_User_By_ID
+    {
+        public int USER_ID { get; set; } = 0;
+
+        private string _USERNAME = "";
+        public string USERNAME
+        {
+            get
+            {
+                return this._USERNAME;
+            }
+            set
+            {
+                this._USERNAME = (value == null ? "" : value.ToUpper());
+            }
+        }
+
+        public string UserType_MTV_CODE { get; set; } = default!;
+        public string UserType { get; set; } = default!;
+        public string Password { get; set; } = default!;
+        public string ConfirmPassword { get; set; } = default!;
+        public int D_ID { get; set; }
+        public string DepartmentName { get; set; }
+        public string Designation { get; set; } = default!;
+
+        private string _FirstName = "";
+        public string FirstName
+        {
+            get
+            {
+                return this._FirstName;
+            }
+            set
+            {
+                this._FirstName = (value == null ? "" : value);
+            }
+        }
+
+        private string _MiddleName = "";
+        public string MiddleName
+        {
+            get
+            {
+                return this._MiddleName;
+            }
+            set
+            {
+                this._MiddleName = (value == null ? "" : value);
+            }
+        }
+
+        private string _LastName = "";
+        public string LastName
+        {
+            get
+            {
+                return this._LastName;
+            }
+            set
+            {
+                this._LastName = (value == null ? "" : value);
+            }
+        }
+
+        public string Company { get; set; } = default!;
+        public string Address { get; set; } = default!;
+        public string Address2 { get; set; } = default!;
+        public string City { get; set; } = default!;
+        public string State { get; set; } = default!;
+        public string ZipCode { get; set; } = default!;
+        public string Country { get; set; } = default!;
+
+        private string _Email = "";
+        public string Email
+        {
+            get
+            {
+                return this._Email;
+            }
+            set
+            {
+                this._Email = (value == null ? "" : value.ToLower());
+            }
+        }
+
+        public string Mobile { get; set; } = default!;
+        public string Phone { get; set; } = default!;
+        public string PhoneExt { get; set; } = default!;
+        public int SecurityQuestion_MTV_ID { get; set; }
+        public string Question { get; set; } = default!;
+        public string EncryptedAnswer { get; set; } = default!;
+        public int TIMEZONE_ID { get; set; }
+        public string TIMEZONE { get; set; } = default!;
+        public bool IsApproved { get; set; } = false;
+        public int BlockType_MTV_ID { get; set; }
+        public string BlockType { get; set; } = default!;
+        public bool IsAPIUser { get; set; } = false;
+        public bool IsActive { get; set; } = true;
+    }
+    public class P_ReturnMessageForJson_Result
+    {
+        public bool ReturnCode { get; set; } = false;
+        public string? ReturnText { get; set; } = "";
+        public string? Execution_Error { get; set; } = "";
+        public string? Error_Text { get; set; } = "";
+
+    }
+    public class P_Get_SearchUsersName
+    {
+        public int USER_ID { get; set; }
+        public string Eny_UserID
+        {
+            get
+            {
+                return Crypto.EncryptNumericToStringWithOutNull(USER_ID);
+            }
+        }
+
+
+        public string USERNAME { get; set; }
+    }
+
+    public class P_UserApplicationAccess_Result
+    {
+        public int RowNo { get; set; } = 0;
+        public int UAA_ID { get; set; } = 0;
+        public string Encrypted_UAA_ID
+        {
+            get
+            {
+                return Crypto.EncryptNumericToStringWithOutNull(UAA_ID);
+            }
+        }
+        public int Application_MTV_ID { get; set; } = 0;
+        public string USERNAME { get; set; } = "";
+        public string ApplicationName { get; set; } = "";
+        public string NAV_USERNAME { get; set; } = "";
+        public string LastLoginDateTime { get; set; } = "";
+        public bool IsActive { get; set; } = false;
+    }
+    public class P_AddOrEdit_UserApplicationAccess_Response
+    {
+        public int UAA_ID { get; set; } = 0;
+        public int Application_MTV_ID { get; set; } = 0;
+        public string USERNAME { get; set; } = "";
+        public string NAV_USERNAME { get; set; } = "";
+    }
+    public class P_AddOrEdit_UserApplicationAccess_Req
+    {
+        public int UAA_ID { get; set; } = 0;
+        public string User_Name { get; set; } = "";
+        public string Application_MTV_ID { get; set; } = "";
+        public string NAV_USERNAME { get; set; } = "";
+    }
+
+    public class P_User_Application_Hub_Access_Result
+    {
+        public int RowNo { get; set; } = 0;
+        public int UAHA_ID { get; set; } = 0;
+
+        public string Encrypted_UAHA_ID
+        {
+            get
+            {
+                return Crypto.EncryptNumericToStringWithOutNull(UAHA_ID);
+            }
+        }
+        public string USERNAME { get; set; } = "";
+        public int Application_MTV_ID { get; set; }
+        public string HUB_CODE { get; set; } = "";
+        public int HL_ID { get; set; } = 0;
+        public string HubName { get; set; } = "";
+        public string ApplicationName { get; set; } = "";
+        public bool IsAddRight { get; set; }
+        public bool IsEditRight { get; set; }
+        public bool IsDeleteRight { get; set; }
+        public bool IsActive { get; set; }
+    }
+    public class P_User_Application_Hub_Access_Response
+    {
+        public int UAHA_ID { get; set; } = 0;
+        public int Application_MTV_ID { get; set; } = 0;
+        public string HUB_CODE { get; set; } = "";
+        public bool IsAddRight { get; set; }
+        public bool IsEditRight { get; set; }
+        public bool IsDeleteRight { get; set; }
+    }
+    #endregion User Setup
+
     #region Page Setup
     public class P_PageGroup_Result
     {
@@ -220,6 +546,13 @@ namespace EBook_Data.Dtos
     {
         public int rowno { get; set; }
         public int URM_ID { get; set; }
+        public string Ery_URM_ID
+        {
+            get
+            {
+                return Crypto.EncryptNumericToStringWithOutNull(URM_ID);
+            }
+        }
         public int R_ID { get; set; }
         public string USERNAME { get; set; }
         public string RoleName { get; set; }
@@ -294,6 +627,56 @@ namespace EBook_Data.Dtos
         }
         public List<PageGroupInfo> pageGroupInfo { get; set; }
     }
+    public class P_AddOrEdit_UserRolePageRights_TreeView
+    {
+        public int R_ID { get; set; }
+        public string? RoleName { get; set; }
+        public string? UserName { get; set; }
+        public bool IsAllChecked
+        {
+            get
+            {
+                bool Ret = false;
+                if (pageGroupInfo != null)
+                {
+                    if (pageGroupInfo.Count > 0)
+                    {
+                        Ret = true;
+                        for (int i = 0; i <= pageGroupInfo.Count - 1; i++)
+                        {
+                            if (pageGroupInfo[i].IsAllChecked == false && pageGroupInfo[i].IsChildExists)
+                            {
+                                Ret = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+                return Ret;
+            }
+        }
+        public bool IsChildExists
+        {
+            get
+            {
+                bool Ret = false;
+                if (pageGroupInfo != null)
+                {
+                    if (pageGroupInfo.Count > 0)
+                        for (int i = 0; i <= pageGroupInfo.Count - 1; i++)
+                        {
+                            if (pageGroupInfo[i].IsChildExists)
+                            {
+                                Ret = true;
+                                break;
+                            }
+                        }
+                }
+                return Ret;
+            }
+        }
+        public List<PageGroupInfo>? pageGroupInfo { get; set; }
+    }
     public class P_Sync_RolePageRights_TreeView
     {
         public int RoleID { get; set; }
@@ -303,10 +686,19 @@ namespace EBook_Data.Dtos
         public int CopyP_ID { get; set; }
         public bool? Active { get; set; }
     }
+    public class P_Sync_UserRolePageRights_TreeView
+    {
+        public string? UserName { get; set; }
+        public string? UserNameCompare { get; set; }
+        public int CopyR_ID { get; set; }
+        public int CopyPG_ID { get; set; }
+        public int CopyP_ID { get; set; }
+        public bool? Active { get; set; }
+    }
     public class PageGroupInfo
     {
         public int PG_ID { get; set; }
-        public string PageGroupName { get; set; }
+        public string? PageGroupName { get; set; }
         public int PGSort_ { get; set; }
         public bool IsAllChecked
         {
@@ -351,12 +743,13 @@ namespace EBook_Data.Dtos
                 return Ret;
             }
         }
-        public List<PageInfo> pageInfo { get; set; }
+        public List<PageInfo>? pageInfo { get; set; }
     }
     public class PageInfo
     {
         public int P_ID { get; set; }
-        public string PageName { get; set; }
+        public string? PageName { get; set; }
+        public int PageAppCode { get; set; }
         public int PSort_ { get; set; }
         public bool IsAllChecked
         {
@@ -394,7 +787,7 @@ namespace EBook_Data.Dtos
                 return Ret;
             }
         }
-        public List<PageRightInfo> pageRightsInfo { get; set; }
+        public List<PageRightInfo>? pageRightsInfo { get; set; }
     }
     public class PageRightInfo
     {
@@ -405,42 +798,45 @@ namespace EBook_Data.Dtos
         public int PRSort_ { get; set; }
         public bool IsRightActive { get; set; }
     }
-    public class P_AddOrEdit_UserRoleMapping_Response
+    public class P_AddOrEdit_UserRoleMapping_Response : P_AddOrEdit_RolePageRights_Response
+    {
+        public string? UserName { get; set; }
+    }
+
+    public class P_AddOrEdit_UserRoleMapping_Response_1
     {
         public int URM_ID { get; set; }
         public int R_ID { get; set; }
-        public string UNAME { get; set; }
+        public string? UNAME { get; set; } = string.Empty;
         public bool IsGroupRoleID { get; set; }
         public bool Active { get; set; }
     }
+
+    public class P_Get_Role_All_Right_Combinations
+    {
+        public string Role_ID { get; set; } = string.Empty;
+        public string Role_Name { get; set; } = string.Empty;
+        public string Right_ID { get; set; } = string.Empty;
+        public string Right_Name { get; set; } = string.Empty;
+        public string Right_Type { get; set; } = string.Empty;
+        public string Page_Name { get; set; } = string.Empty;
+        public string PageGroup_Name { get; set; } = string.Empty;
+        public string Application_Name { get; set; } = string.Empty;
+        public string IsRightActive { get; set; } = string.Empty;
+    }
+    public class P_Get_Role_All_Right_Combinations_Import
+    {
+        public int Role_ID { get; set; } = 0;
+        public string Role_Name { get; set; } = string.Empty;
+        public int Right_ID { get; set; } = 0;
+        public string Right_Name { get; set; } = string.Empty;
+        public string Right_Type { get; set; } = string.Empty;
+        public string Page_Name { get; set; } = string.Empty;
+        public string PageGroup_Name { get; set; } = string.Empty;
+        public string Application_Name { get; set; } = string.Empty;
+        public bool IsRightActive { get; set; } = false;
+    }
     #endregion RightsSetup
-
-    #region DepartmentSetup
-    public class P_Department_Result
-    {
-        public int rowno { get; set; }
-        public int D_ID { get; set; }
-        public string DepartmentName { get; set; }
-        public int Sort_ { get; set; }
-        public bool IsHidden { get; set; }
-        public bool IsActive { get; set; }
-    }
-    public class P_AddOrEdit_Department_Response
-    {
-        public int D_ID { get; set; }
-        public string DepartmentName { get; set; }
-        public bool IsHidden { get; set; }
-        public bool Active { get; set; }
-    }
-
-    public class CardItems
-    {
-        public P_Department_Result C1 { get; set; } = new P_Department_Result();
-        public P_Department_Result C2 { get; set; } = new P_Department_Result();
-        public P_Department_Result C3 { get; set; } = new P_Department_Result();
-        public P_Department_Result C4 { get; set; } = new P_Department_Result();
-    }
-    #endregion
 
     #region MasterSetup
     public class P_MT_Result
@@ -508,11 +904,11 @@ namespace EBook_Data.Dtos
         public string TriggerDebugInfo { get; set; }
         public string ChangedBy { get; set; }
         private string _ChangedOn = "";
-        public string ChangedOn
+        public DateTime ChangedOn
         {
             get
             {
-                return this._ChangedOn;
+                return Convert.ToDateTime(this._ChangedOn);
             }
             set
             {

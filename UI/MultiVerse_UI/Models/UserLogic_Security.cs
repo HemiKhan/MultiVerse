@@ -3,7 +3,6 @@ using Data.DataAccess;
 using Data.Dtos;
 using Microsoft.VisualBasic;
 using System.IdentityModel.Tokens.Jwt;
-using static MultiVerse_UI.Models.MVCAppEnum;
 
 namespace MultiVerse_UI.Models
 {
@@ -12,17 +11,7 @@ namespace MultiVerse_UI.Models
         public static bool P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(string username, int PR_ID, bool IsApplicant)
         {
             bool ResultCode = false;
-            if (IsApplicant == false)
-                ResultCode = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(username, PR_ID);
-            else
-            {
-                if (PR_ID == RightsList_ID.Job_Setup_View
-                    || PR_ID == RightsList_ID.Job_Setup_Add
-                    || PR_ID == RightsList_ID.Job_Setup_Edit
-                    || PR_ID == RightsList_ID.Job_Setup_Delete)
-                    return true;
-
-            }
+            ResultCode = StaticPublicObjects.ado.P_Is_Has_Right_From_Username_And_PR_ID_From_Memory(username, PR_ID);
             return ResultCode;
 
         }
